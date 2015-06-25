@@ -19,3 +19,7 @@ a:focus {
      text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
 }
+body {
+  min-height: 600px;
+  background-color: #f2f2f2!important;
+}

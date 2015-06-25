@@ -1,0 +1,144 @@
+/*--head nav--*/
+.head-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: #01A2A6;
+  -webkit-box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+          box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+}
+.head-nav h1 {
+  float: left;
+  color: #fff;
+  margin: 0 0 0 55px;
+  font-size: 28px;
+  line-height: 60px;
+}
+.head-nav h1 .fa {
+  margin-right: 15px;
+}
+
+/*--side menu--*/
+.side-menu {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  bottom: 0;
+  width: 220px;
+}
+.slide-menu-ul {
+  padding: 16px 10px 0;
+}
+.slide-menu-ul li {
+  cursor: pointer;
+  color: #757575;
+  font-weight: bold;
+  margin-bottom: 8px;
+  padding: 2px 0;
+  line-height: 40px;
+  border-radius: 2px;
+}
+.slide-menu-ul li:hover {
+  background-color: rgba(0,0,0,0.05);
+}
+.active-li {
+  color: #01A2A6!important;
+  background-color: rgba(0,0,0,0.05);
+}
+.slide-menu-ul .fa {
+  display: block;
+  float: left;
+  width: 24px;
+  height: 48px;
+  color: #01A2A6;
+  font-size: 24px;
+  margin: 0 20px 0 50px;
+  padding-top: 6px;
+  text-align: center;
+}
+
+/*--main container--*/
+.main-container {
+  margin: 60px 0 0 220px;
+  padding: 30px 50px 0;
+}
+.edit-box {
+  background-color: #fff;
+  -webkit-box-shadow: 0 -1px 0 #e5e5e5,0 0 2px rgba(0,0,0,.12),0 2px 4px rgba(0,0,0,.24);
+          box-shadow: 0 -1px 0 #e5e5e5,0 0 2px rgba(0,0,0,.12),0 2px 4px rgba(0,0,0,.24);
+}
+.editor {
+  width: 100%;
+  height: 400px;
+  padding: 8px;
+  overflow: auto;
+  font-size: 18px;
+  line-height: 30px;
+}
+.editor:focus {
+  outline: none;
+}
+
+/*--scroll style--*/
+.nui-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.nui-scroll::-webkit-scrollbar-track {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0);
+}
+.nui-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  -webkit-box-shadow: inset 1px 1px 0 rgba(0,0,0,.1);
+}
+.nui-scroll:hover::-webkit-scrollbar-thumb {
+   background-color: rgba(0, 0, 0, 0.2);
+   border-radius: 10px;
+   -webkit-box-shadow: inset 1px 1px 0 rgba(0,0,0,.1);
+}
+
+/*--animate--*/
+.animated {
+  -webkit-animation-duration: 0.3s;
+          animation-duration: 0.3s;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+}
+.animated.infinite {
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+}
+@-webkit-keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(-30%, 0, 0);
+            transform: translate3d(-30%, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+            transform: none;
+  }
+}
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(-30%, 0, 0);
+            transform: translate3d(-30%, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+            transform: none;
+  }
+}
+.fadeInLeft {
+  -webkit-animation-name: fadeInLeft;
+          animation-name: fadeInLeft;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
+}
