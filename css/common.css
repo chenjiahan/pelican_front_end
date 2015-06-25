@@ -1,0 +1,34 @@
+/*--基本样式--*/
+* {
+  font-family: 'Microsoft Yahei',sans-serif;
+}
+body {
+  padding-top: 60px;
+}
+a:hover {
+  text-decoration: none;
+}
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.form-control {
+  color: #666;
+  border-radius: 0;
+  background: #fff;
+  padding-right: 30px;
+  border-color: #ccc;
+}
+a:focus {
+  text-decoration: none;
+}
+.set-min-height {
+  min-height: 650px;
+}
+.nowrap {
+  overflow: hidden;
+  white-space: nowrap;
+     text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+}
