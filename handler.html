@@ -40,20 +40,39 @@
             <div class="edit-box">
                 <div class="btn-toolbar" data-role="editor-toolbar" data-target=".editor">
                     <div class="btn-group">
-                        <a class="btn dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Font Size">
-                            <i class="fa fa-text-height"></i>&nbsp;
-                            <b class="caret"></b>
-                        </a>
+                        <a class="btn" data-edit="bold" title="加粗"><i class="fa fa-bold"></i></a>
+                    </div>
+                    <div class="btn-group">
+                        <a class="btn" data-edit="italic" title="斜体"><i class="fa fa-italic"></i></a>
+                    </div>
+                    <div class="btn-group">
+                        <a class="btn" data-edit="underline" title="下划线"><i class="fa fa-underline"></i></a>
+                    </div>
+                    <div class="btn-group">
+                        <a class="btn dropdown-toggle" data-toggle="dropdown" title="选择字体大小"><i class="fa fa-text-height"></i></a>
                         <ul class="dropdown-menu">
-                            <li><a data-edit="fontSize 5"><font size="5">Huge</font></a></li>
-                            <li><a data-edit="fontSize 3"><font size="3">Normal</font></a></li>
-                            <li><a data-edit="fontSize 1"><font size="1">Small</font></a></li>
+                            <li><a data-edit="fontSize 1"><font size="1">小</font></a></li>
+                            <li><a data-edit="fontSize 3"><font size="3">中</font></a></li>
+                            <li><a data-edit="fontSize 5"><font size="5">大</font></a></li>
                         </ul>
                     </div>
                     <div class="btn-group">
-                        <a class="btn" title="" id="pictureBtn" data-original-title="Insert picture (or just drag &amp; drop)">
-                            <i class="fa fa-check"></i>
-                        </a>
+                        <a class="btn" data-edit="insertunorderedlist" title="符号列表"><i class="fa fa-list-ul"></i></a>
+                    </div>
+                    <div class="btn-group">
+                        <a class="btn" data-edit="insertorderedlist" title="数字列表"><i class="fa fa-list-ol"></i></a>
+                    </div>
+                    <div class="btn-group">
+                        <a class="btn" data-edit="justifyleft" title="左对齐"><i class="fa fa-align-left"></i></a>
+                    </div>
+                    <div class="btn-group">
+                        <a class="btn" data-edit="justifycenter" title="居中对齐"><i class="fa fa-align-center"></i></a>
+                    </div>
+                    <div class="btn-group">
+                        <a class="btn" data-edit="justifyright" title="右对齐"><i class="fa fa-align-right"></i></a>
+                    </div>
+                    <div class="btn-group">
+                        <a class="btn" title="添加图片" id="pictureBtn"><i class="fa fa-picture-o"></i></a>
                         <input type="file" class="hidden-input" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage">
                     </div>
                 </div>
