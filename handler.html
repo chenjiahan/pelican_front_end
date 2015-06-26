@@ -12,33 +12,56 @@
     <link rel="stylesheet" href="css/handler.css">
     <link href="img/favicon.ico" rel="shortcut icon">
 </head>
-<body>
+<body class="nui-scroll">
     <header class="head-nav">
         <a href=""><h1><i class="fa fa-envelope"></i>Pelican</h1></a>
     </header>
 
     <div class="side-menu animated fadeInLeft">
         <ul class="slide-menu-ul">
-            <li class="active-li"><i class="fa fa-clock-o"></i>待处理</li>
-            <li><i class="fa fa-pencil-square-o"></i>写邮件</li>
-            <li><i class="fa fa-leaf"></i>审核中</li>
-            <li><i class="fa fa-paper-plane-o"></i>已发送</li>
-            <li><i class="fa fa-check"></i>已处理</li>
+            <li class="active-li" data-to="task"><i class="fa fa-clock-o"></i>待处理</li>
+            <li data-to="send"><i class="fa fa-pencil-square-o"></i>写邮件</li>
+            <li data-to="check"><i class="fa fa-leaf"></i>审核中</li>
+            <li data-to="sended"><i class="fa fa-paper-plane-o"></i>已发送</li>
+            <li data-to="done"><i class="fa fa-check"></i>已处理</li>
          </ul>
     </div>
 
     <div class="main-container">
-        <div class="edit-box">
-            <div class="btn-toolbar" data-role="editor-toolbar" data-target=".editor">
-                <div class="btn-group">
-                    <a class="btn" title="" id="pictureBtn" data-original-title="Insert picture (or just drag &amp; drop)"><i class="fa fa-check"></i></a>
-                    <input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" style="opacity: 0; position: absolute; top: 0px; left: 0px; width: 37px; height: 30px;">
-                </div>
+        <div id="send" class="animated fadeInDown">
+            <div class="mail-title clearfix">
+                <label>收信人：</label>
+                <input type="text"/>
             </div>
-            <div class="editor nui-scroll"></div>
+            <div class="mail-title clearfix">
+                <label>主&nbsp&nbsp&nbsp题：</label>
+                <input type="text"/>
+            </div>
+            <div class="edit-box">
+                <div class="btn-toolbar" data-role="editor-toolbar" data-target=".editor">
+                    <div class="btn-group">
+                        <a class="btn dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Font Size">
+                            <i class="fa fa-text-height"></i>&nbsp;
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a data-edit="fontSize 5"><font size="5">Huge</font></a></li>
+                            <li><a data-edit="fontSize 3"><font size="3">Normal</font></a></li>
+                            <li><a data-edit="fontSize 1"><font size="1">Small</font></a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group">
+                        <a class="btn" title="" id="pictureBtn" data-original-title="Insert picture (or just drag &amp; drop)">
+                            <i class="fa fa-check"></i>
+                        </a>
+                        <input type="file" class="hidden-input" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage">
+                    </div>
+                </div>
+                <div class="editor nui-scroll"></div>
+            </div>
+            <a href="javascript:;" class="send-btn">发送</a>
         </div>
     </div>
-
 
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/jquery.hotkeys.js"></script>

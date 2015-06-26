@@ -1,6 +1,7 @@
 /*--head nav--*/
 .head-nav {
   position: fixed;
+  z-index: 100;
   top: 0;
   left: 0;
   right: 0;
@@ -8,6 +9,8 @@
   background-color: #01A2A6;
   -webkit-box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
           box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+  /*--prevent chrome fixed element blink--*/
+  -webkit-transform: translateZ(0);
 }
 .head-nav h1 {
   float: left;
@@ -23,10 +26,13 @@
 /*--side menu--*/
 .side-menu {
   position: fixed;
+  z-index: 99;
   top: 60px;
   left: 0;
   bottom: 0;
   width: 220px;
+  /*--prevent chrome fixed element blink--*/
+  -webkit-transform: translateZ(0);
 }
 .slide-menu-ul {
   padding: 16px 10px 0;
@@ -65,6 +71,7 @@
   padding: 30px 50px 0;
 }
 .edit-box {
+  margin-top: 20px;
   background-color: #fff;
   -webkit-box-shadow: 0 -1px 0 #e5e5e5,0 0 2px rgba(0,0,0,.12),0 2px 4px rgba(0,0,0,.24);
           box-shadow: 0 -1px 0 #e5e5e5,0 0 2px rgba(0,0,0,.12),0 2px 4px rgba(0,0,0,.24);
@@ -79,6 +86,62 @@
 }
 .editor:focus {
   outline: none;
+}
+.mail-title {
+  margin-bottom: 15px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #ccc;
+  -webkit-transition: border .1s ease-in-out;
+      -ms-transition: border .1s ease-in-out;
+       -o-transition: border .1s ease-in-out;
+          transition: border .1s ease-in-out;
+}
+.mail-title label {
+  float: left;
+  width: 5%;
+}
+.mail-title input {
+  float: left;
+  width: 95%;
+  border: none;
+  background: transparent;
+}
+.mail-title input:focus {
+  outline: none;
+}
+.mail-title-focus {
+  border-bottom: 1px solid #01A2A6;
+}
+.send-btn {
+  display: block;
+  width: 90px;
+  color: #fff;
+  padding: 6px 0;
+  margin: 20px 0;
+  border-radius: 4px;
+  text-align: center;
+  background: #01A2A6;
+  -webkit-transition: background .1s ease-in-out;
+      -ms-transition: background .1s ease-in-out;
+       -o-transition: background .1s ease-in-out;
+          transition: background .1s ease-in-out;
+}
+.send-btn:hover {
+  color: #fff;
+  background-color: #018286;
+}
+.send-btn:focus {
+  color: #fff;
+}
+.hidden-input {
+  opacity: 0;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 40px;
+  height: 34px;
+  z-index: 10;
+  font-size:0px;
 }
 
 /*--scroll style--*/
@@ -141,4 +204,88 @@
           animation-name: fadeInLeft;
   -webkit-animation-duration: 0.5s;
           animation-duration: 0.5s;
+}
+@-webkit-keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 20%, 0);
+            transform: translate3d(0, 20%, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+            transform: none;
+  }
+}
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 20%, 0);
+            transform: translate3d(0, 20%, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+            transform: none;
+  }
+}
+.fadeInUp {
+  -webkit-animation-name: fadeInUp;
+          animation-name: fadeInUp;
+}
+@-webkit-keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -20%, 0);
+            transform: translate3d(0, -20%, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+            transform: none;
+  }
+}
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -20%, 0);
+            transform: translate3d(0, -20%, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+            transform: none;
+  }
+}
+.fadeInDown {
+  -webkit-animation-name: fadeInDown;
+          animation-name: fadeInDown;
+}
+@-webkit-keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(40%, 0, 0);
+            transform: translate3d(100%, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+            transform: none;
+  }
+}
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(40%, 0, 0);
+            transform: translate3d(100%, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+            transform: none;
+  }
+}
+.fadeInRight {
+  -webkit-animation-name: fadeInRight;
+          animation-name: fadeInRight;
 }

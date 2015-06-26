@@ -39,9 +39,19 @@ function doAnimate(selector, animate) {
      */
     $('.slide-menu-ul li').click(function () {
         if ( !$(this).hasClass('active-li')) {
+            $('#' + $('.active-li').data('to')).hide();
             $('.active-li').removeClass('active-li');
             $(this).addClass('active-li');
+            $('#' + $(this).data('to')).show();
         }
+    });
+
+    //mail title focus效果
+    $('.mail-title input').focus(function() {
+        $(this).parent().addClass('mail-title-focus');
+    });
+    $('.mail-title input').blur(function() {
+        $(this).parent().removeClass('mail-title-focus');
     });
 
 } (jQuery);
