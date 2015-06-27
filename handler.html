@@ -15,6 +15,14 @@
 <body class="nui-scroll">
     <header class="head-nav">
         <a href=""><h1><i class="fa fa-envelope"></i>Pelican</h1></a>
+        <div class="nav-right">
+            <i class="fa fa-sign-out"></i>
+            <span>登出</span>
+        </div>
+        <div class="nav-right">
+            <i class="fa fa-user"></i>
+            <span>用户名</span>
+        </div>
     </header>
 
     <div class="side-menu animated fadeInLeft">
@@ -28,7 +36,21 @@
     </div>
 
     <div class="main-container">
-        <div id="send" class="animated fadeInDown">
+
+        <!-- 待处理 start -->
+        <div id="task" class="body-box animated fadeInDown">
+            <div class="vertical-middle-t">
+                <div class="vertical-middle-tc">
+                    <div class="no-content">
+                        <p>没有需要处理的邮件</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 待处理 start -->
+
+        <!-- 写邮件 start -->
+        <div id="send" class="body-box animated fadeInDown">
             <div class="mail-title clearfix">
                 <label>收信人：</label>
                 <input type="text"/>
@@ -80,6 +102,43 @@
             </div>
             <a href="javascript:;" class="send-btn">发送</a>
         </div>
+        <!-- 写邮件 end -->
+
+        <!-- 审核中 start -->
+        <div id="check" class="body-box animated fadeInDown">
+            <div class="vertical-middle-t">
+                <div class="vertical-middle-tc">
+                    <div class="no-content">
+                        <p>没有处于审核中的邮件</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 审核中 start -->
+
+        <!-- 审核中 start -->
+        <div id="sended" class="body-box animated fadeInDown">
+            <div class="vertical-middle-t">
+                <div class="vertical-middle-tc">
+                    <div class="no-content">
+                        <p>没有已发送的邮件</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 审核中 start -->
+
+        <!-- 审核中 start -->
+        <div id="done" class="body-box animated fadeInDown">
+            <div class="vertical-middle-t">
+                <div class="vertical-middle-tc">
+                    <div class="no-content">
+                        <p>没有已处理的邮件</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 审核中 start -->
     </div>
 
     <script src="js/jquery-2.1.4.min.js"></script>
