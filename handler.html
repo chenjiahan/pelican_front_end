@@ -13,8 +13,8 @@
     <link href="img/favicon.ico" rel="shortcut icon">
 </head>
 <body class="nui-scroll">
-    <header class="head-nav">
-        <a href=""><h1><i class="fa fa-envelope"></i>Pelican</h1></a>
+    <header class="head-nav head-nav-task">
+        <a href="" class="clearfix"><img src="img/logo-w.png" class="head-logo"><h1>Pelican Mail</h1></a>
         <div class="nav-right logout">
             <i class="fa fa-sign-out"></i>
             <span>登出</span>
@@ -27,11 +27,11 @@
 
     <div class="side-menu animated fadeInLeft">
         <ul class="slide-menu-ul">
-            <li class="active-li" data-to="task"><i class="fa fa-clock-o"></i>待处理</li>
-            <li data-to="send"><i class="fa fa-pencil-square-o"></i>写邮件</li>
-            <li data-to="check"><i class="fa fa-leaf"></i>审核中</li>
-            <li data-to="sended"><i class="fa fa-paper-plane-o"></i>已发送</li>
-            <li data-to="done"><i class="fa fa-check"></i>已处理</li>
+            <li class="active-li" data-to="task"><i class="fa fa-clock-o"></i><span class="task-span">待处理</span></li>
+            <li data-to="send"><i class="fa fa-pencil-square-o"></i><span class="send-span">写邮件</span></li>
+            <li data-to="check"><i class="fa fa-leaf"></i><span class="check-span">审核中</span></li>
+            <li data-to="sended"><i class="fa fa-paper-plane-o"></i><span class="sended-span">已发送</span></li>
+            <li data-to="done"><i class="fa fa-check"></i><span class="done-span">已处理</span></li>
          </ul>
     </div>
 

@@ -13,28 +13,23 @@
     <link href="img/favicon.ico" rel="shortcut icon">
 </head>
 <body class="wallpaper">
-
-    <div class="login-container">
-        <img src="img/logo.jpg" alt="logo"/>
-        <input type="text" class="login-input" placeholder="账号" maxlength="36"/>
-        <input type="password" class="login-input" placeholder="密码" maxlength="16"/>
-        <a type="submit" class="login-btn">登&nbsp;&nbsp;录</a>
-    </div>
-
+    <form class="login-container animated fadeInDown" id="login-form">
+        <img src="img/logo-b.png" alt="logo"/>
+        <input type="text" class="login-input" placeholder="账号" maxlength="36" required/>
+        <input type="password" class="login-input" placeholder="密码" maxlength="16" required/>
+        <button type="submit" class="login-btn">登&nbsp;&nbsp;录</button>
+    </form>
 <script src="js/jquery-2.1.4.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script>
-    $('body')
-        .height($(window).height())
-        .css('padding-top',($(window).height() - 400) / 2);
+    $('.wallpaper').height($(window).height());
     $(window).resize(function() {
-        $('body')
-            .height($(window).height())
-            .css('padding-top',($(window).height() - 400) / 2);
+        $('.wallpaper').height($(window).height());
     });
 
-    $('.login-btn').click(function () {
-        $(this).html('登录中..');
+    $('#login-form').submit(function(e) {
+        e.preventDefault();
+        $('.login-btn').html('<i class="fa fa-spinner fa-pulse"></i>');
         setTimeout(function(){
             window.location.href = 'handler.html';
         },1000);
