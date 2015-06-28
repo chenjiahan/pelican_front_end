@@ -51,11 +51,12 @@ input[type='password'].login-input {
   margin-top: 30px;
   border-radius: 4px;
   text-align: center;
-  background-color: rgba(1, 130, 134,0.7);
-  -webkit-transition: color .1s ease-in-out;
-       -o-transition: color .1s ease-in-out;
-          transition: color .1s ease-in-out;
+  background-color: rgba(1, 130, 134, 0.7);
+  -webkit-transition: all .1s ease-in-out;
+       -o-transition: all .1s ease-in-out;
+          transition: all .1s ease-in-out;
 }
 .login-btn:hover {
   color: #fff;
+  background-color: rgba(1, 130, 134, 1);
 }
