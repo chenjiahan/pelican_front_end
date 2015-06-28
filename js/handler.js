@@ -83,8 +83,8 @@ function doAnimate(selector, animate) {
 
     //标记为已完成
     $('.li-done').click(function () {
-        var line = $(this).parent();
-        var ul = $(this).parent().parent();
+        var line = $(this).parent(),
+            ul = $(this).parent().parent();
         line.removeClass()
             .addClass('fadeOutRight animated')
             .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
