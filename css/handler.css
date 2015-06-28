@@ -278,9 +278,30 @@ body {
   display: block;
   float: left;
 }
+.li-time,
+.li-done {
+  display: block;
+  float: right;
+}
 .li-name {
   width: 170px;
   margin-left: 15px;
+}
+.li-time {
+  color: #999;
+  margin-right: 20px;
+}
+.li-done {
+  cursor: pointer;
+  font-size: 20px;
+  color: rgba(0,0,0,0.2);
+  margin-right: 20px;
+  -webkit-transition: color .1s ease-in-out;
+       -o-transition: color .1s ease-in-out;
+          transition: color .1s ease-in-out;
+}
+.li-done:hover {
+  color: #018286;
 }
 
 /*--scroll style--*/
@@ -555,4 +576,28 @@ body {
 .zoomIn {
   -webkit-animation-name: zoomIn;
           animation-name: zoomIn;
+}
+@-webkit-keyframes fadeOutRight {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translate3d(100%, 0, 0);
+            transform: translate3d(100%, 0, 0);
+  }
+}
+@keyframes fadeOutRight {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translate3d(100%, 0, 0);
+            transform: translate3d(100%, 0, 0);
+  }
+}
+.fadeOutRight {
+  -webkit-animation-name: fadeOutRight;
+          animation-name: fadeOutRight;
 }

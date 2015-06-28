@@ -30,6 +30,16 @@ function doAnimate(selector, animate) {
 +function($) {
 
     /*
+     *  去除链接的虚线边框
+     *  为了美化IE浏览器的链接点击
+     */
+    $('a').bind('focus', function () {
+        if (this.blur) {
+            this.blur();
+        }
+    });
+
+    /*
      *  @description: 初始化editor
      */
     $('.editor').wysiwyg();
@@ -63,5 +73,33 @@ function doAnimate(selector, animate) {
     });
     $('.mail-title input').blur(function() {
         $(this).parent().removeClass('mail-title-focus');
+    });
+
+    //发送邮件
+    $('.send-btn').click(function () {
+        var btn = $(this);
+        btn.html('发送中');
+    });
+
+    //标记为已完成
+    $('.li-done').click(function () {
+        var line = $(this).parent();
+        var ul = $(this).parent().parent();
+        line.removeClass()
+            .addClass('fadeOutRight animated')
+            .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+                $(this).removeClass('fadeOutRight animated').remove();
+                //移除空ul
+                if (ul.html().indexOf('li') < 0) {
+                    ul.parent().remove();
+                }
+                //若无待处理邮件，则显示提醒
+                if ($('#task').html().indexOf('mail-line') < 0) {
+                    $('#task').html('<div class="vertical-middle-t"> <div class="vertical-middle-tc"> <div class="no-content"> <p>没有需要处理的邮件</p> </div> </div> </div>');
+                    setTimeout(function () {
+                        $('#task .no-content').addClass('grow');
+                    }, 1);
+                }
+            });
     });
 } (jQuery);
