@@ -31,7 +31,7 @@
 
     $('#login-form').submit(function(e) {
         e.preventDefault();
-        $('.login-btn').html('登录中..');
+        $('.login-btn').html('<i class="fa fa-spinner fa-pulse"></i>');
         setTimeout(function(){
             window.location.href = 'handler.html';
         },1000);

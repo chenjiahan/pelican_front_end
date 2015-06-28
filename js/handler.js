@@ -89,7 +89,8 @@ function doAnimate(selector, animate) {
      */
     $('.send-btn').click(function () {
         var btn = $(this);
-        btn.html('发送中');
+        btn.html('<i class="fa fa-spinner fa-pulse"></i>');
+        /*
         $.ajax({
             url: "/api/url",
             type: 'POST',
@@ -101,7 +102,7 @@ function doAnimate(selector, animate) {
             error: function() {
                 btn.html('发送');
             }
-        });
+        });*/
     });
 
     /**
