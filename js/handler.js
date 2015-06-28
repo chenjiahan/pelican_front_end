@@ -119,4 +119,8 @@ function doAnimate(selector, animate) {
                 }
             });
     });
+
+    $('.logout').click(function() {
+       window.location.href = 'index.html'
+    });
 } (jQuery);
