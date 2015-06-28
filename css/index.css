@@ -1,0 +1,61 @@
+.wallpaper {
+  width: 100%;
+  background:url('../img/index_wallpaper.jpg') no-repeat center;
+  background-size: cover;
+}
+
+.login-container {
+  width: 500px;
+  height: 320px;
+  margin: 0 auto;
+  background-color: rgba(255,255,255,0.4);
+  border-radius: 6px;
+  padding: 20px 110px 0;
+  -webkit-box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+  box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+}
+.login-container img {
+  display: block;
+  width: 100px;
+  height: auto;
+  margin: 0 auto 15px;
+}
+.login-input {
+  width: 100%;
+  height: 44px;
+  color: #666;
+  border: none;
+  padding: 0 0 0 20px;
+  font-size: 16px;
+  line-height: 40px;
+  background-color: rgba(255,255,255,0.6);
+}
+.login-input:focus {
+  outline: none;
+}
+input[type='text'].login-input {
+  border-radius: 4px 4px 0 0;
+  margin-bottom: 1px;
+}
+input[type='password'].login-input {
+  border-radius: 0 0 4px 4px;
+}
+.login-btn {
+  cursor: pointer;
+  display: block;
+  color: #FFF;
+  width: 100%;
+  height: 40px;
+  font-size: 16px;
+  line-height: 40px;
+  margin-top: 30px;
+  border-radius: 4px;
+  text-align: center;
+  background-color: rgba(1, 130, 134,0.7);
+  -webkit-transition: color .1s ease-in-out;
+       -o-transition: color .1s ease-in-out;
+          transition: color .1s ease-in-out;
+}
+.login-btn:hover {
+  color: #fff;
+}

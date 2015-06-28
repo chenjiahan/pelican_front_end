@@ -1,10 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <title></title>
+    <meta charset="utf-8">
+    <title>首页 - 鹈鹕邮件</title>
+    <meta name="description" content="醍醐邮件">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link href="img/favicon.ico" rel="shortcut icon">
 </head>
-<body>
-    <p>hello world!!</p>
+<body class="wallpaper">
+
+    <div class="login-container">
+        <img src="img/logo.jpg" alt="logo"/>
+        <input type="text" class="login-input" placeholder="账号" maxlength="36"/>
+        <input type="password" class="login-input" placeholder="密码" maxlength="16"/>
+        <a type="submit" class="login-btn">登&nbsp;&nbsp;录</a>
+    </div>
+
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script>
+    $('body')
+        .height($(window).height())
+        .css('padding-top',($(window).height() - 400) / 2);
+    $(window).resize(function() {
+        $('body')
+            .height($(window).height())
+            .css('padding-top',($(window).height() - 400) / 2);
+    });
+
+    $('.login-btn').click(function () {
+        $(this).html('登录中..');
+        setTimeout(function(){
+            window.location.href = 'handler.html';
+        },1000);
+    });
+</script>
 </body>
 </html>

@@ -223,8 +223,8 @@ body {
 }
 .no-content {
   display: flex;
-  width: 500px;
-  height: 500px;
+  width: 450px;
+  height: 450px;
   margin: 0 auto;
   background-color: #01A2A6;
   border-radius: 50%;
@@ -246,7 +246,7 @@ body {
   color: #fff;
   font-size: 26px;
   font-family: "华文细黑", "Microsoft YaHei";
-  margin: 240px auto 0;
+  margin: 210px auto 0;
   text-shadow: 0 2px 1px rgba(0,0,0,0.2);
 }
 .mail-line {
@@ -302,6 +302,9 @@ body {
 }
 .li-done:hover {
   color: #018286;
+}
+.logout {
+  cursor: pointer;
 }
 
 /*--scroll style--*/
