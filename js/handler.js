@@ -2,9 +2,10 @@
  * Created by Chen Jiahan on 2015/6/25.
  */
 
-/*
- *  @author: Cjh
- *  @description: 获取Url参数
+/**
+ * @description: 获取Url参数
+ * @param name
+ * @returns {*}
  */
 function getUrlParam(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"),
@@ -15,9 +16,10 @@ function getUrlParam(name) {
     return null;
 }
 
-/*
- *  @author: Cjh
- *  @description: 执行animate
+/**
+ * @description: 执行animate
+ * @param selector
+ * @param animate
  */
 function doAnimate(selector, animate) {
     $(selector)
@@ -29,7 +31,7 @@ function doAnimate(selector, animate) {
 
 +function($) {
 
-    /*
+    /**
      *  去除链接的虚线边框
      *  为了美化IE浏览器的链接点击
      */
@@ -39,20 +41,20 @@ function doAnimate(selector, animate) {
         }
     });
 
-    /*
-     *  @description: 初始化editor
+    /**
+     * @description: 初始化editor
      */
     $('.editor').wysiwyg();
 
-    /*
-     *  @description: 载入动画
+    /**
+     * @description: 载入动画
      */
     setTimeout(function(){
         $('#task .no-content').addClass('grow');
     },1);
 
-    /*
-     *  @description: 左侧菜单切换
+    /**
+     * @description: 左侧菜单切换
      */
     $('.slide-menu-ul li').click(function () {
         if ( !$(this).hasClass('active-li')) {
@@ -71,7 +73,9 @@ function doAnimate(selector, animate) {
         }
     });
 
-    //mail title focus效果
+    /**
+     * mail title focus效果
+     */
     $('.mail-title input')
         .focus(function() {
             $(this).parent().addClass('mail-title-focus');
@@ -80,7 +84,9 @@ function doAnimate(selector, animate) {
             $(this).parent().removeClass('mail-title-focus');
         });
 
-    //发送邮件
+    /**
+     * 发送邮件
+     */
     $('.send-btn').click(function () {
         var btn = $(this);
         btn.html('发送中');
@@ -98,7 +104,9 @@ function doAnimate(selector, animate) {
         });
     });
 
-    //标记为已完成
+    /**
+     * 标记为已完成
+     */
     $('.li-done').click(function () {
         var line = $(this).parent(),
             ul = line.parent();
@@ -120,6 +128,9 @@ function doAnimate(selector, animate) {
             });
     });
 
+    /**
+     * 登出
+     */
     $('.logout').click(function() {
        window.location.href = 'index.html'
     });

@@ -139,7 +139,7 @@ body {
 }
 .mail-title label {
   float: left;
-  width: 5%;
+  width: 65px;
   color: #888;
   -webkit-transition: all .1s ease-in-out;
        -o-transition: all .1s ease-in-out;
@@ -147,7 +147,7 @@ body {
 }
 .mail-title input {
   float: left;
-  width: 95%;
+  min-width: 500px;
   border: none;
   background: transparent;
 }
