@@ -66,6 +66,7 @@ function doAnimate(selector, animate) {
             //显示新页面
             $(this).addClass('active-li');
             var target = '#' + $(this).data('to');
+            $('.head-nav')[0].className = 'head-nav head-nav-' + $(this).data('to');
             $(target).show();
             setTimeout(function(){
                 $(target + ' .no-content').addClass('grow');
