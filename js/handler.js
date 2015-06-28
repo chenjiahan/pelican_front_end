@@ -37,12 +37,23 @@ function doAnimate(selector, animate) {
     /*
      *  @description: 左侧菜单切换
      */
+    setTimeout(function(){
+        $('#task .no-content').addClass('grow');
+    },1);
     $('.slide-menu-ul li').click(function () {
         if ( !$(this).hasClass('active-li')) {
+            //隐藏当前页
             $('#' + $('.active-li').data('to')).hide();
+            $('#' + $('.active-li').data('to') + ' .no-content').removeClass('grow');
             $('.active-li').removeClass('active-li');
+
+            //显示新页面
             $(this).addClass('active-li');
-            $('#' + $(this).data('to')).show();
+            var target = '#' + $(this).data('to');
+            $(target).show();
+            setTimeout(function(){
+                $(target + ' .no-content').addClass('grow');
+            },1);
         }
     });
 
@@ -53,5 +64,4 @@ function doAnimate(selector, animate) {
     $('.mail-title input').blur(function() {
         $(this).parent().removeClass('mail-title-focus');
     });
-
 } (jQuery);
