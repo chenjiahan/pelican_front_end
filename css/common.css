@@ -1,0 +1,25 @@
+/*--基本样式--*/
+* {
+  font-family: 'Microsoft Yahei',sans-serif;
+}
+a:hover {
+  text-decoration: none;
+}
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+a:focus {
+  text-decoration: none;
+}
+.nowrap {
+  overflow: hidden;
+  white-space: nowrap;
+     text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+}
+body {
+  min-height: 600px;
+  background-color: #f2f2f2!important;
+}
