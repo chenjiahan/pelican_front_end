@@ -45,11 +45,15 @@ function doAnimate(selector, animate) {
     $('.editor').wysiwyg();
 
     /*
-     *  @description: 左侧菜单切换
+     *  @description: 载入动画
      */
     setTimeout(function(){
         $('#task .no-content').addClass('grow');
     },1);
+
+    /*
+     *  @description: 左侧菜单切换
+     */
     $('.slide-menu-ul li').click(function () {
         if ( !$(this).hasClass('active-li')) {
             //隐藏当前页
@@ -68,23 +72,36 @@ function doAnimate(selector, animate) {
     });
 
     //mail title focus效果
-    $('.mail-title input').focus(function() {
-        $(this).parent().addClass('mail-title-focus');
-    });
-    $('.mail-title input').blur(function() {
-        $(this).parent().removeClass('mail-title-focus');
-    });
+    $('.mail-title input')
+        .focus(function() {
+            $(this).parent().addClass('mail-title-focus');
+        })
+        .blur(function() {
+            $(this).parent().removeClass('mail-title-focus');
+        });
 
     //发送邮件
     $('.send-btn').click(function () {
         var btn = $(this);
         btn.html('发送中');
+        $.ajax({
+            url: "/api/url",
+            type: 'POST',
+            dataType: 'json',
+            data: {},
+            success: function (obj) {
+
+            },
+            error: function() {
+                btn.html('发送');
+            }
+        });
     });
 
     //标记为已完成
     $('.li-done').click(function () {
         var line = $(this).parent(),
-            ul = $(this).parent().parent();
+            ul = line.parent();
         line.removeClass()
             .addClass('fadeOutRight animated')
             .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {

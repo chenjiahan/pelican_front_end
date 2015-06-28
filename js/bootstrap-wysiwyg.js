@@ -1,5 +1,5 @@
 /* http://github.com/mindmup/bootstrap-wysiwyg */
-(function ($) {
+(function ($,document) {
 	'use strict';
 	var readFileIntoDataUrl = function (fileInfo) {
 		var loader = $.Deferred(),
@@ -195,5 +195,5 @@
 		dragAndDropImages: true,
 		fileUploadError: function (reason, detail) { console.log("文件上传出错", reason, detail); }
 	};
-}(window.jQuery));
+}(window.jQuery,document));
 
