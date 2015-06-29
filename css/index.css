@@ -53,7 +53,7 @@ input[type='password'].login-input {
   height: 40px;
   font-size: 16px;
   line-height: 40px;
-  margin: 10px 0 30px;
+  margin: 8px 0 30px;
   border-radius: 4px;
   text-align: center;
   background-color: #45BF55;
@@ -69,6 +69,6 @@ input[type='password'].login-input {
   outline: none;
 }
 .login-alert {
-  margin: 10px 10px 0;
+  margin: 8px 10px 0;
   color: #ff6a6a;
 }

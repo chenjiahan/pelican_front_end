@@ -29,51 +29,50 @@
     }
 
     function doAnimate(selector, animate) {
-        $(selector)
-            .addClass(animate + ' animated')
-            .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
-                $(this).removeClass(animate + ' animated');
-            });
+        var dom = document.querySelector(selector);
+        dom.classList.add(animate);
+        dom.classList.add('animated');
+        $(selector).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+            $(this).removeClass(animate + ' animated');
+        });
     }
 
     document.getElementById('login-form').addEventListener('submit',function(e){
         e.preventDefault();
         var account = document.getElementById('account').value,
-            psd = document.getElementById('psd').value;
+            psd = document.getElementById('psd').value,
+            loginAlert = document.getElementsByClassName('login-alert')[0],
+            loginBtn = document.getElementsByClassName('login-btn')[0];
         if(account === '') {
-            document.getElementsByClassName('login-alert')[0].innerHTML = '请输入用户名';
+            loginAlert.innerHTML = '请输入用户名';
             doAnimate('.login-alert', 'fadeInDown');
         } else if(psd === '') {
-            document.getElementsByClassName('login-alert')[0].innerHTML = '请输入密码';
+            loginAlert.innerHTML = '请输入密码';
             doAnimate('.login-alert', 'fadeInDown');
         } else if(psd.length < 6) {
-            document.getElementsByClassName('login-alert')[0].innerHTML = '密码长度不少于6位';
+            loginAlert.innerHTML = '密码长度不少于6位';
             doAnimate('.login-alert', 'fadeInDown');
         } else {
-            document.getElementsByClassName('login-alert')[0].innerHTML = '&nbsp;';
-            document.getElementsByClassName('login-btn')[0].innerHTML = '<i class="fa fa-spinner fa-pulse"></i>';
-            $.ajax({
-                url: "/login",
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    username: account,
-                    password: psd
-                },
-                success: function (obj) {
-                    if(obj.status === 0) {
-                        window.location.href = 'handler.html';
-                    }
-                },
-                error: function() {
-                    document.getElementsByClassName('login-btn')[0].innerHTML = '登&nbsp;&nbsp;录';
-                }
-            });
+            loginAlert.innerHTML = '&nbsp;';
+            loginBtn.innerHTML = '<i class="fa fa-spinner fa-pulse"></i>';
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/login');
+            xhr.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+            xhr.timeout = 5000;
+            xhr.onreadystatechange = function (data) {
+
+            }
+            xhr.ontimeout = function() {
+
+            }
+            xhr.send('username=' + account+ '&password=' + psd);
         }
     });
 
-    $('.login-input').focus(function() {
-        document.getElementsByClassName('login-alert')[0].innerHTML = '&nbsp; ';
+    Array.prototype.forEach.call(document.querySelectorAll('.login-input'), function (el) {
+        el.addEventListener('focus',function(){
+            document.getElementsByClassName('login-alert')[0].innerHTML = '&nbsp; ';
+        });
     });
 </script>
 </body>
