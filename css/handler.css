@@ -93,7 +93,6 @@ body {
 .slide-menu-ul li {
   cursor: pointer;
   color: #757575;
-  font-weight: bold;
   margin-bottom: 8px;
   padding: 2px 0;
   line-height: 40px;
@@ -198,6 +197,7 @@ body {
   float: left;
   width: 65px;
   color: #888;
+  font-weight: normal;
   -webkit-transition: all .1s ease-in-out;
        -o-transition: all .1s ease-in-out;
           transition: all .1s ease-in-out;
@@ -359,6 +359,9 @@ body {
   color: #999;
   margin-right: 20px;
 }
+.li-title {
+  cursor: pointer;
+}
 .li-done {
   cursor: pointer;
   font-size: 20px;
@@ -374,4 +377,15 @@ body {
 .logout {
   cursor: pointer;
 }
-
+.mail-content {
+  display: none;
+  color: #333;
+  width: 85%;
+  margin-left: 5%;
+  margin-bottom: 30px;
+  height: 480px;
+  background: #fff;
+  padding-left: 15px;
+  -webkit-box-shadow: 0 -1px 0 #e5e5e5,0 0 2px rgba(0,0,0,.12),0 2px 4px rgba(0,0,0,.24);
+          box-shadow: 0 -1px 0 #e5e5e5,0 0 2px rgba(0,0,0,.12),0 2px 4px rgba(0,0,0,.24);
+}

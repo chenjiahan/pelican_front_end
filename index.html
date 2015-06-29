@@ -15,24 +15,65 @@
 <body class="wallpaper">
     <form class="login-container animated fadeInDown" id="login-form">
         <img src="img/logo-b.png" alt="logo"/>
-        <input type="text" class="login-input" placeholder="账号" maxlength="36" required/>
-        <input type="password" class="login-input" placeholder="密码" maxlength="16" required/>
+        <input type="text" class="login-input" id="account" placeholder="账号" maxlength="30"/>
+        <input type="password" class="login-input" id="psd" placeholder="密码" maxlength="16"/>
+        <p class="login-alert">&nbsp;</p>
         <button type="submit" class="login-btn">登&nbsp;&nbsp;录</button>
     </form>
 <script src="js/jquery-2.1.4.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script>
-    $('.wallpaper').height($(window).height());
-    $(window).resize(function() {
-        $('.wallpaper').height($(window).height());
+    document.getElementsByClassName('wallpaper')[0].style.height = window.innerHeight + 'px';
+    window.onresize = function() {
+        document.getElementsByClassName('wallpaper')[0].style.height = window.innerHeight + 'px';
+    }
+
+    function doAnimate(selector, animate) {
+        $(selector)
+            .addClass(animate + ' animated')
+            .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+                $(this).removeClass(animate + ' animated');
+            });
+    }
+
+    document.getElementById('login-form').addEventListener('submit',function(e){
+        e.preventDefault();
+        var account = document.getElementById('account').value,
+            psd = document.getElementById('psd').value;
+        if(account === '') {
+            document.getElementsByClassName('login-alert')[0].innerHTML = '请输入用户名';
+            doAnimate('.login-alert', 'fadeInDown');
+        } else if(psd === '') {
+            document.getElementsByClassName('login-alert')[0].innerHTML = '请输入密码';
+            doAnimate('.login-alert', 'fadeInDown');
+        } else if(psd.length < 6) {
+            document.getElementsByClassName('login-alert')[0].innerHTML = '密码长度不少于6位';
+            doAnimate('.login-alert', 'fadeInDown');
+        } else {
+            document.getElementsByClassName('login-alert')[0].innerHTML = '&nbsp;';
+            document.getElementsByClassName('login-btn')[0].innerHTML = '<i class="fa fa-spinner fa-pulse"></i>';
+            $.ajax({
+                url: "/api/login",
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    username: account,
+                    password: psd
+                },
+                success: function (obj) {
+                    if(obj.status === 0) {
+                        window.location.href = 'handler.html';
+                    }
+                },
+                error: function() {
+                    document.getElementsByClassName('login-btn')[0].innerHTML = '登&nbsp;&nbsp;录';
+                }
+            });
+        }
     });
 
-    $('#login-form').submit(function(e) {
-        e.preventDefault();
-        $('.login-btn').html('<i class="fa fa-spinner fa-pulse"></i>');
-        setTimeout(function(){
-            window.location.href = 'handler.html';
-        },1000);
+    $('.login-input').focus(function() {
+        document.getElementsByClassName('login-alert')[0].innerHTML = '&nbsp;';
     });
 </script>
 </body>
