@@ -55,10 +55,10 @@
         } else {
             loginAlert.innerHTML = '&nbsp;';
             loginBtn.innerHTML = '<i class="fa fa-spinner fa-pulse"></i>';
-            /*
+
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/api/login');
-            xhr.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+            xhr.open('POST', '/api/login', true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhr.timeout = 5000;
             xhr.onreadystatechange = function (data) {
 
@@ -66,8 +66,8 @@
             xhr.ontimeout = function() {
 
             }
-            xhr.send('username=' + account+ '&password=' + psd);*/
-            $.ajax({
+            xhr.send('username=' + account+ '&password=' + psd);
+            /*$.ajax({
                 url: "/api/login",
                 type: 'POST',
                 dataType: 'json',
@@ -80,7 +80,7 @@
                 },
                 error: function() {
                 }
-            });
+            });*/
         }
     });
 
