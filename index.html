@@ -55,6 +55,7 @@
         } else {
             loginAlert.innerHTML = '&nbsp;';
             loginBtn.innerHTML = '<i class="fa fa-spinner fa-pulse"></i>';
+            /*
             var xhr = new XMLHttpRequest();
             xhr.open('POST', '/api/login');
             xhr.setRequestHeader("Content-type", "application/json;charset=UTF-8");
@@ -65,7 +66,21 @@
             xhr.ontimeout = function() {
 
             }
-            xhr.send('username=' + account+ '&password=' + psd);
+            xhr.send('username=' + account+ '&password=' + psd);*/
+            $.ajax({
+                url: "/api/login",
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    username:account,
+                    password:psd
+                },
+                success: function (obj) {
+
+                },
+                error: function() {
+                }
+            });
         }
     });
 
