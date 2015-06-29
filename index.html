@@ -53,7 +53,7 @@
             document.getElementsByClassName('login-alert')[0].innerHTML = '&nbsp;';
             document.getElementsByClassName('login-btn')[0].innerHTML = '<i class="fa fa-spinner fa-pulse"></i>';
             $.ajax({
-                url: "/api/login",
+                url: "/login",
                 type: 'POST',
                 dataType: 'json',
                 data: {
