@@ -55,16 +55,21 @@
         } else {
             loginAlert.innerHTML = '&nbsp;';
             loginBtn.innerHTML = '<i class="fa fa-spinner fa-pulse"></i>';
-
             var xhr = new XMLHttpRequest();
             xhr.open('POST', '/api/login', true);
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhr.timeout = 5000;
             xhr.onreadystatechange = function (data) {
-
+                if(data.status === 101) {
+                    loginAlert.innerHTML = '账号或密码错误';
+                    doAnimate('.login-alert', 'fadeInDown');
+                    loginBtn.innerHTML = '登&nbsp;&nbsp;录';
+                } else {
+                    window.location.href = 'handler';
+                }
             }
             xhr.ontimeout = function() {
-
+                loginBtn.innerHTML = '登&nbsp;&nbsp;录';
             }
             xhr.send('username=' + account+ '&password=' + psd);
             /*$.ajax({
