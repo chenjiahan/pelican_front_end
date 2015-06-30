@@ -7,12 +7,12 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/index.css">
     <link href="img/favicon.ico" rel="shortcut icon">
 </head>
 <body class="wallpaper">
-
     <form class="login-container animated fadeInDown" id="login-form">
         <img src="img/logo-b.png" alt="logo"/>
         <input type="text" class="login-input" id="account" placeholder="账号" maxlength="30"/>
@@ -69,25 +69,31 @@
                 loginAlert.innerHTML = '&nbsp;';
                 loginBtn.innerHTML = '<i class="fa fa-spinner fa-pulse"></i>';
                 var xhr = new XMLHttpRequest();
-                xhr.open('POST', '/api/login', true);
+                var params = 'username=' + account + '&password=' + psd;
+                xhr.open('POST', '/api/login' , true);
                 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 xhr.timeout = 5000;
-                xhr.onreadystatechange = function (data) {
+                xhr.onreadystatechange = function () {
                     if (xhr.readyState == 4 && xhr.status == 200) {
                         var obj = JSON.parse(xhr.responseText);
                         if(obj.status == '101') {
                             loginAlert.innerHTML = '账号或密码错误';
                             doAnimate('.login-alert', 'fadeInDown');
                             loginBtn.innerHTML = '登&nbsp;&nbsp;录';
-                        } else if (obj.status === 101) {
+                        } else if (obj.status == '0') {
                             window.location.href = 'handler';
+                        } else {
+                            loginAlert.innerHTML = '登录失败，请重试';
+                            doAnimate('.login-alert', 'fadeInDown');
                         }
                     }
                 }
                 xhr.ontimeout = function() {
+                    loginAlert.innerHTML = '登录超时，请重试';
+                    doAnimate('.login-alert', 'fadeInDown');
                     loginBtn.innerHTML = '登&nbsp;&nbsp;录';
                 }
-                xhr.send('{username:' + account + ',password:' + psd + '}');
+                xhr.send(params);
             }
         });
 
@@ -99,7 +105,7 @@
                 document.getElementsByClassName('login-alert')[0].innerHTML = '&nbsp; ';
             });
         });
-    }
+    }();
 </script>
 </body>
 </html>

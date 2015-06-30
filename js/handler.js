@@ -135,14 +135,17 @@ function doAnimate(selector, animate) {
      * @param offset
      */
     function GetDateStr(offset) {
-        var dd = new Date();
+        var dd = new Date(),
+            y = dd.getFullYear(),
+            m = dd.getMonth() + 1,
+            d = dd.getDate();
         dd.setDate(dd.getDate() + offset);
-        var y = dd.getFullYear();
-        var m = dd.getMonth() + 1;
         if (m < 10) {
             m = '0' + m;
         }
-        var d = dd.getDate();
+        if (d < 10) {
+            d = '0' + d;
+        }
         return y + "-" + m + "-" + d;
     }
 
