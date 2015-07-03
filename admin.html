@@ -21,7 +21,7 @@
     </div>
     <div class="nav-right">
         <i class="fa fa-user"></i>
-        <span>用户名</span>
+        <span id="name">用户名</span>
     </div>
 </header>
 
@@ -40,11 +40,11 @@
             <ul class="mail-ul">
                 <li class="delay-100 animated zoomIn">
                     <span class="li-name">账 号：</span>
-                    <input type="text" class="common-input" placeholder="请在此输入账号"/>
+                    <input type="text" class="common-input" id="account" placeholder="请在此输入账号"/>
                 </li>
                 <li class="delay-100 animated zoomIn">
                     <span class="li-name">密 码：</span>
-                    <input type="password" class="common-input" placeholder="请在此输入密码"/>
+                    <input type="password" class="common-input"  id="psd" placeholder="请在此输入密码"/>
                 </li>
             </ul>
         </div>
@@ -53,23 +53,71 @@
             <ul class="mail-ul">
                 <li class="delay-200 animated zoomIn">
                     <span class="li-name">SMTP服务器地址：</span>
-                    <input type="text" class="common-input" placeholder="请在此输入SMTP服务器地址">
+                    <input type="text" class="common-input" id="smtp-addr" placeholder="请在此输入SMTP服务器地址"/>
                 </li>
-                <li class="padding-top-select">
-                    <select class="form-control">
-                        <option value="1">POP3服务器地址</option>
-                        <option value="2">IMAP服务器地址</option>
-                    </select>
-                    <input type="text" class="common-input-2" placeholder="请在此输入服务器地址"/>
+                <li class="delay-200 animated zoomIn">
+                    <span class="li-name">SMTP端口号：</span>
+                    <input type="text" class="common-input" id="smtp-port" placeholder="请在此输入SMTP端口号"/>
+                </li>
+                <li class="delay-200 animated zoomIn">
+                    <span class="li-name">IMAP服务器地址：</span>
+                    <input type="text" class="common-input" id="imap-addr" placeholder="请在此输入IMAP服务器地址"/>
+                </li>
+                <li class="delay-200 animated zoomIn">
+                    <span class="li-name">IMAP端口号：</span>
+                    <input type="text" class="common-input" id="imap-port" placeholder="请在此输入IMAP端口号"/>
                 </li>
             </ul>
         </div>
-    </div>>
+        <a href="javascript:;" class="confirm-btn" id="confirm">确认</a>
+    </div>
 </div>
-
 <script src="js/jquery-2.1.4.min.js"></script>
 <script src="js/jquery.hotkeys.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script src="js/admin.js"></script>s
+<script src="js/admin.js"></script>
 </body>
+<script>
+    $(function(){
+        var name = $.cookie('name');
+        $('#name').html(name);
+        });
+    $("#confirm").click(function () {
+        var account = $("#account").val();
+        var psd = $('#psd').val();
+        var smtp_addr = $('#smtp-addr').val();
+        var smtp_port = $('#smtp-port').val();
+        var imap_addr = $('#imap_addr').val();
+        var imap_port = $('#imap_port').val();
+        var token = $.cookie('token');
+
+        if (!account){
+
+        } else if (!psd){
+
+        } else if (!smtp_addr){
+
+        } else if (!smtp_port){
+
+        } else if (!imap_addr){
+
+        } else if (!imap_port){
+
+        } else {
+            $.ajax({
+                type: "POST",
+                url:  "/api/admin/mailConfig",
+                datatype:"json",
+                data: JSON.stringify({token:token,mailAddress:account,password:psd,smtp:smtp_addr,
+                    smtpPort:smtp_port,imap:imap_addr,imapPort:imap_port}),
+                success:function() {
+
+                },
+                error:function(){
+
+                }
+            });
+        }
+    });
+</script>
 </html>

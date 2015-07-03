@@ -333,13 +333,24 @@ body {
 .common-input-2:focus {
     outline: none;
 }
-.form-control{
-    width: 140px;
-    float:left;
-    border: none;
-    margin-top: 8px;
+.confirm-btn {
+    display: block;
+    width: 90px;
+    color: #fff;
+    padding: 6px 0;
+    margin: 20px 0;
+    margin-left: 8%;
+    border-radius: 4px;
+    text-align: center;
+    background: #01A2A6;
+    -webkit-transition: background .1s ease-in-out;
+    -o-transition: background .1s ease-in-out;
+    transition: background .1s ease-in-out;
 }
-.padding-top-select{
-    border: none;
-
+.confirm-btn:hover {
+    color: #fff;
+    background-color: #018286;
+}
+.confirm-btn:focus {
+    color: #fff;
 }
