@@ -377,15 +377,72 @@ body {
 .logout {
   cursor: pointer;
 }
-.mail-content {
-  display: none;
+.mail-detail {
   color: #333;
   width: 85%;
-  margin-left: 5%;
-  margin-bottom: 30px;
-  height: 480px;
+  padding: 20px;
   background: #fff;
-  padding-left: 15px;
+  min-height: 480px;
+  margin: 60px 0 30px 5%;
   -webkit-box-shadow: 0 -1px 0 #e5e5e5,0 0 2px rgba(0,0,0,.12),0 2px 4px rgba(0,0,0,.24);
           box-shadow: 0 -1px 0 #e5e5e5,0 0 2px rgba(0,0,0,.12),0 2px 4px rgba(0,0,0,.24);
 }
+.mail-detail h2 {
+  font-weight: bold;
+  margin:0 0 15px;
+  font-size: 18px;
+}
+.mail-content {
+  width: 100%;
+  font-size: 14px;
+  line-height: 30px;
+}
+.detail-tool {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+}
+.detail-tool a {
+  display: block;
+  float: right;
+  font-size: 13px;
+  padding: 5px 14px;
+  margin-left: 5px;
+  text-align: center;
+  border-radius: 4px;
+}
+.detail-span {
+  color: #888;
+  width: 60px;
+}
+.detail-head {
+  margin-bottom: 20px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ddd;
+}
+.back-btn {
+  color: #888;
+  border: 1px solid #888;
+}
+.back-btn:hover {
+  color: #000;
+  border: 1px solid #000;
+}
+.done-btn {
+  color: #fff;
+  background-color: #45BF55;
+  border: 1px solid #45BF55;
+}
+.done-btn:hover {
+  background-color: #35AF45;
+}
+.reply-btn {
+  color: #fff;
+  background-color: #1a8fb4;
+  border: 1px solid #1a8fb4;
+}
+.reply-btn:hover {
+  background-color: #0a7fa4;
+}
+
+
