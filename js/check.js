@@ -5,6 +5,7 @@
  *
  * @param name
  * @returns {*}
+ *
  */
 function getUrlParam(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"),
