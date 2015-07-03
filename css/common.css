@@ -20,8 +20,36 @@ a:focus {
   -o-text-overflow: ellipsis;
 }
 body {
-  min-height: 600px;
   background-color: #f2f2f2!important;
+}
+
+/*--alert box--*/
+.alert-box {
+  position: fixed;
+  z-index: 500;
+  top: 0;
+  left:50%;
+  width: 200px;
+  height: 60px;
+  color: #fff;
+  line-height: 24px;
+  padding-top: 17px;
+  font-size: 16px;
+  text-align: center;
+  margin-left: -100px;
+  border-radius: 0 0 4px 4px;
+  -webkit-box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+          box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+}
+.alert-success {
+  background-color: #00de9a;
+}
+.alert-error {
+  background-color: #ff6a6a;
+}
+.alert-box .fa {
+  font-size: 22px;
+  margin-right: 8px;
 }
 
 /*--scroll style--*/
@@ -320,4 +348,60 @@ body {
 .fadeOutRight {
   -webkit-animation-name: fadeOutRight;
           animation-name: fadeOutRight;
+}
+@-webkit-keyframes fadeInDownBig {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+            transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+            transform: none;
+  }
+}
+@keyframes fadeInDownBig {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+            transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+            transform: none;
+  }
+}
+.fadeInDownBig {
+  -webkit-animation-name: fadeInDownBig;
+          animation-name: fadeInDownBig;
+}
+@-webkit-keyframes fadeOutUpBig {
+  0% {
+    opacity: 1;
+    -webkit-transform: none;
+            transform: none;
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+            transform: translate3d(0, -100%, 0);
+  }
+}
+@keyframes fadeOutUpBig {
+  0% {
+    opacity: 1;
+    -webkit-transform: none;
+            transform: none;
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+            transform: translate3d(0, -100%, 0);
+  }
+}
+.fadeOutUpBig {
+  -webkit-animation-name: fadeOutUpBig;
+          animation-name: fadeOutUpBig;
 }

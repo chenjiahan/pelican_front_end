@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8">
@@ -15,25 +15,98 @@
 <body class="wallpaper">
     <form class="login-container animated fadeInDown" id="login-form">
         <img src="img/logo-b.png" alt="logo"/>
-        <input type="text" class="login-input" placeholder="账号" maxlength="36" required/>
-        <input type="password" class="login-input" placeholder="密码" maxlength="16" required/>
+        <input type="text" class="login-input" id="account" placeholder="账号" maxlength="30"/>
+        <input type="password" class="login-input" id="psd" placeholder="密码" maxlength="16"/>
+        <p class="login-alert">&nbsp;</p>
         <button type="submit" class="login-btn">登&nbsp;&nbsp;录</button>
     </form>
-<script src="js/jquery-2.1.4.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script>
-    $('.wallpaper').height($(window).height());
-    $(window).resize(function() {
-        $('.wallpaper').height($(window).height());
-    });
 
-    $('#login-form').submit(function(e) {
-        e.preventDefault();
-        $('.login-btn').html('<i class="fa fa-spinner fa-pulse"></i>');
-        setTimeout(function(){
-            window.location.href = 'handler.html';
-        },1000);
-    });
+<script>
+    +function() {
+        /**
+         * 设置窗体等于浏览器大小
+         */
+        var wallpaper = document.getElementsByClassName('wallpaper')[0];
+        wallpaper.style.height = window.innerHeight + 'px';
+        window.onresize = function() {
+            wallpaper.style.height = window.innerHeight + 'px';
+        }
+
+        /**
+         * 执行animation
+         * @param selector
+         * @param animate
+         */
+        function doAnimate(selector, animate) {
+            var s = document.querySelector(selector);
+            s.classList.add(animate);
+            s.classList.add('animated');
+            s.addEventListener('animationend',function() {
+                s.classList.remove(animate);
+                s.classList.remove('animated');
+            });
+        }
+
+        /**
+         * 登录
+         */
+        document.getElementById('login-form').addEventListener('submit',function(e){
+            e.preventDefault();
+            var account = document.getElementById('account').value,
+                psd = document.getElementById('psd').value,
+                loginAlert = document.getElementsByClassName('login-alert')[0],
+                loginBtn = document.getElementsByClassName('login-btn')[0];
+            if(account === '') {
+                loginAlert.innerHTML = '请输入用户名';
+                doAnimate('.login-alert', 'fadeInDown');
+            } else if(psd === '') {
+                loginAlert.innerHTML = '请输入密码';
+                doAnimate('.login-alert', 'fadeInDown');
+            } else if(psd.length < 6) {
+                loginAlert.innerHTML = '密码长度不少于6位';
+                doAnimate('.login-alert', 'fadeInDown');
+            } else {
+                loginAlert.innerHTML = '&nbsp;';
+                loginBtn.innerHTML = '<i class="fa fa-spinner fa-pulse"></i>';
+                var xhr = new XMLHttpRequest();
+                var params = 'username=' + account + '&password=' + psd;
+                xhr.open('POST', '/api/login' , true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.timeout = 5000;
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var obj = JSON.parse(xhr.responseText);
+                        if(obj.status == '101') {
+                            loginAlert.innerHTML = '账号或密码错误';
+                            doAnimate('.login-alert', 'fadeInDown');
+                            loginBtn.innerHTML = '登&nbsp;&nbsp;录';
+                        } else if (obj.status == '0') {
+
+                            window.location.href = 'handler';
+                        } else {
+                            loginAlert.innerHTML = '登录失败，请重试';
+                            doAnimate('.login-alert', 'fadeInDown');
+                        }
+                    }
+                }
+                xhr.ontimeout = function() {
+                    loginAlert.innerHTML = '登录超时，请重试';
+                    doAnimate('.login-alert', 'fadeInDown');
+                    loginBtn.innerHTML = '登&nbsp;&nbsp;录';
+                }
+                xhr.send(params);
+            }
+        });
+
+        /**
+         * 隐藏提示
+         */
+        Array.prototype.forEach.call(document.querySelectorAll('.login-input'), function (el) {
+            el.addEventListener('focus',function(){
+                document.getElementsByClassName('login-alert')[0].innerHTML = '&nbsp; ';
+            });
+        });
+    }();
 </script>
 </body>
 </html>

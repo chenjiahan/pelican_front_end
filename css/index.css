@@ -11,12 +11,12 @@
   margin-top: -200px;
   margin-left: -250px;
   width: 500px;
-  height: 320px;
+  height: 330px;
   background-color: rgba(255,255,255,0.4);
   border-radius: 6px;
   padding: 20px 100px 0;
   -webkit-box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
-  box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+          box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
 }
 .login-container img {
   display: block;
@@ -53,7 +53,7 @@ input[type='password'].login-input {
   height: 40px;
   font-size: 16px;
   line-height: 40px;
-  margin-top: 30px;
+  margin: 8px 0 30px;
   border-radius: 4px;
   text-align: center;
   background-color: #45BF55;
@@ -67,4 +67,8 @@ input[type='password'].login-input {
 }
 .login-btn:focus {
   outline: none;
+}
+.login-alert {
+  margin: 8px 10px 0;
+  color: #ff6a6a;
 }
