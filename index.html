@@ -80,11 +80,12 @@
                             doAnimate('.login-alert', 'fadeInDown');
                             loginBtn.innerHTML = '登&nbsp;&nbsp;录';
                         } else if (obj.status == '0') {
-                            document.cookie = 'token=' + obj.data.token + ';' + 'name=' + obj.data.username;
+                            document.cookie = 'token=' + obj.data.token;
+                            document.cookie = 'name=' + obj.data.username;
                             var href = {
                                 admin: 'admin',
                                 checker: 'check',
-                                handler: '#',
+                                handler: 'handler',
                                 distributor: 'distributor'
                             }
                             window.location.href = href[obj.data.role];
