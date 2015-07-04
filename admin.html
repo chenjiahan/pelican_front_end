@@ -95,7 +95,7 @@
         } else if (!psd) {
             topAlert('密码为空', 'error');
         } else if (psd.length<6){
-            topAlert('密码小于6位')
+            topAlert('密码小于6位','error');
         } else if (!smtp_addr){
             topAlert('SMTP服务器地址为空','error');
         } else if (!smtp_port){
@@ -109,8 +109,8 @@
                 type: "POST",
                 url:  "/api/admin/mailConfig",
                 datatype:"json",
-                data: JSON.stringify({token:token,mailAddress:account,password:psd,smtp:smtp_addr,
-                    smtpPort:smtp_port,imap:imap_addr,imapPort:imap_port}),
+                data: {token:token,mailAddress:account,password:psd,smtp:smtp_addr,
+                    smtpPort:smtp_port,imap:imap_addr,imapPort:imap_port},
                 success:function(data) {
                     if(data.status ==  0){
                         topalert(data.message,'seccess');
