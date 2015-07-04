@@ -86,22 +86,24 @@
         var psd = $('#psd').val();
         var smtp_addr = $('#smtp-addr').val();
         var smtp_port = $('#smtp-port').val();
-        var imap_addr = $('#imap_addr').val();
-        var imap_port = $('#imap_port').val();
+        var imap_addr = $('#imap-addr').val();
+        var imap_port = $('#imap-port').val();
         var token = $.cookie('token');
 
-        if (!account){
-
-        } else if (!psd){
-
-        } else if (!smtp_addr){
-
+        if (!account) {
+            topAlert('账号为空', 'error');
+        } else if (!psd) {
+            topAlert('密码为空', 'error');
+        } else if (psd.length<6){
+            topAlert('密码小于6位')
+        }   else if (!smtp_addr){
+            topAlert('SMTP服务器地址为空','error');
         } else if (!smtp_port){
-
+            topAlert('SMTP端口号为空','error');
         } else if (!imap_addr){
-
+            topAlert('IMAP服务器地址为空','error');
         } else if (!imap_port){
-
+            topAlert('IMAP端口号为空','error');
         } else {
             $.ajax({
                 type: "POST",
@@ -110,10 +112,10 @@
                 data: JSON.stringify({token:token,mailAddress:account,password:psd,smtp:smtp_addr,
                     smtpPort:smtp_port,imap:imap_addr,imapPort:imap_port}),
                 success:function() {
-
+                    topAlert('设置成功','success');
                 },
                 error:function(){
-
+                    topAlert('设置失败，请稍后重试','error');
                 }
             });
         }
