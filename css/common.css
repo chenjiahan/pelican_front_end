@@ -47,6 +47,9 @@ body {
 .alert-error {
   background-color: #ff6a6a;
 }
+.alert-welcome {
+  background-color: #03a9f4;
+}
 .alert-box .fa {
   font-size: 22px;
   margin-right: 8px;
