@@ -47,6 +47,7 @@ input[type='password'].login-input {
 .login-btn {
   cursor: pointer;
   display: block;
+  position: relative;
   border: none;
   color: #FFF;
   width: 100%;
@@ -61,14 +62,29 @@ input[type='password'].login-input {
        -o-transition: all .1s ease-in-out;
           transition: all .1s ease-in-out;
 }
-.login-btn:hover {
-  color: #fff;
-  background-color: #35AF45;
-}
 .login-btn:focus {
   outline: none;
 }
 .login-alert {
   margin: 8px 10px 0;
   color: #ff6a6a;
+}
+.login-btn:before {
+  content: ' ';
+  position: absolute;
+  display: block;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, .2);
+  -webkit-transform: scale(0, 1);
+          transform: scale(0, 1);
+  -webkit-transition: -webkit-transform 0.4s ease;
+                  transition: transform 0.4s ease;
+}
+.login-btn:hover:before {
+  -webkit-transform: scale(1,1);
+          transform: scale(1,1);
 }

@@ -422,11 +422,11 @@ body {
 }
 .back-btn {
   color: #888;
-  border: 1px solid #888;
+  border: 1px solid #aaa;
 }
 .back-btn:hover {
   color: #000;
-  border: 1px solid #000;
+  border: 1px solid #555;
 }
 .done-btn {
   color: #fff;

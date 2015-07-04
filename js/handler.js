@@ -2,7 +2,7 @@
  * Created by Chen Jiahan on 2015/6/25.
  */
 +function($) {
-
+    var token = $.cookie('token');
     /**
      * @description: 初始化editor
      */
@@ -11,15 +11,15 @@
     /**
      * 登出
      */
-    $('.logout').click(function() {
+    document.getElementsByClassName('logout')[0].addEventListener('click', function(){
         window.location.href = 'index.html';
-    });
+    })
 
     /**
      * @description: 左侧菜单切换
      */
     $('.slide-menu-ul li').click(function () {
-        changePage($('.active-li').data('to'),$(this).data('to'));
+        changePage($('.active-li').data('to'), $(this).data('to'));
     });
 
     /**
@@ -28,14 +28,11 @@
      * @param target
      */
     function changePage(now,target) {
-        if(now === target){
-            return;
-        } else {
+        if(now !== target){
             //隐藏当前页
             $('#' + now).hide();
             $('#' + now + ' .no-content').removeClass('grow');
             $('.active-li').removeClass('active-li');
-
             if(target === 'task') {
                 showTaskList(testList,nowPage);
             }
@@ -68,11 +65,11 @@
             subject = document.getElementById('subject').value,
             html = document.getElementsByClassName('editor')[0].innerHTML;
         if(!title) {
-            topAlert('收信人不能为空','error',2000);
+            topAlert('收信人不能为空','error');
         } else if (!subject) {
-            topAlert('邮件主题不能为空','error',2000);
+            topAlert('邮件主题不能为空','error');
         } else if (!html) {
-            topAlert('邮件正文不能为空','error',2000);
+            topAlert('邮件正文不能为空','error');
         } else {
             var btn = $(this);
             btn.html('<i class="fa fa-spinner fa-pulse"></i>');
@@ -93,31 +90,6 @@
     });
 
     /**
-     * 标记为已完成
-     */
-    $('#task').delegate('.li-done','click', function () {
-        topAlert('处理成功','success',2000);
-        var line = $(this).parent(),
-            ul = line.parent();
-        line.removeClass()
-            .addClass('fadeOutRight animated')
-            .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
-                $(this).remove();
-                //移除空ul
-                if (ul.html().indexOf('li') < 0) {
-                    ul.parent().remove();
-                }
-                //若无待处理邮件，则显示提醒
-                if ($('#task').html().indexOf('mail-line') < 0) {
-                    document.getElementById('task').innerHTML = '<div class="vertical-middle-t"> <div class="vertical-middle-tc"> <div class="no-content"> <p>没有需要处理的邮件</p> </div> </div> </div>';
-                    setTimeout(function () {
-                        $('#task .no-content').addClass('grow');
-                    }, 1);
-                }
-            });
-    });
-
-    /**
      * 获取日期字符串
      * @param offset
      */
@@ -135,7 +107,6 @@
         }
         return y + "-" + m + "-" + d;
     }
-
     /**
      * 测试待处理列表
      */
@@ -192,6 +163,21 @@
     }
     var nowPage = 1;
     function showTaskList(obj,page) {
+        $.ajax({
+            url: "/api/email/list",
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                token:token,
+                page:page
+            },
+            success: function (obj) {
+
+            },
+            error: function() {
+
+            }
+        });
         var delay = 0;
         if (obj.list.length === 0) {
             document.getElementById('task').innerHTML = '<div class="vertical-middle-t"> <div class="vertical-middle-tc"> <div class="no-content"> <p>没有需要处理的邮件</p> </div> </div> </div>';
@@ -200,62 +186,62 @@
             }, 1);
         } else {
             var delay = 0,
-                todayList = [],
-                yesterdayList = [],
-                agoList = [],
+                tList = [],
+                yList = [],
+                aList = [],
                 today = GetDateStr(0),
                 yesterday = GetDateStr(-1),
                 html = '';
             //邮件根据日期归类
             for (var i = 0; i < obj.list.length; i++) {
                 if (obj.list[i].receiveTime.substr(0, 10) === today) {
-                    todayList.push(obj.list[i]);
+                    tList.push(obj.list[i]);
                 } else if (obj.list[i].receiveTime.substr(0, 10) === yesterday) {
-                    yesterdayList.push(obj.list[i]);
+                    yList.push(obj.list[i]);
                 } else {
-                    agoList.push(obj.list[i]);
+                    aList.push(obj.list[i]);
                 }
             }
-            if (todayList.length) {
+            if (tList.length) {
                 delay = Math.min(delay + 100, 1000);
                 html += '<div class="mail-line"><p class="delay-' + delay + ' animated zoomIn">今天</p><ul class="mail-ul">';
-                for (var i = 0; i < todayList.length; i++) {
+                for (var i = 0; i < tList.length; i++) {
                     html += '<li class="delay-' + delay + ' animated zoomIn"><span class="li-name">' +
-                        todayList[i].senderName +
-                        '</span><span class="li-title" data-id="' + todayList[i].mailId + '">' +
-                        todayList[i].title +
+                        tList[i].senderName +
+                        '</span><span class="li-title" data-id="' + tList[i].mailId + '">' +
+                        tList[i].title +
                         '</span><span class="li-done"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
-                        todayList[i].receiveTime.substr(11, 5) +
+                        tList[i].receiveTime.substr(11, 5) +
                         '</span></li>';
                     delay  = Math.min(delay + 100, 1000);
                 }
                 html += '</ul></div>';
             }
-            if (yesterdayList.length) {
+            if (yList.length) {
                 delay = Math.min(delay + 100, 1000);
                 html += '<div class="mail-line"><p class="delay-' + delay + ' animated zoomIn">昨天</p><ul class="mail-ul">';
-                for (var i = 0; i < yesterdayList.length; i++) {
+                for (var i = 0; i < yList.length; i++) {
                     html += '<li class="delay-' + delay + ' animated zoomIn"><span class="li-name">' +
-                        yesterdayList[i].senderName +
-                        '</span><span class="li-title" data-id="' + yesterdayList[i].mailId + '">' +
-                        yesterdayList[i].title +
+                        yList[i].senderName +
+                        '</span><span class="li-title" data-id="' + yList[i].mailId + '">' +
+                        yList[i].title +
                         '</span><span class="li-done"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
-                        yesterdayList[i].receiveTime.substr(11, 5) +
+                        yList[i].receiveTime.substr(11, 5) +
                         '</span></li>';
                     delay = Math.min(delay + 100, 1000);
                 }
                 html += '</ul></div>';
             }
-            if (agoList.length) {
+            if (aList.length) {
                 delay = Math.min(delay + 100, 1000);
                 html += '<div class="mail-line"><p class="delay-' + delay + ' animated zoomIn">更早</p><ul class="mail-ul">';
-                for (var i = 0; i < agoList.length; i++) {
+                for (var i = 0; i < aList.length; i++) {
                     html += '<li class="delay-' + delay + ' animated zoomIn"><span class="li-name">' +
-                        agoList[i].senderName +
-                        '</span><span class="li-title" data-id="' + agoList[i].mailId + '">' +
-                        agoList[i].title +
+                        aList[i].senderName +
+                        '</span><span class="li-title" data-id="' + aList[i].mailId + '">' +
+                        aList[i].title +
                         '</span><span class="li-done"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
-                        agoList[i].receiveTime.replace('T',' ') +
+                        aList[i].receiveTime.replace('T',' ') +
                         '</span></li>';
                     delay = Math.min(delay + 100, 1000);
                 }
@@ -276,34 +262,59 @@
         time: '2015年6月29日16:30',
         html: '<pre style="background-color:#222527;color:#ede0ce;font-family:"Source Code Pro";font-size:12.0pt;"><span style="color:#26a6a6;">html </span>{<br>  <span style="color:#ff5d38;">height</span>: <span style="color:#bcd42a;">100</span><span style="color:#26a6a6;">%</span><span style="color:#cc7832;">;<br></span>}<br><span style="color:#26a6a6;">body </span>{<br>  <span style="color:#ff5d38;">height</span>: <span style="color:#bcd42a;">100</span><span style="color:#26a6a6;">%</span><span style="color:#cc7832;">;<br></span><span style="color:#cc7832;">  </span><span style="color:#ff5d38;">overflow-x</span>: <span style="color:#dee3ec;">hidden</span><span style="color:#cc7832;">;<br></span>}<br><br><span style="color:#7a7267;font-style:italic;">/*--head nav--*/<br></span>.<span style="color:#ff5d38;">head-nav </span>{<br>  <span style="color:#ff5d38;">position</span>: <span style="color:#dee3ec;">fixed</span><span style="color:#cc7832;">;<br></span><span style="color:#cc7832;">  </span><span style="color:#ff5d38;">z-index</span>: <span style="color:#bcd42a;">100</span><span style="color:#cc7832;">;<br></span><span style="color:#cc7832;">  </span><span style="color:#ff5d38;">top</span>: <span style="color:#bcd42a;">0</span><span style="color:#cc7832;">;<br></span><span style="color:#cc7832;">  </span><span style="color:#ff5d38;">left</span>: <span style="color:#bcd42a;">0</span><span style="color:#cc7832;">;<br></span><span style="color:#cc7832;">  </span><span style="color:#ff5d38;">right</span>: <span style="color:#bcd42a;">0</span><span style="color:#cc7832;">;<br></span><span style="color:#cc7832;">  </span><span style="color:#ff5d38;">height</span>: <span style="color:#bcd42a;">60</span><span style="color:#dee3ec;">px</span><span style="color:#cc7832;">;<br></span><span style="color:#cc7832;">  </span><span style="color:#ff5d38;">padding</span>: <span style="color:#bcd42a;">0 45</span><span style="color:#dee3ec;">px</span><span style="color:#cc7832;">;<br></span><span style="color:#cc7832;">  </span><span style="color:#ff5d38;">-webkit-box-shadow</span>: <span style="color:#bcd42a;">0 0 4</span><span style="color:#dee3ec;">px </span><span style="color:#bcd42a;">rgba</span>(<span style="color:#bcd42a;">0</span><span style="color:#cc7832;">,</span><span style="color:#bcd42a;">0</span><span style="color:#cc7832;">,</span><span style="color:#bcd42a;">0</span><span style="color:#cc7832;">,</span><span style="color:#bcd42a;">.14</span>)<span style="color:#cc7832;">,</span><span style="color:#bcd42a;">0 4</span><span style="color:#dee3ec;">px </span><span style="color:#bcd42a;">8</span><span style="color:#dee3ec;">px </span><span style="color:#bcd42a;">rgba</span>(<span style="color:#bcd42a;">0</span><span style="color:#cc7832;">,</span><span style="color:#bcd42a;">0</span><span style="color:#cc7832;">,</span><span style="color:#bcd42a;">0</span><span style="color:#cc7832;">,</span><span style="color:#bcd42a;">.28</span>)<span style="color:#cc7832;">;<br></span><span style="color:#cc7832;">          </span><span style="color:#ff5d38;">box-shadow</span>: <span style="color:#bcd42a;">0 0 4</span><span style="color:#dee3ec;">px </span><span style="color:#bcd42a;">rgba</span>(<span style="color:#bcd42a;">0</span><span style="color:#cc7832;">,</span><span style="color:#bcd42a;">0</span><span style="color:#cc7832;">,</span><span style="color:#bcd42a;">0</span><span style="color:#cc7832;">,</span><span style="color:#bcd42a;">.14</span>)<span style="color:#cc7832;">,</span><span style="color:#bcd42a;">0 4</span><span style="color:#dee3ec;">px </span><span style="color:#bcd42a;">8</span><span style="color:#dee3ec;">px </span><span style="color:#bcd42a;">rgba</span>(<span style="color:#bcd42a;">0</span><span style="color:#cc7832;">,</span><span style="color:#bcd42a;">0</span><span style="color:#cc7832;">,</span><span style="color:#bcd42a;">0</span><span style="color:#cc7832;">,</span><span style="color:#bcd42a;">.28</span>)<span style="color:#cc7832;">;<br></span><span style="color:#cc7832;">  </span><span style="color:#ff5d38;">-webkit-transition</span>: <span style="color:#dee3ec;">background </span><span style="color:#bcd42a;">.3</span><span style="color:#dee3ec;">s ease-in-out</span><span style="color:#cc7832;">;<br></span><span style="color:#cc7832;">       </span><span style="color:#ff5d38;">-o-transition</span>: <span style="color:#dee3ec;">background </span><span style="color:#bcd42a;">.3</span><span style="color:#dee3ec;">s ease-in-out</span><span style="color:#cc7832;">;<br></span><span style="color:#cc7832;">          </span><span style="color:#ff5d38;">transition</span>: <span style="color:#dee3ec;">background </span><span style="color:#bcd42a;">.3</span><span style="color:#dee3ec;">s ease-in-out</span><span style="color:#cc7832;">;<br></span><span style="color:#cc7832;"><br></span><span style="color:#cc7832;">  </span><span style="color:#7a7267;font-style:italic;">/*--prevent chrome fixed element blink--*/<br></span><span style="color:#7a7267;font-style:italic;">  </span><span style="color:#ff5d38;">-webkit-transform</span>: <span style="color:#bcd42a;">translateZ</span>(<span style="color:#bcd42a;">0</span>)<span style="color:#cc7832;">;<br></span>}</pre>'
     }
-    function showMailDetail() {
+    function showMailDetail(id) {
         document.getElementById('task').innerHTML = template('md-tmpl',testData);
     }
 
     /**
-     * 查看邮件详情
-     * 返回邮件列表
+     * #task事件绑定
      */
     $('#task')
+        //查看邮件详情
         .delegate('.li-title', 'click', function() {
-            showMailDetail();
+            showMailDetail($(this).data('id'));
         })
+        //返回邮件列表
         .delegate('.back-btn', 'click', function() {
             showTaskList(testList,nowPage);
         })
-        .delegate('.done-btn', 'click', function() {
-            topAlert('处理成功','success',3000);
-            showTaskList(testList,nowPage);
-        })
+        //回复邮件
         .delegate('.reply-btn', 'click', function() {
             changePage('task','send');
+        })
+        //详情页标记为已处理
+        .delegate('.done-btn', 'click', function() {
+            topAlert('处理成功','success');
+            showTaskList(testList,nowPage);
+        })
+        //列表页标记为已处理
+        .delegate('.li-done','click', function () {
+            topAlert('处理成功','success');
+            var line = $(this).parent(),
+                ul = line.parent();
+            line.removeClass()
+                .addClass('fadeOutRight animated')
+                .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+                    $(this).remove();
+                    //移除空ul
+                    if (ul.html().indexOf('li') < 0) {
+                        ul.parent().remove();
+                    }
+                    //若无待处理邮件，则显示提醒
+                    if ($('#task').html().indexOf('mail-line') < 0) {
+                        document.getElementById('task').innerHTML = '<div class="vertical-middle-t"> <div class="vertical-middle-tc"> <div class="no-content"> <p>没有需要处理的邮件</p> </div> </div> </div>';
+                        setTimeout(function () {
+                            $('#task .no-content').addClass('grow');
+                        }, 1);
+                    }
+                });
         });
 
     /**
-     * 弹出框
+     * 顶部弹出框
      * @param word 显示内容
      * @param type success为绿色成功框，error为红色警告框
-     * @param time 显示时间
+     * @param time 显示时间，默认值为2000
      */
     function topAlert(word,type,time) {
         var oldBox = document.getElementsByClassName('alert-box')[0],
@@ -325,6 +336,6 @@
             box.addEventListener('animationend',function() {
                 box.remove();
             });
-        },time);
+        },time || 2000);
     }
 } (jQuery);

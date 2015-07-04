@@ -20,7 +20,6 @@
         <p class="login-alert">&nbsp;</p>
         <button type="submit" class="login-btn">登&nbsp;&nbsp;录</button>
     </form>
-
 <script>
     +function() {
         /**
@@ -82,7 +81,6 @@
                             loginBtn.innerHTML = '登&nbsp;&nbsp;录';
                         } else if (obj.status == '0') {
 
-                            window.location.href = 'handler';
                         } else {
                             loginAlert.innerHTML = '登录失败，请重试';
                             doAnimate('.login-alert', 'fadeInDown');
