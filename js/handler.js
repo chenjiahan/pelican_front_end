@@ -61,32 +61,44 @@
      * 发送邮件
      */
     $('.send-btn').click(function () {
-        var title = document.getElementById('title').value,
+        var receiver = document.getElementById('receiver').value,
             subject = document.getElementById('subject').value,
-            html = document.getElementsByClassName('editor')[0].innerHTML;
-        if(!title) {
+            html = document.getElementsByClassName('editor')[0].innerHTML,
+            btn = this;
+        if(!receiver) {
             topAlert('收信人不能为空','error');
         } else if (!subject) {
             topAlert('邮件主题不能为空','error');
         } else if (!html) {
             topAlert('邮件正文不能为空','error');
         } else {
-            var btn = $(this);
-            btn.html('<i class="fa fa-spinner fa-pulse"></i>');
+            btn.innerHTML = '<i class="fa fa-spinner fa-pulse"></i>';
         }
-        /*
         $.ajax({
-            url: "/api/url",
+            url: "/api/email/send",
             type: 'POST',
             dataType: 'json',
-            data: {},
+            data: {
+                token: token,
+                receiver: receiver,
+                title: subject,
+                content: html
+            },
             success: function (obj) {
-
+                if(obj.status === 0) {
+                    topAlert('发送成功','success');
+                    document.getElementById('receiver').value = '';
+                    document.getElementById('subject').value = '';
+                    document.getElementsByClassName('editor')[0].innerHTML = '';
+                } else {
+                    topAlert('发送失败','error');
+                }
             },
             error: function() {
+                topAlert('发送失败','error');
                 btn.html('发送');
             }
-        });*/
+        });
     });
 
     /**
@@ -172,10 +184,14 @@
                 page:page
             },
             success: function (obj) {
+                if(obj.status === 0) {
 
+                } else {
+                    topAlert('网络错误','error');
+                }
             },
             error: function() {
-
+                topAlert('网络错误','error');
             }
         });
         var delay = 0;
@@ -263,7 +279,25 @@
         html: '<pre style="background-color:#222527;color:#ede0ce;font-family:"Source Code Pro";font-size:12.0pt;"><span style="color:#26a6a6;">html </span>{<br>  <span style="color:#ff5d38;">height</span>: <span style="color:#bcd42a;">100</span><span style="color:#26a6a6;">%</span><span style="color:#cc7832;">;<br></span>}<br><span style="color:#26a6a6;">body </span>{<br>  <span style="color:#ff5d38;">height</span>: <span style="color:#bcd42a;">100</span><span style="color:#26a6a6;">%</span><span style="color:#cc7832;">;<br></span><span style="color:#cc7832;">  </span><span style="color:#ff5d38;">overflow-x</span>: <span style="color:#dee3ec;">hidden</span><span style="color:#cc7832;">;<br></span>}<br><br><span style="color:#7a7267;font-style:italic;">/*--head nav--*/<br></span>.<span style="color:#ff5d38;">head-nav </span>{<br>  <span style="color:#ff5d38;">position</span>: <span style="color:#dee3ec;">fixed</span><span style="color:#cc7832;">;<br></span><span style="color:#cc7832;">  </span><span style="color:#ff5d38;">z-index</span>: <span style="color:#bcd42a;">100</span><span style="color:#cc7832;">;<br></span><span style="color:#cc7832;">  </span><span style="color:#ff5d38;">top</span>: <span style="color:#bcd42a;">0</span><span style="color:#cc7832;">;<br></span><span style="color:#cc7832;">  </span><span style="color:#ff5d38;">left</span>: <span style="color:#bcd42a;">0</span><span style="color:#cc7832;">;<br></span><span style="color:#cc7832;">  </span><span style="color:#ff5d38;">right</span>: <span style="color:#bcd42a;">0</span><span style="color:#cc7832;">;<br></span><span style="color:#cc7832;">  </span><span style="color:#ff5d38;">height</span>: <span style="color:#bcd42a;">60</span><span style="color:#dee3ec;">px</span><span style="color:#cc7832;">;<br></span><span style="color:#cc7832;">  </span><span style="color:#ff5d38;">padding</span>: <span style="color:#bcd42a;">0 45</span><span style="color:#dee3ec;">px</span><span style="color:#cc7832;">;<br></span><span style="color:#cc7832;">  </span><span style="color:#ff5d38;">-webkit-box-shadow</span>: <span style="color:#bcd42a;">0 0 4</span><span style="color:#dee3ec;">px </span><span style="color:#bcd42a;">rgba</span>(<span style="color:#bcd42a;">0</span><span style="color:#cc7832;">,</span><span style="color:#bcd42a;">0</span><span style="color:#cc7832;">,</span><span style="color:#bcd42a;">0</span><span style="color:#cc7832;">,</span><span style="color:#bcd42a;">.14</span>)<span style="color:#cc7832;">,</span><span style="color:#bcd42a;">0 4</span><span style="color:#dee3ec;">px </span><span style="color:#bcd42a;">8</span><span style="color:#dee3ec;">px </span><span style="color:#bcd42a;">rgba</span>(<span style="color:#bcd42a;">0</span><span style="color:#cc7832;">,</span><span style="color:#bcd42a;">0</span><span style="color:#cc7832;">,</span><span style="color:#bcd42a;">0</span><span style="color:#cc7832;">,</span><span style="color:#bcd42a;">.28</span>)<span style="color:#cc7832;">;<br></span><span style="color:#cc7832;">          </span><span style="color:#ff5d38;">box-shadow</span>: <span style="color:#bcd42a;">0 0 4</span><span style="color:#dee3ec;">px </span><span style="color:#bcd42a;">rgba</span>(<span style="color:#bcd42a;">0</span><span style="color:#cc7832;">,</span><span style="color:#bcd42a;">0</span><span style="color:#cc7832;">,</span><span style="color:#bcd42a;">0</span><span style="color:#cc7832;">,</span><span style="color:#bcd42a;">.14</span>)<span style="color:#cc7832;">,</span><span style="color:#bcd42a;">0 4</span><span style="color:#dee3ec;">px </span><span style="color:#bcd42a;">8</span><span style="color:#dee3ec;">px </span><span style="color:#bcd42a;">rgba</span>(<span style="color:#bcd42a;">0</span><span style="color:#cc7832;">,</span><span style="color:#bcd42a;">0</span><span style="color:#cc7832;">,</span><span style="color:#bcd42a;">0</span><span style="color:#cc7832;">,</span><span style="color:#bcd42a;">.28</span>)<span style="color:#cc7832;">;<br></span><span style="color:#cc7832;">  </span><span style="color:#ff5d38;">-webkit-transition</span>: <span style="color:#dee3ec;">background </span><span style="color:#bcd42a;">.3</span><span style="color:#dee3ec;">s ease-in-out</span><span style="color:#cc7832;">;<br></span><span style="color:#cc7832;">       </span><span style="color:#ff5d38;">-o-transition</span>: <span style="color:#dee3ec;">background </span><span style="color:#bcd42a;">.3</span><span style="color:#dee3ec;">s ease-in-out</span><span style="color:#cc7832;">;<br></span><span style="color:#cc7832;">          </span><span style="color:#ff5d38;">transition</span>: <span style="color:#dee3ec;">background </span><span style="color:#bcd42a;">.3</span><span style="color:#dee3ec;">s ease-in-out</span><span style="color:#cc7832;">;<br></span><span style="color:#cc7832;"><br></span><span style="color:#cc7832;">  </span><span style="color:#7a7267;font-style:italic;">/*--prevent chrome fixed element blink--*/<br></span><span style="color:#7a7267;font-style:italic;">  </span><span style="color:#ff5d38;">-webkit-transform</span>: <span style="color:#bcd42a;">translateZ</span>(<span style="color:#bcd42a;">0</span>)<span style="color:#cc7832;">;<br></span>}</pre>'
     }
     function showMailDetail(id) {
-        document.getElementById('task').innerHTML = template('md-tmpl',testData);
+        $.ajax({
+            url: "/api/email/detail",
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                token: token,
+                mailId: '123'
+            },
+            success: function (obj) {
+                if(obj.status === 0) {
+                    document.getElementById('task').innerHTML = template('md-tmpl',testData);
+                } else {
+                    topAlert('网络错误','error');
+                }
+            },
+            error: function() {
+                topAlert('网络错误','error');
+            }
+        });
     }
 
     /**
@@ -284,30 +318,66 @@
         })
         //详情页标记为已处理
         .delegate('.done-btn', 'click', function() {
-            topAlert('处理成功','success');
-            showTaskList(testList,nowPage);
+            $.ajax({
+                url: "/api/email/manage",
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    token:token,
+                    mailId: '123'
+                },
+                success: function (obj) {
+                    if(obj.status === 0) {
+                        topAlert('处理成功','success');
+                        showTaskList(testList,nowPage);
+                    } else {
+                        topAlert('处理失败','error');
+                    }
+                },
+                error: function() {
+                    topAlert('处理失败','error');
+                }
+            });
         })
         //列表页标记为已处理
         .delegate('.li-done','click', function () {
-            topAlert('处理成功','success');
-            var line = $(this).parent(),
-                ul = line.parent();
-            line.removeClass()
-                .addClass('fadeOutRight animated')
-                .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
-                    $(this).remove();
-                    //移除空ul
-                    if (ul.html().indexOf('li') < 0) {
-                        ul.parent().remove();
+            $.ajax({
+                url: "/api/email/manage",
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    token:token,
+                    mailId: '123'
+                },
+                success: function (obj) {
+                    if(obj.status === 0) {
+                        topAlert('处理成功','success');
+                        var line = $(this).parent(),
+                            ul = line.parent();
+                        line.removeClass()
+                            .addClass('fadeOutRight animated')
+                            .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+                                $(this).remove();
+                                //移除空ul
+                                if (ul.html().indexOf('li') < 0) {
+                                    ul.parent().remove();
+                                }
+                                //若无待处理邮件，则显示提醒
+                                if ($('#task').html().indexOf('mail-line') < 0) {
+                                    document.getElementById('task').innerHTML = '<div class="vertical-middle-t"> <div class="vertical-middle-tc"> <div class="no-content"> <p>没有需要处理的邮件</p> </div> </div> </div>';
+                                    setTimeout(function () {
+                                        $('#task .no-content').addClass('grow');
+                                    }, 1);
+                                }
+                            });
+                    } else {
+                        topAlert('处理失败','error');
                     }
-                    //若无待处理邮件，则显示提醒
-                    if ($('#task').html().indexOf('mail-line') < 0) {
-                        document.getElementById('task').innerHTML = '<div class="vertical-middle-t"> <div class="vertical-middle-tc"> <div class="no-content"> <p>没有需要处理的邮件</p> </div> </div> </div>';
-                        setTimeout(function () {
-                            $('#task .no-content').addClass('grow');
-                        }, 1);
-                    }
-                });
+                },
+                error: function() {
+                    topAlert('处理失败','error');
+                }
+            });
         });
 
     /**
