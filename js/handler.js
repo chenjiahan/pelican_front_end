@@ -165,7 +165,7 @@
     function showTaskList(obj,page) {
         $.ajax({
             url: "/api/email/list",
-            type: 'POST',
+            type: 'GET',
             dataType: 'json',
             data: {
                 token:token,
