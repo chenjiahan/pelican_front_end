@@ -82,33 +82,33 @@
             topAlert('邮件正文不能为空','error');
         } else {
             btn.innerHTML = '<i class="fa fa-spinner fa-pulse"></i>';
-        }
-        $.ajax({
-            url: "/api/email/send",
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                token: token,
-                receiver: receiver,
-                title: subject,
-                content: html
-            },
-            success: function (obj) {
-                if(obj.status === 0) {
-                    topAlert('发送成功','success');
-                    document.getElementById('receiver').value = '';
-                    document.getElementById('subject').value = '';
-                    document.getElementsByClassName('editor')[0].innerHTML = '';
-                } else {
+            $.ajax({
+                url: "/api/email/send",
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    token: token,
+                    receiver: receiver,
+                    title: subject,
+                    content: html
+                },
+                success: function (obj) {
+                    if(obj.status === 0) {
+                        topAlert('发送成功','success');
+                        document.getElementById('receiver').value = '';
+                        document.getElementById('subject').value = '';
+                        document.getElementsByClassName('editor')[0].innerHTML = '';
+                    } else {
+                        topAlert('发送失败','error');
+                    }
+                    btn.html('发送');
+                },
+                error: function() {
                     topAlert('发送失败','error');
+                    btn.html('发送');
                 }
-                btn.html('发送');
-            },
-            error: function() {
-                topAlert('发送失败','error');
-                btn.html('发送');
-            }
-        });
+            });
+        }
     });
 
     /**
