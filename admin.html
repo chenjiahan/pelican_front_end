@@ -96,7 +96,7 @@
             topAlert('密码为空', 'error');
         } else if (psd.length<6){
             topAlert('密码小于6位')
-        }   else if (!smtp_addr){
+        } else if (!smtp_addr){
             topAlert('SMTP服务器地址为空','error');
         } else if (!smtp_port){
             topAlert('SMTP端口号为空','error');
@@ -111,8 +111,27 @@
                 datatype:"json",
                 data: JSON.stringify({token:token,mailAddress:account,password:psd,smtp:smtp_addr,
                     smtpPort:smtp_port,imap:imap_addr,imapPort:imap_port}),
-                success:function() {
-                    topAlert('设置成功','success');
+                success:function(data) {
+                    if(data.status ==  0){
+                        topalert(data.message,'seccess');
+                    } else {
+                        switch (data.status){
+                            case 101:
+                                topalert(data.message,'error');
+                                break;
+                            case 102:
+                                topalert(data.message,'error');
+                                break;
+                            case 103:
+                                topalert(data.message,'error');
+                                break;
+                            case 104:
+                                topalert(data.message,'error');
+                                break;
+                            default :
+                                topAlert('设置失败，请稍后重试','error');
+                        }
+                    }
                 },
                 error:function(){
                     topAlert('设置失败，请稍后重试','error');
