@@ -30,3 +30,12 @@ function topAlert(word,type,time) {
         });
     },time || 2000);
 }
+
+/**
+ * 登出
+ */
+document.getElementsByClassName('logout')[0].addEventListener('click', function(){
+    $.cookie('token', '');
+    $.cookie('name', '');
+    window.location.href = 'index.html';
+})
