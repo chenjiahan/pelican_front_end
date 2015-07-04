@@ -8,6 +8,7 @@
     var token = $.cookie('token'),
         name = $.cookie('name');
     document.getElementById('username').innerHTML = name;
+    topAlert('欢迎回来','welcome');
 
     /**
      * @description: 初始化editor
@@ -392,23 +393,24 @@
     /**
      * 顶部弹出框
      * @param word 显示内容
-     * @param type success为绿色成功框，error为红色警告框
+     * @param type success为绿色成功框
+     *             welcome为蓝色欢迎框
+     *             error为红色警告框
      * @param time 显示时间，默认值为2000
      */
     function topAlert(word,type,time) {
         var oldBox = document.getElementsByClassName('alert-box')[0],
             box = document.createElement('div'),
-            icon = '';
+            icon = {
+                'success': '<i class="fa fa-check"></i>',
+                'welcome': '<i class="fa fa-leaf"></i>',
+                'error':   '<i class="fa fa-exclamation-triangle"></i>'
+            };
         if(oldBox){
             oldBox.remove();
         }
-        if (type === 'success') {
-            icon = '<i class="fa fa-check"></i>';
-        } else if (type === 'error') {
-            icon = '<i class="fa fa-exclamation-triangle"></i>';
-        }
         box.className = 'alert-box animated fadeInDownBig alert-' + type;
-        box.innerHTML = icon + word;
+        box.innerHTML = icon[type] + word;
         document.body.appendChild(box);
         setTimeout(function(){
             box.className = 'alert-box animated fadeOutUpBig alert-' + type;
