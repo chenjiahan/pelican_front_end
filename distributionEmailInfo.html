@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <title>鹈鹕邮件</title>
+    <meta name="description" content="鹈鹕邮件">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/distribution.css">
+    <link href="img/favicon.ico" rel="shortcut icon">
+</head>
+<body class="nui-scroll">
+	<header class="head-nav">
+		<a href=""><h1><i class="fa fa-envelope"></i>Pelican</h1></a>
+		<div class="nav-right">
+			<i class="fa fa-sign-out"></i>
+			<span>登出</span>
+		</div>
+		<div class="nav-right">
+			<i class="fa fa-user"></i>
+			<span>用户名</span>
+		</div>
+	</header>
+
+	<div class="side-menu animated fadeInLeft">
+		<ul class="slide-menu-ul">
+			<li class="active-li" id="mail-list"><i class="fa fa-envelope-o"></i>邮件列表</li>
+			<!-- <li><i class="fa fa-tags"></i>标签管理</li> -->
+		</ul>
+	</div>
+
+    <div class="main-container">
+
+        <!-- 写邮件 start -->
+        <div id="email-content" class="body-box animated fadeInDown">
+            <div class="mail-title clearfix">
+                <label>发信人：</label>
+                <label></label>
+            </div>
+            <div class="mail-title clearfix">
+                <label>主题：</label>
+                <label></label>
+            </div>
+            <div class="mail-title clearfix">
+                <label>处理人：</label>
+                <label></label>
+            </div>
+            <div class="content-box">
+                <div class="editor nui-scroll"></div>
+            </div>
+            <!-- <div class="tag-box">
+                <div class="tag-editor nui-scroll"></div>
+            </div> -->
+            <a href="javascript:;" class="complete-btn">完成</a>
+        </div>
+        <!-- 写邮件 end -->
+
+       </div>
+
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/jquery.hotkeys.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-wysiwyg.js"></script>
+<script src="js/handler.js"></script>
+<script>
+$("#mail-list").click(function() {
+    window.open("distribution.html", "_self");
+});
+</script>
+</body>
+</html>
