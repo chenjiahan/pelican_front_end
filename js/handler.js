@@ -2,7 +2,13 @@
  * Created by Chen Jiahan on 2015/6/25.
  */
 +function($) {
-    var token = $.cookie('token');
+    /**
+     * 获取token
+     */
+    var token = $.cookie('token'),
+        name = $.cookie('name');
+    document.getElementById('username').innerHTML = name;
+
     /**
      * @description: 初始化editor
      */
@@ -12,6 +18,8 @@
      * 登出
      */
     document.getElementsByClassName('logout')[0].addEventListener('click', function(){
+        $.cookie('token', '');
+        $.cookie('name', '');
         window.location.href = 'index.html';
     })
 
@@ -93,6 +101,7 @@
                 } else {
                     topAlert('发送失败','error');
                 }
+                btn.html('发送');
             },
             error: function() {
                 topAlert('发送失败','error');
