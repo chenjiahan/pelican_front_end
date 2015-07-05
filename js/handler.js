@@ -205,7 +205,7 @@
                                     aList[i].senderName +
                                     '</span><span class="li-title nowrap" data-id="' + aList[i].mailId + '">' +
                                     aList[i].title +
-                                    '</span><span class="li-done" data-id="' + yList[i].mailId + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
+                                    '</span><span class="li-done" data-id="' + aList[i].mailId + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
                                     aList[i].receiveTime.replace('T',' ') +
                                     '</span></li>';
                                 delay = Math.min(delay + 100, 1000);
