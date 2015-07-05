@@ -143,8 +143,8 @@
                 if(obj.status === 0) {
                     var delay = 0,
                         mList = obj.data.list;
-                    if (mList.length === 0) {
-                        document.getElementById('task').innerHTML = '<div class="vertical-middle-t"> <div class="vertical-middle-tc"> <div class="no-content"> <p>没有需要处理的邮件</p> </div> </div> </div>';
+                    if (mList.length === 0 && !document.querySelector('#task .no-content')) {
+                        document.getElementById('task').innerHTML = '<div class="vertical-middle-t"><div class="vertical-middle-tc"> <div class="no-content"> <p>没有需要处理的邮件</p> </div> </div> </div>';
                         setTimeout(function () {
                             document.querySelector('#task .no-content').classList.add('grow');
                         }, 1);
