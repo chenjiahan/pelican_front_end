@@ -174,7 +174,7 @@
                                     tList[i].senderName +
                                     '</span><span class="li-title" data-id="' + tList[i].mailId + '">' +
                                     tList[i].title +
-                                    '</span><span class="li-done"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
+                                    '</span><span class="li-done" data-id="' + yList[i].mailId + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
                                     tList[i].receiveTime.substr(11, 5) +
                                     '</span></li>';
                                 delay  = Math.min(delay + 100, 1000);
@@ -189,7 +189,7 @@
                                     yList[i].senderName +
                                     '</span><span class="li-title" data-id="' + yList[i].mailId + '">' +
                                     yList[i].title +
-                                    '</span><span class="li-done"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
+                                    '</span><span class="li-done" data-id="' + yList[i].mailId + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
                                     yList[i].receiveTime.substr(11, 5) +
                                     '</span></li>';
                                 delay = Math.min(delay + 100, 1000);
@@ -204,7 +204,7 @@
                                     aList[i].senderName +
                                     '</span><span class="li-title" data-id="' + aList[i].mailId + '">' +
                                     aList[i].title +
-                                    '</span><span class="li-done"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
+                                    '</span><span class="li-done" data-id="' + yList[i].mailId + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
                                     aList[i].receiveTime.replace('T',' ') +
                                     '</span></li>';
                                 delay = Math.min(delay + 100, 1000);
@@ -234,10 +234,11 @@
             dataType: 'json',
             data: {
                 token: token,
-                mailId: '123'
+                mailId: id
             },
             success: function (obj) {
                 if(obj.status === 0) {
+                    data.id = id;
                     document.getElementById('task').innerHTML = template('md-tmpl',obj.data);
                 } else {
                     topAlert('网络错误','error');
@@ -273,7 +274,7 @@
                 dataType: 'json',
                 data: {
                     token:token,
-                    mailId: '123'
+                    mailId: $(this).data('id')
                 },
                 success: function (obj) {
                     if(obj.status === 0) {
@@ -296,7 +297,7 @@
                 dataType: 'json',
                 data: {
                     token:token,
-                    mailId: '123'
+                    mailId: $(this).data('id')
                 },
                 success: function (obj) {
                     if(obj.status === 0) {
