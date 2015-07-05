@@ -333,6 +333,48 @@ body {
 .common-input-2:focus {
     outline: none;
 }
+.modify-btn {
+    display: block;
+    width: 90px;
+    color: #fff;
+    padding: 6px 0;
+    margin: 20px 0;
+    margin-left: 8%;
+    border-radius: 4px;
+    text-align: center;
+    background: #01A2A6;
+    -webkit-transition: background .1s ease-in-out;
+    -o-transition: background .1s ease-in-out;
+    transition: background .1s ease-in-out;
+}
+.modify-btn:hover {
+    color: #fff;
+    background-color: #018286;
+}
+.modify-btn:focus {
+    color: #fff;
+}
+.cancel-btn {
+    display: block;
+    width: 90px;
+    color: #fff;
+    padding: 6px 0;
+    margin: 20px 0;
+    margin-left: 8%;
+    border-radius: 4px;
+    text-align: center;
+    background: #01A2A6;
+    -webkit-transition: background .1s ease-in-out;
+    -o-transition: background .1s ease-in-out;
+    transition: background .1s ease-in-out;
+}
+.cancel-btn:hover {
+    color: #fff;
+    background-color: #018286;
+}
+.cancel-btn:focus {
+    color: #fff;
+}
 .confirm-btn {
     display: block;
     width: 90px;
