@@ -131,6 +131,7 @@
     }
     var nowPage = 1;
     function showTaskList(page) {
+        document.getElementById('task').innerHTML = '';
         $.ajax({
             url: "/api/email/list",
             type: 'GET',
@@ -143,7 +144,7 @@
                 if(obj.status === 0) {
                     var delay = 0,
                         mList = obj.data.list;
-                    if (mList.length === 0 && !document.querySelector('#task .no-content')) {
+                    if (mList.length === 0) {
                         document.getElementById('task').innerHTML = '<div class="vertical-middle-t"><div class="vertical-middle-tc"> <div class="no-content"> <p>没有需要处理的邮件</p> </div> </div> </div>';
                         setTimeout(function () {
                             document.querySelector('#task .no-content').classList.add('grow');
@@ -170,9 +171,9 @@
                             delay = Math.min(delay + 100, 1000);
                             html += '<div class="mail-line"><p class="delay-' + delay + ' animated zoomIn">今天</p><ul class="mail-ul">';
                             for (var i = 0; i < tList.length; i++) {
-                                html += '<li class="delay-' + delay + ' animated zoomIn"><span class="li-name">' +
+                                html += '<li class="delay-' + delay + ' animated zoomIn"><span class="li-name nowrap">' +
                                     tList[i].senderName +
-                                    '</span><span class="li-title" data-id="' + tList[i].mailId + '">' +
+                                    '</span><span class="li-title nowrap" data-id="' + tList[i].mailId + '">' +
                                     tList[i].title +
                                     '</span><span class="li-done" data-id="' + yList[i].mailId + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
                                     tList[i].receiveTime.substr(11, 5) +
@@ -185,9 +186,9 @@
                             delay = Math.min(delay + 100, 1000);
                             html += '<div class="mail-line"><p class="delay-' + delay + ' animated zoomIn">昨天</p><ul class="mail-ul">';
                             for (var i = 0; i < yList.length; i++) {
-                                html += '<li class="delay-' + delay + ' animated zoomIn"><span class="li-name">' +
+                                html += '<li class="delay-' + delay + ' animated zoomIn"><span class="li-name nowrap">' +
                                     yList[i].senderName +
-                                    '</span><span class="li-title" data-id="' + yList[i].mailId + '">' +
+                                    '</span><span class="li-title nowrap" data-id="' + yList[i].mailId + '">' +
                                     yList[i].title +
                                     '</span><span class="li-done" data-id="' + yList[i].mailId + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
                                     yList[i].receiveTime.substr(11, 5) +
@@ -200,9 +201,9 @@
                             delay = Math.min(delay + 100, 1000);
                             html += '<div class="mail-line"><p class="delay-' + delay + ' animated zoomIn">更早</p><ul class="mail-ul">';
                             for (var i = 0; i < aList.length; i++) {
-                                html += '<li class="delay-' + delay + ' animated zoomIn"><span class="li-name">' +
+                                html += '<li class="delay-' + delay + ' animated zoomIn"><span class="li-name nowrap">' +
                                     aList[i].senderName +
-                                    '</span><span class="li-title" data-id="' + aList[i].mailId + '">' +
+                                    '</span><span class="li-title nowrap" data-id="' + aList[i].mailId + '">' +
                                     aList[i].title +
                                     '</span><span class="li-done" data-id="' + yList[i].mailId + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
                                     aList[i].receiveTime.replace('T',' ') +
