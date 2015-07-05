@@ -446,4 +446,18 @@ body {
   background-color: #0a7fa4;
 }
 
-
+.btn-line {
+  width: 100%;
+  height: 40px;
+}
+.prev-btn,
+.next-btn {
+  height: 40px;
+  border: 1px solid #4791D2;
+}
+.prev-btn {
+  float: left;
+}
+.next-btn {
+  float: right;
+}

@@ -142,13 +142,20 @@
                     <a href="javascript:" class="done-btn" data-id="{{data.id}}">标记为已处理</a>
                 </div>
                 <h2>{{data.subject}}</h2>
-                <p><span class="detail-span">发件人：</span>{{data.name}}（{{data.mail}}）</p>
+                <p><span class="detail-span">发件人：</span>
+                    {{each data.from as r i}}
+                        {{if i > 0}}
+                            ，{{r.name}}({{r.address}})
+                        {{else}}
+                            {{r.name}}({{r.address}})
+                        {{/if}}
+                    {{/each}}
                 <p><span class="detail-span">收件人：</span>
                     {{each data.to as r i}}
                         {{if i > 0}}
-                           ，{{r.name}}（{{r.address}}）
+                           ，{{r.name}}({{r.address}})
                         {{else}}
-                           {{r.name}}（{{r.address}}）
+                           {{r.name}}({{r.address}})
                         {{/if}}
                     {{/each}}
                 </p>

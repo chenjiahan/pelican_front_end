@@ -46,11 +46,11 @@
             $('.' + target + '-li').addClass('active-li');
             $('.head-nav')[0].className = 'head-nav head-nav-' + target;
             $('#' + target).show();
-            if(target !== 'task') {
+            if(target !== 'task' && target !== 'send') {
                 setTimeout(function(){
                     document.querySelector('#' + target + ' .no-content').classList.add('grow');
                 },1);
-            } else {
+            } else if (target === 'task'){
                 showTaskList(nowPage);
             }
         }
@@ -213,6 +213,7 @@
                             }
                             html += '</ul></div>';
                         }
+                        html += '<div class="btn-line clearfix"><a href="javascript:" class="prev-btn"><i class="fa fa-arrow-left"></i>上一页</a><a href="javascript:" class="next-btn">下一页</a></div>'
                         document.getElementById('task').innerHTML = html;
                     }
                 } else {
