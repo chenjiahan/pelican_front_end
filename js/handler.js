@@ -214,7 +214,7 @@
                             }
                             html += '</ul></div>';
                         }
-                        html += '<div class="btn-line clearfix"><a href="javascript:" class="prev-btn"><i class="fa fa-arrow-left"></i>上一页</a><a href="javascript:" class="next-btn">下一页</a></div>'
+                        //html += '<div class="btn-line clearfix"><a href="javascript:" class="prev-btn"><i class="fa fa-arrow-left"></i>上一页</a><a href="javascript:" class="next-btn">下一页</a></div>'
                         document.getElementById('task').innerHTML = html;
                     }
                 } else {
