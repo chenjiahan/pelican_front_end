@@ -192,11 +192,17 @@ function getEmail(pageNum) {
                     <a href="javascript:" class="reply-btn">回复邮件</a>
                     <a href="javascript:" class="done-btn" data-id="{{id}}">标记为已处理</a>
                 </div>
-                <h2>邮件标题：{{title}}</h2>
+                <h2>邮件标题：{{data.subject}}</h2>
                 <p><span class="detail-span">发件人：</span>{{name}}（{{mail}}）</p>
-                <p><span class="detail-span">时&nbsp;&nbsp;&nbsp;间：</span>{{time}}</p>
+                <p>
+                    <span class="detail-span">收件人：</span>
+                    {{each to as r i}}
+                    {{r.name}}（{{r.address}}）&nbsp;&nbsp;
+                    {{//each}}
+                </p>
+                <p><span class="detail-span">时&nbsp;&nbsp;&nbsp;间：</span>{{receivedDate}}</p>
             </div>
-            <div class="mail-content">{{#html}}</div>
+            <div class="mail-content">{{#data.html}}</div>
         </div>
     </script>
 
