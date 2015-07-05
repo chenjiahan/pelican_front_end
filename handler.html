@@ -143,8 +143,7 @@
                 </div>
                 <h2>{{data.subject}}</h2>
                 <p><span class="detail-span">发件人：</span>{{data.name}}（{{data.mail}}）</p>
-                <p>
-                    <span class="detail-span">收件人：</span>
+                <p><span class="detail-span">收件人：</span>
                     {{each data.to as r i}}
                         {{if i > 0}}
                            ，{{r.name}}（{{r.address}}）
