@@ -172,7 +172,7 @@
                             html += '<div class="mail-line"><p class="delay-' + delay + ' animated zoomIn">今天</p><ul class="mail-ul">';
                             for (var i = 0; i < tList.length; i++) {
                                 html += '<li class="delay-' + delay + ' animated zoomIn"><span class="li-name nowrap">' +
-                                    tList[i].senderName +
+                                    tList[i].senderName[0].name +
                                     '</span><span class="li-title nowrap" data-id="' + tList[i].mailId + '">' +
                                     tList[i].title +
                                     '</span><span class="li-done" data-id="' + tList[i].mailId + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
@@ -187,7 +187,7 @@
                             html += '<div class="mail-line"><p class="delay-' + delay + ' animated zoomIn">昨天</p><ul class="mail-ul">';
                             for (var i = 0; i < yList.length; i++) {
                                 html += '<li class="delay-' + delay + ' animated zoomIn"><span class="li-name nowrap">' +
-                                    yList[i].senderName +
+                                    yList[i].senderName[0].name +
                                     '</span><span class="li-title nowrap" data-id="' + yList[i].mailId + '">' +
                                     yList[i].title +
                                     '</span><span class="li-done" data-id="' + yList[i].mailId + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
@@ -202,7 +202,7 @@
                             html += '<div class="mail-line"><p class="delay-' + delay + ' animated zoomIn">更早</p><ul class="mail-ul">';
                             for (var i = 0; i < aList.length; i++) {
                                 html += '<li class="delay-' + delay + ' animated zoomIn"><span class="li-name nowrap">' +
-                                    aList[i].senderName +
+                                    aList[i].senderName[0].name +
                                     '</span><span class="li-title nowrap" data-id="' + aList[i].mailId + '">' +
                                     aList[i].title +
                                     '</span><span class="li-done" data-id="' + aList[i].mailId + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
