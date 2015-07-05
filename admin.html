@@ -110,7 +110,7 @@
             type: "GET",
             url:  "/api/admin/mailConfig",
             datatype:"json",
-            data: JSON.stringify({token:token}),
+            data: {token:token},
             success:function(result) {
                 if(results.status == 0){
                     var data = jQuery.parse(results.data);
@@ -168,7 +168,7 @@
             type: "GET",
             url:  "/api/admin/mailConfig",
             datatype:"json",
-            data: JSON.stringify({token:token}),
+            data: {token:token},
             success:function(result) {
                 if(results.status == 0){
                     var data = jQuery.parse(results.data);
@@ -230,8 +230,8 @@
                 type: "POST",
                 url:  "/api/admin/mailConfig",
                 datatype:"json",
-                data: JSON.stringify({token:token,mailAddress:account,password:psd,smtp:smtp_addr,
-                    smtpPort:smtp_port,imap:imap_addr,imapPort:imap_port}),
+                data: {token:token,mailAddress:account,password:psd,smtp:smtp_addr,
+                    smtpPort:smtp_port,imap:imap_addr,imapPort:imap_port},
                 success:function(data) {
                     if(data.status ==  0){
                         topalert(data.message,'seccess');
