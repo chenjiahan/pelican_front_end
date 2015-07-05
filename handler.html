@@ -190,17 +190,17 @@ function getEmail(pageNum) {
                 <div class="detail-tool">
                     <a href="javascript:" class="back-btn">返回上级</a>
                     <a href="javascript:" class="reply-btn">回复邮件</a>
-                    <a href="javascript:" class="done-btn" data-id="{{id}}">标记为已处理</a>
+                    <a href="javascript:" class="done-btn" data-id="{{data.id}}">标记为已处理</a>
                 </div>
                 <h2>邮件标题：{{data.subject}}</h2>
-                <p><span class="detail-span">发件人：</span>{{name}}（{{mail}}）</p>
+                <p><span class="detail-span">发件人：</span>{{data.name}}（{{data.mail}}）</p>
                 <p>
                     <span class="detail-span">收件人：</span>
                     {{each to as r i}}
-                    {{r.name}}（{{r.address}}）&nbsp;&nbsp;
+                        {{r.name}}（{{r.address}}）&nbsp;&nbsp;
                     {{//each}}
                 </p>
-                <p><span class="detail-span">时&nbsp;&nbsp;&nbsp;间：</span>{{receivedDate}}</p>
+                <p><span class="detail-span">时&nbsp;&nbsp;&nbsp;间：</span>{{data.receivedDate}}</p>
             </div>
             <div class="mail-content">{{#data.html}}</div>
         </div>
