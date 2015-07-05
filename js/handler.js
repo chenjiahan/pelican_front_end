@@ -42,9 +42,6 @@
             $('#' + now).hide();
             $('#' + now + ' .no-content').removeClass('grow');
             $('.active-li').removeClass('active-li');
-            if(target === 'task') {
-                showTaskList(nowPage);
-            }
             //显示新页面
             $('.' + target + '-li').addClass('active-li');
             $('.head-nav')[0].className = 'head-nav head-nav-' + target;
@@ -53,6 +50,8 @@
                 setTimeout(function(){
                     document.querySelector('#' + target + ' .no-content').classList.add('grow');
                 },1);
+            } else {
+                showTaskList(nowPage);
             }
         }
     }
