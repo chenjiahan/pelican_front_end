@@ -353,7 +353,9 @@ body {
 }
 .li-name {
   width: 170px;
-  margin-left: 15px;
+  margin: 0 15px;
+  overflow: hidden;
+  height: 48px;
 }
 .li-time {
   color: #999;
