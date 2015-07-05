@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>鹈鹕邮件</title>
+    <meta name="description" content="鹈鹕邮件">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/distribution.css">
+    <link href="img/favicon.ico" rel="shortcut icon">
+</head>
+<body class="nui-scroll">
+    <header class="head-nav">
+        <a href=""><h1><i class="fa fa-envelope"></i>Pelican</h1></a>
+        <div class="nav-right logout">
+            <i class="fa fa-sign-out"></i>
+            <span>登出</span>
+        </div>
+        <div class="nav-right">
+            <i class="fa fa-user"></i>
+            <span id="username">用户名</span>
+        </div>
+    </header>
+
+    <div class="side-menu animated fadeInLeft">
+        <ul class="slide-menu-ul">
+            <li class="active-li" data-to="email-list"><i class="fa fa-envelope-o"></i>邮件列表</li>
+            <!-- <li data-to="tag-management"><i class="fa fa-tags"></i>标签管理</li> -->
+        </ul>
+    </div>
+
+    <div class="main-container">
+
+        <!-- email list start -->
+        <div id="email-list" class="body-box">
+            <!-- <div class="mail-line">
+                <p class="delay-100 animated zoomIn">今天</p>
+                <ul class="mail-ul">
+                    <li class="delay-100 animated zoomIn">
+                        <span class="li-name">发信人姓名</span>
+                        <span class="li-title">邮件标题 - balalala</span>
+                        <span class="li-done"><i class="fa fa-check"></i></span>
+                        <span class="li-time">12:30</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="mail-line">
+                <p class="delay-200 animated zoomIn">昨天</p>
+                <ul class="mail-ul">
+                    <li class="delay-200 animated zoomIn" onclick="emailInfo()">
+                        <span class="li-name">发信人姓名</span>
+                        <span class="li-title">邮件标题 - balalala</span>
+                        <span class="li-done"><i class="fa fa-check"></i></span>
+                        <span class="li-time">12:30</span>
+                    </li>
+                    <li class="delay-300 animated zoomIn">
+                        <span class="li-name">发信人姓名</span>
+                        <span class="li-title">邮件标题 - balalala</span>
+                        <span class="li-done"><i class="fa fa-check"></i></span>
+                        <span class="li-time">12:30</span>
+                    </li>
+                    <li class="delay-400 animated zoomIn">
+                        <span class="li-name">发信人姓名</span>
+                        <span class="li-title">邮件标题 - balalala</span>
+                        <span class="li-done"><i class="fa fa-check"></i></span>
+                        <span class="li-time">12:30</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="mail-line">
+                <p class="delay-500 animated zoomIn">更早</p>
+                <ul class="mail-ul">
+                    <li class="delay-500 animated zoomIn">
+                        <span class="li-name">发信人姓名</span>
+                        <span class="li-title">邮件标题 - balalala</span>
+                        <span class="li-done"><i class="fa fa-check"></i></span>
+                        <span class="li-time">2015-6-27</span>
+                    </li>
+                    <li class="delay-600 animated zoomIn">
+                        <span class="li-name">发信人姓名</span>
+                        <span class="li-title">邮件标题 - balalala</span>
+                        <span class="li-done"><i class="fa fa-check"></i></span>
+                        <span class="li-time">2015-6-27</span>
+                    </li>
+                    <li class="delay-700 animated zoomIn">
+                        <span class="li-name">发信人姓名</span>
+                        <span class="li-title">邮件标题 - balalala</span>
+                        <span class="li-done"><i class="fa fa-check"></i></span>
+                        <span class="li-time">2015-6-27</span>
+                    </li>
+                    <li class="delay-800 animated zoomIn">
+                        <span class="li-name">发信人姓名</span>
+                        <span class="li-title">邮件标题 - balalala</span>
+                        <span class="li-done"><i class="fa fa-check"></i></span>
+                        <span class="li-time">2015-6-27</span>
+                    </li>
+                    <li class="delay-900 animated zoomIn">
+                        <span class="li-name">发信人姓名</span>
+                        <span class="li-title">邮件标题 - balalala</span>
+                        <span class="li-done"><i class="fa fa-check"></i></span>
+                        <span class="li-time">2015-6-27</span>
+                    </li>
+                </ul> -->
+            <!-- </div> -->
+
+            <div class="mail-line">
+                <ul class="mail-ul">
+                    <li class="delay-1000 animated zoomIn" style="text-align: center;">
+                        <span id="show-more">更多</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- email list end -->
+
+        <!-- tag map start -->
+        <!-- <div id="tag-management" class="body-box">
+            <div id="add-tag">
+                <label><i class="fa fa-plus" id="add-tag"></i>添加标签</label>
+                <input type="text" id="tag-name" placeholder="标签名称" style="display: none;">
+                <button id="add-tag-confirm" style="display: none;">确认</button>
+            </div>
+        </div> -->
+        <!-- tag map end -->
+    </div>
+
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/jquery.hotkeys.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-wysiwyg.js"></script>
+<script src="js/distributor.js"></script>
+</body>
+</html>
