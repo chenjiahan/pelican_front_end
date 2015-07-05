@@ -49,9 +49,11 @@
             $('.' + target + '-li').addClass('active-li');
             $('.head-nav')[0].className = 'head-nav head-nav-' + target;
             $('#' + target).show();
-            setTimeout(function(){
-                document.querySelector('#' + target + ' .no-content').classList.add('grow');
-            },1);
+            if(target !== 'task') {
+                setTimeout(function(){
+                    document.querySelector('#' + target + ' .no-content').classList.add('grow');
+                },1);
+            }
         }
     }
 
