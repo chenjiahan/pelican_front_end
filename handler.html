@@ -145,9 +145,9 @@
                 <p><span class="detail-span">发件人：</span>{{data.name}}（{{data.mail}}）</p>
                 <p>
                     <span class="detail-span">收件人：</span>
-                    {{each to as r i}}
+                    {{each data.to as r i}}
                         {{r.name}}（{{r.address}}）&nbsp;&nbsp;
-                    {{//each}}
+                    {{/each}}
                 </p>
                 <p><span class="detail-span">时&nbsp;&nbsp;&nbsp;间：</span>{{data.receivedDate}}</p>
             </div>
