@@ -239,6 +239,7 @@
             success: function (obj) {
                 if(obj.status === 0) {
                     obj.data.id = id;
+                    obj.data.receivedDate = obj.data.receivedDate.substr(0,16).replace('-','年').replace('-','月').replace('T','日 ');
                     document.getElementById('task').innerHTML = template('md-tmpl',obj);
                 } else {
                     topAlert('网络错误','error');
