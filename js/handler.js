@@ -160,6 +160,7 @@
                             html = '';
                         //邮件根据日期归类
                         for (var i = 0; i < mList.length; i++) {
+                            mList[i].senderName[0].name = mList[i].senderName[0].name || '发件人：无';
                             if (mList[i].receiveTime.substr(0, 10) === today) {
                                 tList.push(mList[i]);
                             } else if (mList[i].receiveTime.substr(0, 10) === yesterday) {
