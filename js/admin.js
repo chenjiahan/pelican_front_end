@@ -39,3 +39,4 @@ document.getElementsByClassName('logout')[0].addEventListener('click', function(
     $.cookie('name', '');
     window.location.href = 'index.html';
 })
+

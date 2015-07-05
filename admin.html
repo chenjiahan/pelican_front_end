@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/admin.css">
     <link href="img/favicon.ico" rel="shortcut icon">
 </head>
+
 <body class="nui-scroll">
 <header class="head-nav">
     <a href=""><h1><i class="fa fa-envelope"></i>Pelican</h1></a>
@@ -39,12 +40,14 @@
             <ul class="mail-ul">
                 <li class="delay-100 animated zoomIn">
                     <span class="li-name">账 号：</span>
-                    <input type="text" class="common-input" id="account" placeholder="请在此输入账号"/>
+                    <input type="text" class="common-input" id="account" placeholder="尚未配置邮箱信息" readonly="readonly"/>
                 </li>
-                <li class="delay-100 animated zoomIn">
-                    <span class="li-name">密 码：</span>
-                    <input type="password" class="common-input"  id="psd" placeholder="请在此输入密码"/>
-                </li>
+                <div id = "psd-div" >
+                    <li class="delay-100 animated zoomIn"  id="psd-li">
+                        <span class="li-name">密 码：</span>
+                        <input type="password" class="common-input"  id="psd" placeholder="尚未配置邮箱信息" readonly="readonly"/>
+                    </li>
+                </div>
             </ul>
         </div>
         <div class="mail-line">
@@ -52,22 +55,24 @@
             <ul class="mail-ul">
                 <li class="delay-200 animated zoomIn">
                     <span class="li-name">SMTP服务器地址：</span>
-                    <input type="text" class="common-input" id="smtp-addr" placeholder="请在此输入SMTP服务器地址"/>
+                    <input type="text" class="common-input" id="smtp-addr" placeholder="尚未配置邮箱信息" readonly="readonly"/>
                 </li>
                 <li class="delay-200 animated zoomIn">
                     <span class="li-name">SMTP端口号：</span>
-                    <input type="text" class="common-input" id="smtp-port" placeholder="请在此输入SMTP端口号"/>
+                    <input type="text" class="common-input" id="smtp-port" placeholder="尚未配置邮箱信息" readonly="readonly"/>
                 </li>
                 <li class="delay-200 animated zoomIn">
                     <span class="li-name">IMAP服务器地址：</span>
-                    <input type="text" class="common-input" id="imap-addr" placeholder="请在此输入IMAP服务器地址"/>
+                    <input type="text" class="common-input" id="imap-addr" placeholder="尚未配置邮箱信息" readonly="readonly"/>
                 </li>
                 <li class="delay-200 animated zoomIn">
                     <span class="li-name">IMAP端口号：</span>
-                    <input type="text" class="common-input" id="imap-port" placeholder="请在此输入IMAP端口号"/>
+                    <input type="text" class="common-input" id="imap-port" placeholder="尚未配置邮箱信息" readonly="readonly"/>
                 </li>
             </ul>
         </div>
+        <a href="javascript:;" class="modify-btn"  id="modify">编辑</a>
+        <a href="javascript:;" class="cancel-btn"  id="cancel">取消</a>
         <a href="javascript:;" class="confirm-btn" id="confirm">确认</a>
     </div>
 </div>
@@ -77,10 +82,126 @@
 <script src="js/admin.js"></script>
 </body>
 <script>
+
     $(function(){
+        // 显示用户名
         var name = $.cookie('name');
         $('#name').html(name);
+
+        $('#psd-div').hide();
+        $('#cancel').hide();
+        $('#confirm').hide();
+
+        var token = $.cookie('token');
+//        $.get("/api/admin/mailConfig",{token:token},function(results){
+//            if(results.status == 0){
+//                var data = jQuery.parse(results.data);
+//                if(!data.mailAddress){
+//                    $('#account').removeAttr("readonly").attr('value',data.mailAddress).attr("readonly","readonly");
+//                    $('#smtp-addr').removeAttr("readonly").attr('value',data.smtp).attr("readonly","readonly");
+//                    $('#smtp-port').removeAttr("readonly").attr('value',data.smtpPort).attr("readonly","readonly");
+//                    $('#imap-addr').removeAttr("readonly").attr('value',data.imap).attr("readonly","readonly");
+//                    $('#imap-port').removeAttr("readonly").attr('value',data.imapPort).attr("readonly","readonly");
+//                }
+//            }
+//        });
+
+        $.ajax({
+            type: "GET",
+            url:  "/api/admin/mailConfig",
+            datatype:"json",
+            data: JSON.stringify({token:token}),
+            success:function(result) {
+                if(results.status == 0){
+                    var data = jQuery.parse(results.data);
+                    if(!data.mailAddress){
+                        $('#account').removeAttr("readonly").attr('value',data.mailAddress).attr("readonly","readonly");
+                        $('#smtp-port').removeAttr("readonly").attr('value',data.smtpPort).attr("readonly","readonly");
+                        $('#imap-addr').removeAttr("readonly").attr('value',data.imap).attr("readonly","readonly");
+                        $('#imap-port').removeAttr("readonly").attr('value',data.imapPort).attr("readonly","readonly");
+                    }
+                    if (!data.smtp){
+                        $('#smtp-addr').removeAttr("readonly").attr('value',data.smtp).attr("readonly","readonly");
+                    }
+                    if (!data.smtpPort){
+                        $('#smtp-port').removeAttr("readonly").attr('value',data.smtp).attr("readonly","readonly");
+                    }
+                    if (!data.imap){
+                        $('#imap-addr').removeAttr("readonly").attr('value',data.smtp).attr("readonly","readonly");
+                    }
+                    if (!data.imapPort){
+                        $('#imap-port').removeAttr("readonly").attr('value',data.smtp).attr("readonly","readonly");
+                    }
+                }
+            },
+            error:function(){
+                var message = "尚未配置邮箱信息";
+                $('#account').removeAttr("readonly").attr('placeholder',message).attr("readonly","readonly");
+                $('#smtp-addr').removeAttr("readonly").attr('placeholder',message).attr("readonly","readonly");
+                $('#smtp-port').removeAttr("readonly").attr('placeholder',message).attr("readonly","readonly");
+                $('#imap-addr').removeAttr("readonly").attr('placeholder',message).attr("readonly","readonly");
+                $('#imap-port').removeAttr("readonly").attr('placeholder',message).attr("readonly","readonly");
+            }
         });
+    });
+    $("#modify").click(function(){
+        $("#modify").hide();
+        $("#psd-div").show();
+        $("#cancel").show();
+        $("#confirm").show();
+
+        $('#account').removeAttr("readonly").attr('placeholder','请输入邮箱账号');
+        $('#psd').removeAttr("readonly").attr('placeholder','请输入密码');
+        $('#smtp-addr').removeAttr("readonly").attr('placeholder','请输入SMTP服务器地址');
+        $('#smtp-port').removeAttr("readonly").attr('placeholder','请输入SMTP端口号');
+        $('#imap-addr').removeAttr("readonly").attr('placeholder','请输入IMAP服务器地址');
+        $('#imap-port').removeAttr("readonly").attr('placeholder','请输入IMAP端口号');
+    });
+    $("#cancel").click(function(){
+        $("#cancel").hide();
+        $("#confirm").hide();
+        $("#modify").show();
+        $('#psd-div').hide();
+
+        var token = $.cookie('token');
+        $.ajax({
+            type: "GET",
+            url:  "/api/admin/mailConfig",
+            datatype:"json",
+            data: JSON.stringify({token:token}),
+            success:function(result) {
+                if(results.status == 0){
+                    var data = jQuery.parse(results.data);
+                    if(!data.mailAddress){
+                        $('#account').removeAttr("readonly").attr('value',data.mailAddress).attr("readonly","readonly");
+                        $('#smtp-port').removeAttr("readonly").attr('value',data.smtpPort).attr("readonly","readonly");
+                        $('#imap-addr').removeAttr("readonly").attr('value',data.imap).attr("readonly","readonly");
+                        $('#imap-port').removeAttr("readonly").attr('value',data.imapPort).attr("readonly","readonly");
+                    }
+                    if (!data.smtp){
+                        $('#smtp-addr').removeAttr("readonly").attr('value',data.smtp).attr("readonly","readonly");
+                    }
+                    if (!data.smtpPort){
+                        $('#smtp-port').removeAttr("readonly").attr('value',data.smtp).attr("readonly","readonly");
+                    }
+                    if (!data.imap){
+                        $('#imap-addr').removeAttr("readonly").attr('value',data.smtp).attr("readonly","readonly");
+                    }
+                    if (!data.imapPort){
+                        $('#imap-port').removeAttr("readonly").attr('value',data.smtp).attr("readonly","readonly");
+                    }
+                }
+            },
+            error:function(){
+                var message = "尚未配置邮箱信息";
+                $('#account').removeAttr("readonly").attr('value','').attr('placeholder',message).attr("readonly","readonly");
+                $('#smtp-addr').removeAttr("readonly").attr('value','').attr('placeholder',message).attr("readonly","readonly");
+                $('#smtp-port').removeAttr("readonly").attr('value','').attr('placeholder',message).attr("readonly","readonly");
+                $('#imap-addr').removeAttr("readonly").attr('value','').attr('placeholder',message).attr("readonly","readonly");
+                $('#imap-port').removeAttr("readonly").attr('value','').attr('placeholder',message).attr("readonly","readonly");
+            }
+        });
+    });
     $("#confirm").click(function () {
         var account = $("#account").val();
         var psd = $('#psd').val();
