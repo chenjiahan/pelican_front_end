@@ -239,7 +239,7 @@
             success: function (obj) {
                 if(obj.status === 0) {
                     obj.data.id = id;
-                    document.getElementById('task').innerHTML = template('md-tmpl',obj.data);
+                    document.getElementById('task').innerHTML = template('md-tmpl',obj);
                 } else {
                     topAlert('网络错误','error');
                 }
