@@ -132,7 +132,58 @@
         </div>
         <!-- 已处理 end -->
     </div>
+function emailInfo() {
+    window.open("distributionEmailInfo.html", "_self");
+}
+// $("#add-tag").click(function() {
+//  $("#tag-name").show();
+//  $("#add-tag-confirm").show();
+// });
+getEmailList(1);
+$("#show-more").click(function() {
+    var timeNow = new Date();
+    var time = timeNow.toLocaleString();
+    console.log(time);
+    console.log(getCurrentFormatDate());
+});
 
+function getCurrentFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var seperator2 = ":";
+    var month = date.getMonth()+1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+
+    var current = date.getFullYear() + seperator1 + month + seperator1 + 
+                  strDate + "T" + date.getHours() + seperator2 + 
+                  date.getMinutes() + seperator2 + date.getSeconds();
+    return current;
+}
+
+function getEmail(pageNum) {
+    $.ajax({
+        type: "GET",
+        url:  "/api/distribution/getEmailList",
+        data: JSON.stringify({page: pageNum}),
+        success: function() {
+            if (typeof data == "string") {
+                data = JSON.parse(data);
+            }
+            if (data.status == 0) {
+                console.log(getCurrentFormatDate());
+            } else {
+                console.log("fail");
+            }
+        },
+        datatype:"json"
+    }); 
+}
     <script type="text/html" id="md-tmpl">
         <div class="mail-detail animated fadeInDown">
             <div class="detail-head">

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/jquery.tagsinput.css">
     <link rel="stylesheet" href="css/distribution.css">
     <link href="img/favicon.ico" rel="shortcut icon">
 </head>
@@ -47,6 +48,7 @@
             <div class="mail-title clearfix">
                 <label>处理人：</label>
                 <label></label>
+                <input type="text" class="tags" id="distributors">
             </div>
             <div class="content-box">
                 <div class="editor nui-scroll"></div>
@@ -64,10 +66,16 @@
 <script src="js/jquery.hotkeys.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/bootstrap-wysiwyg.js"></script>
-<script src="js/handler.js"></script>
+<!-- <script src="js/handler.js"></script> -->
+<script src="js/jquery-ui.js"></script>
+<script src="js/jquery.tagsinput.js"></script>
 <script>
 $("#mail-list").click(function() {
     window.open("distribution.html", "_self");
+});
+$("#distributors").tagsInput({
+    width:'auto',
+    autocomplate_url: 'fake_endpoint.js'
 });
 </script>
 </body>
