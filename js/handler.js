@@ -141,8 +141,9 @@
             },
             success: function (obj) {
                 if(obj.status === 0) {
-                    var delay = 0;
-                    if (obj.list.length === 0) {
+                    var delay = 0,
+                        mList = obj.data.list;
+                    if (mList.length === 0) {
                         document.getElementById('task').innerHTML = '<div class="vertical-middle-t"> <div class="vertical-middle-tc"> <div class="no-content"> <p>没有需要处理的邮件</p> </div> </div> </div>';
                         setTimeout(function () {
                             document.querySelector('#task .no-content').classList.add('grow');
@@ -156,13 +157,13 @@
                             yesterday = GetDateStr(-1),
                             html = '';
                         //邮件根据日期归类
-                        for (var i = 0; i < obj.list.length; i++) {
-                            if (obj.list[i].receiveTime.substr(0, 10) === today) {
-                                tList.push(obj.list[i]);
-                            } else if (obj.list[i].receiveTime.substr(0, 10) === yesterday) {
-                                yList.push(obj.list[i]);
+                        for (var i = 0; i < mList.length; i++) {
+                            if (mList[i].receiveTime.substr(0, 10) === today) {
+                                tList.push(mList[i]);
+                            } else if (mList[i].receiveTime.substr(0, 10) === yesterday) {
+                                yList.push(mList[i]);
                             } else {
-                                aList.push(obj.list[i]);
+                                aList.push(mList[i]);
                             }
                         }
                         if (tList.length) {
