@@ -178,7 +178,7 @@
     var nowPage = 1;
     function showTaskList(obj,page) {
         $.ajax({
-            url: "/api/distribution/getEmailList",
+            url: "/api/distribution/getMailList",
             type: 'GET',
             dataType: 'json',
             data: {
