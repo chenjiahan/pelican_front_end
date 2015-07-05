@@ -238,7 +238,7 @@
             },
             success: function (obj) {
                 if(obj.status === 0) {
-                    data.id = id;
+                    obj.data.id = id;
                     document.getElementById('task').innerHTML = template('md-tmpl',obj.data);
                 } else {
                     topAlert('网络错误','error');
@@ -291,6 +291,8 @@
         })
         //列表页标记为已处理
         .delegate('.li-done','click', function () {
+            var line = $(this).parent(),
+                ul = line.parent();
             $.ajax({
                 url: "/api/email/manage",
                 type: 'POST',
@@ -302,8 +304,6 @@
                 success: function (obj) {
                     if(obj.status === 0) {
                         topAlert('处理成功','success');
-                        var line = $(this).parent(),
-                            ul = line.parent();
                         line.removeClass()
                             .addClass('fadeOutRight animated')
                             .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
