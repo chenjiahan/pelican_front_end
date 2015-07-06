@@ -454,6 +454,7 @@ body {
 .prev-btn,
 .next-btn {
   height: 40px;
+  color: #4791D2;
   border: 1px solid #4791D2;
 }
 .prev-btn {
@@ -461,4 +462,8 @@ body {
 }
 .next-btn {
   float: right;
+}
+.disabled-btn {
+  color: #999;
+  border-color: #999;
 }

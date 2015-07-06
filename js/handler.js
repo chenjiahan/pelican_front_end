@@ -51,7 +51,7 @@
                     document.querySelector('#' + target + ' .no-content').classList.add('grow');
                 },1);
             } else if (target === 'task'){
-                showTaskList(nowPage);
+                showTaskList(taskPage);
             }
         }
     }
@@ -131,7 +131,7 @@
         }
         return y + "-" + m + "-" + d;
     }
-    var nowPage = 1;
+    var taskPage = 1;
     function showTaskList(page) {
         document.getElementById('task').innerHTML = '';
         $.ajax({
@@ -227,7 +227,7 @@
             }
         });
     }
-    showTaskList(nowPage);
+    showTaskList(taskPage);
 
     function showDoneList(page) {
         document.getElementById('done').innerHTML = '';
@@ -312,23 +312,23 @@
                             }
                             html += '</ul></div>';
                         }
-                        if(nowPage === 1 && nowPage !== obj.data.pageCount) {
+                        if(taskPage === 1 && taskPage !== obj.data.pageCount) {
                             html +=
                                 '<div class="btn-line clearfix">' +
-                                '<a href="javascript:" class="prev-btn disabled-btn"><i class="fa fa-arrow-left"></i>上一页</a>' +
-                                '<a href="javascript:" class="next-btn"><i class="fa fa-arrow-right"></i>下一页</a>' +
+                                '<a href="javascript:" class="prev-btn prev-task disabled-btn"><i class="fa fa-arrow-left"></i>上一页</a>' +
+                                '<a href="javascript:" class="next-btn next-task"><i class="fa fa-arrow-right"></i>下一页</a>' +
                                 '</div>';
-                        } else if (nowPage !== 1 && nowPage === obj.data.pageCount) {
+                        } else if (taskPage !== 1 && taskPage === obj.data.pageCount) {
                             html +=
                                 '<div class="btn-line clearfix">' +
-                                '<a href="javascript:" class="prev-btn"><i class="fa fa-arrow-left"></i>上一页</a>' +
-                                '<a href="javascript:" class="next-btn disabled-btn"><i class="fa fa-arrow-right"></i>下一页</a>' +
+                                '<a href="javascript:" class="prev-btn prev-task"><i class="fa fa-arrow-left"></i>上一页</a>' +
+                                '<a href="javascript:" class="next-btn next-task disabled-btn"><i class="fa fa-arrow-right"></i>下一页</a>' +
                                 '</div>';
-                        } else if (nowPage !== 1 && nowPage !== obj.data.pageCount) {
+                        } else if (taskPage !== 1 && taskPage !== obj.data.pageCount) {
                             html +=
                                 '<div class="btn-line clearfix">' +
-                                '<a href="javascript:" class="prev-btn"><i class="fa fa-arrow-left"></i>上一页</a>' +
-                                '<a href="javascript:" class="next-btn"><i class="fa fa-arrow-right"></i>下一页</a>' +
+                                '<a href="javascript:" class="prev-btn prev-task"><i class="fa fa-arrow-left"></i>上一页</a>' +
+                                '<a href="javascript:" class="next-btn next-task"><i class="fa fa-arrow-right"></i>下一页</a>' +
                                 '</div>';
                         }
                         document.getElementById('done').innerHTML = html;
@@ -380,7 +380,7 @@
         })
         //返回邮件列表
         .delegate('.back-btn', 'click', function() {
-            showTaskList(nowPage);
+            showTaskList(taskPage);
         })
         //回复邮件
         .delegate('.reply-btn', 'click', function() {
@@ -399,7 +399,7 @@
                 success: function (obj) {
                     if(obj.status === 0) {
                         topAlert('处理成功','success');
-                        showTaskList(nowPage);
+                        showTaskList(taskPage);
                     } else {
                         topAlert('处理失败','error');
                     }
@@ -448,7 +448,19 @@
                     topAlert('处理失败','error');
                 }
             });
-        });
+        })
+        .delegate('prev-task','click',function(){
+            if(!this.hasClass('disabled-btn')) {
+                if(taskPage > 1) {
+                    showTaskList(--taskPage);
+                }
+            }
+        })
+        .delegate('next-task','click',function(){
+            if(!this.hasClass('disabled-btn')) {
+                showTaskList(++taskPage);
+            }
+        })
 
     /**
      * 顶部弹出框
