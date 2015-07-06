@@ -446,6 +446,14 @@ body {
 .reply-btn:hover {
   background-color: #0a7fa4;
 }
+.return-btn {
+  color: #fff;
+  background-color: #ff6a6a;
+  border: 1px solid #ff6a6a;
+}
+.return-btn:hover {
+  background-color: #ff6a6a;
+}
 
 .btn-line {
   width: 85%;
