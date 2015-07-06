@@ -22,6 +22,12 @@ a:focus {
 body {
   background-color: #f2f2f2!important;
 }
+iframe {
+  border:none;
+}
+iframe body {
+  margin: 0;
+}
 
 /*--alert box--*/
 .alert-box {
