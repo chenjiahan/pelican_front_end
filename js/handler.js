@@ -75,6 +75,7 @@
             subject = document.getElementById('subject').value,
             html = document.getElementsByClassName('editor')[0].innerHTML,
             btn = this;
+        html = '<div>' + html + '</div>';
         if(!receiver) {
             topAlert('收信人不能为空','error');
         } else if (!subject) {
