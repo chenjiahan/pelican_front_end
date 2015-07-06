@@ -163,6 +163,7 @@ body {
 .body-box {
   width: 100%;
   min-height: 100%;
+  height: 100%;
 }
 .edit-box {
   margin-top: 25px;
