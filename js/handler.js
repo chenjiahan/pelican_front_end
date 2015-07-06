@@ -217,17 +217,17 @@
                         }
                         if(taskPage === 1 && taskPage !== obj.data.pageCount) {
                             html +=
-                                '<div class="btn-line clearfix">' +
+                                '<div class="btn-line clearfix "delay-' + delay + '>' +
                                  '<a href="javascript:" class="next-btn next-task">下一页<i class="fa fa-arrow-right"></i></a>' +
                                 '</div>';
                         } else if (taskPage !== 1 && taskPage === obj.data.pageCount) {
                             html +=
-                                '<div class="btn-line clearfix">' +
+                                '<div class="btn-line clearfix "delay-' + delay + '>' +
                                 '<a href="javascript:" class="prev-btn prev-task"><i class="fa fa-arrow-left"></i>上一页</a>' +
                                '</div>';
                         } else if (taskPage !== 1 && taskPage !== obj.data.pageCount) {
                             html +=
-                                '<div class="btn-line clearfix">' +
+                                '<div class="btn-line clearfix "delay-' + delay + '>' +
                                 '<a href="javascript:" class="prev-btn prev-task"><i class="fa fa-arrow-left"></i>上一页</a>' +
                                 '<a href="javascript:" class="next-btn next-task">下一页<i class="fa fa-arrow-right"></i></a>' +
                                 '</div>';
