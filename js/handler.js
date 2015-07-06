@@ -357,7 +357,8 @@
                     obj.data.id = id;
                     obj.data.receivedDate = obj.data.receivedDate.substr(0,16).replace('-','年').replace('-','月').replace('T','日 ');
                     document.getElementById('task').innerHTML = template('md-tmpl',obj);
-                    $('#detail-iframe').innerHTML = obj.data.html;
+                    var iframe = document.getElementById('detaile-iframe');
+                    iframe.document = obj.data.html;
                 } else {
                     topAlert('网络错误','error');
                 }
