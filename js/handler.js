@@ -179,7 +179,7 @@
                                     '</span><span class="li-title nowrap" data-id="' + tList[i].mailId + '">' +
                                     tList[i].title +
                                     '</span><span class="li-done" data-id="' + tList[i].mailId + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
-                                    tList[i].receiveTime.substr(11, 5) +
+                                    tList[i].fromNow +
                                     '</span></li>';
                                 delay  = Math.min(delay + 100, 1000);
                             }
@@ -194,7 +194,7 @@
                                     '</span><span class="li-title nowrap" data-id="' + yList[i].mailId + '">' +
                                     yList[i].title +
                                     '</span><span class="li-done" data-id="' + yList[i].mailId + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
-                                    yList[i].receiveTime.substr(11, 5) +
+                                    yList[i].fromNow +
                                     '</span></li>';
                                 delay = Math.min(delay + 100, 1000);
                             }
@@ -209,7 +209,7 @@
                                     '</span><span class="li-title nowrap" data-id="' + aList[i].mailId + '">' +
                                     aList[i].title +
                                     '</span><span class="li-done" data-id="' + aList[i].mailId + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
-                                    aList[i].receiveTime.substr(0,16).replace('-','年').replace('-','月').replace('T','日 ') +
+                                    aList[i].fromNow +
                                     '</span></li>';
                                 delay = Math.min(delay + 100, 1000);
                             }
@@ -292,7 +292,7 @@
                                     '</span><span class="li-title nowrap" data-id="' + tList[i].mailId + '">' +
                                     tList[i].title +
                                     '</span><span class="li-done" data-id="' + tList[i].mailId + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
-                                    tList[i].receiveTime.substr(11, 5) +
+                                    tList[i].fromNow +
                                     '</span></li>';
                                 delay  = Math.min(delay + 100, 1000);
                             }
@@ -307,7 +307,7 @@
                                     '</span><span class="li-title nowrap" data-id="' + yList[i].mailId + '">' +
                                     yList[i].title +
                                     '</span><span class="li-done" data-id="' + yList[i].mailId + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
-                                    yList[i].receiveTime.substr(11, 5) +
+                                    yList[i].fromNow +
                                     '</span></li>';
                                 delay = Math.min(delay + 100, 1000);
                             }
@@ -322,7 +322,7 @@
                                     '</span><span class="li-title nowrap" data-id="' + aList[i].mailId + '">' +
                                     aList[i].title +
                                     '</span><span class="li-done" data-id="' + aList[i].mailId + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
-                                    aList[i].receiveTime.substr(0,16).replace('-','年').replace('-','月').replace('T','日 ') +
+                                    aList[i].fromNow +
                                 '</span></li>';
                                 delay = Math.min(delay + 100, 1000);
                             }
@@ -459,12 +459,12 @@
             });
         })
         .delegate('prev-task','click',function(){
-            if(taskPage > 1) {
-                showTaskList(--taskPage);
-            }
+            taskPage--;
+            showTaskList();
         })
         .delegate('next-task','click',function(){
-            showTaskList(++taskPage);
+            taskPage++;
+            showTaskList(taskPage);
         })
 
     /**
