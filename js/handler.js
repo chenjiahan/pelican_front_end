@@ -458,13 +458,11 @@
                 }
             });
         })
-        .delegate('prev-task','click',function(){
-            taskPage--;
-            showTaskList();
+        .delegate('.prev-task','click',function(){
+            showTaskList(--taskPage);
         })
-        .delegate('next-task','click',function(){
-            taskPage++;
-            showTaskList(taskPage);
+        .delegate('.next-task','click',function(){
+            showTaskList(++taskPage);
         })
 
     /**
