@@ -367,7 +367,7 @@
                     ifrdoc.designMode ="off";
                     var subWeb = document.frames ? document.frames["detail-iframe"].document : iframe.contentDocument;
                     if(iframe != null && subWeb != null) {
-                        iframe.height = subWeb.body.scrollHeight;
+                        iframe.height = subWeb.body.scrollHeight + 10;
                     }
                 } else {
                     topAlert('网络错误','error');
