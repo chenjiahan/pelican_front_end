@@ -306,8 +306,8 @@
                                     '</span><span class="li-title nowrap" data-id="' + aList[i].mailId + '">' +
                                     aList[i].title +
                                     '</span><span class="li-done" data-id="' + aList[i].mailId + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
-                                    aList[i].receiveTime.replace('T',' ') +
-                                    '</span></li>';
+                                    aList[i].receiveTime.substr(0,16).replace('-','年').replace('-','月').replace('T','日 ') +
+                                '</span></li>';
                                 delay = Math.min(delay + 100, 1000);
                             }
                             html += '</ul></div>';
