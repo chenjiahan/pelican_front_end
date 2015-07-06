@@ -449,21 +449,37 @@ body {
 .btn-line {
   width: 85%;
   height: 40px;
-  margin-left: 5%;
+  margin: 20px 0 0 5%;
 }
 .prev-btn,
 .next-btn {
-  height: 40px;
+  height: 38px;
+  width: 95px;
   color: #4791D2;
+  padding-top: 9px;
+  text-align: center;
+  border-radius: 4px;
   border: 1px solid #4791D2;
+  -webkit-transition: all .2s ease-in-out;
+       -o-transition: all .2s ease-in-out;
+          transition: all .2s ease-in-out;
+}
+.prev-btn:hover,
+.next-btn:hover {
+  color: #fff;
+  background-color: #4791D2;
+  -webkit-box-shadow: 0 3px 8px 0 rgba(0,0,0,0.18);
+          box-shadow: 0 3px 8px 0 rgba(0,0,0,0.18);
+}
+.prev-btn .fa,
+.next-btn .fa {
+  margin:0 5px;
 }
 .prev-btn {
   float: left;
+  padding-right: 5px;
 }
 .next-btn {
   float: right;
-}
-.disabled-btn {
-  color: #999;
-  border-color: #999;
+  padding-left: 5px;
 }

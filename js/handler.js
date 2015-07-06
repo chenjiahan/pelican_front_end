@@ -209,13 +209,29 @@
                                     '</span><span class="li-title nowrap" data-id="' + aList[i].mailId + '">' +
                                     aList[i].title +
                                     '</span><span class="li-done" data-id="' + aList[i].mailId + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
-                                    aList[i].receiveTime.replace('T',' ') +
+                                    aList[i].receiveTime.substr(0,16).replace('-','年').replace('-','月').replace('T','日 ') +
                                     '</span></li>';
                                 delay = Math.min(delay + 100, 1000);
                             }
                             html += '</ul></div>';
                         }
-                        //html += '<div class="btn-line clearfix"><a href="javascript:" class="prev-btn"><i class="fa fa-arrow-left"></i>上一页</a><a href="javascript:" class="next-btn">下一页</a></div>'
+                        if(taskPage === 1 && taskPage !== obj.data.pageCount) {
+                            html +=
+                                '<div class="btn-line clearfix">' +
+                                 '<a href="javascript:" class="next-btn next-task">下一页<i class="fa fa-arrow-right"></i></a>' +
+                                '</div>';
+                        } else if (taskPage !== 1 && taskPage === obj.data.pageCount) {
+                            html +=
+                                '<div class="btn-line clearfix">' +
+                                '<a href="javascript:" class="prev-btn prev-task"><i class="fa fa-arrow-left"></i>上一页</a>' +
+                               '</div>';
+                        } else if (taskPage !== 1 && taskPage !== obj.data.pageCount) {
+                            html +=
+                                '<div class="btn-line clearfix">' +
+                                '<a href="javascript:" class="prev-btn prev-task"><i class="fa fa-arrow-left"></i>上一页</a>' +
+                                '<a href="javascript:" class="next-btn next-task">下一页<i class="fa fa-arrow-right"></i></a>' +
+                                '</div>';
+                        }
                         document.getElementById('task').innerHTML = html;
                     }
                 } else {
@@ -311,25 +327,6 @@
                                 delay = Math.min(delay + 100, 1000);
                             }
                             html += '</ul></div>';
-                        }
-                        if(taskPage === 1 && taskPage !== obj.data.pageCount) {
-                            html +=
-                                '<div class="btn-line clearfix">' +
-                                '<a href="javascript:" class="prev-btn prev-task disabled-btn"><i class="fa fa-arrow-left"></i>上一页</a>' +
-                                '<a href="javascript:" class="next-btn next-task"><i class="fa fa-arrow-right"></i>下一页</a>' +
-                                '</div>';
-                        } else if (taskPage !== 1 && taskPage === obj.data.pageCount) {
-                            html +=
-                                '<div class="btn-line clearfix">' +
-                                '<a href="javascript:" class="prev-btn prev-task"><i class="fa fa-arrow-left"></i>上一页</a>' +
-                                '<a href="javascript:" class="next-btn next-task disabled-btn"><i class="fa fa-arrow-right"></i>下一页</a>' +
-                                '</div>';
-                        } else if (taskPage !== 1 && taskPage !== obj.data.pageCount) {
-                            html +=
-                                '<div class="btn-line clearfix">' +
-                                '<a href="javascript:" class="prev-btn prev-task"><i class="fa fa-arrow-left"></i>上一页</a>' +
-                                '<a href="javascript:" class="next-btn next-task"><i class="fa fa-arrow-right"></i>下一页</a>' +
-                                '</div>';
                         }
                         document.getElementById('done').innerHTML = html;
                     }
@@ -450,16 +447,12 @@
             });
         })
         .delegate('prev-task','click',function(){
-            if(!this.hasClass('disabled-btn')) {
-                if(taskPage > 1) {
-                    showTaskList(--taskPage);
-                }
+            if(taskPage > 1) {
+                showTaskList(--taskPage);
             }
         })
         .delegate('next-task','click',function(){
-            if(!this.hasClass('disabled-btn')) {
-                showTaskList(++taskPage);
-            }
+            showTaskList(++taskPage);
         })
 
     /**
