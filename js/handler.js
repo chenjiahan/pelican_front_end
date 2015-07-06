@@ -252,7 +252,7 @@
     /**
      * 显示邮件详情
      */
-    var senderInfo; //记录发件人信息，用于回复邮件
+    var senderInfo = {}; //记录发件人信息，用于回复邮件
     function showMailDetail(id) {
         $.ajax({
             url: "/api/email/detail",
