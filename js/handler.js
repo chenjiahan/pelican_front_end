@@ -364,7 +364,7 @@
                     ifrdoc.write(obj.data.html);
                     ifrdoc.close();
                     ifrdoc.designMode ="off";
-                    var subWeb = document.frames ? document.frames["iframepage"].document : iframe.contentDocument;
+                    var subWeb = document.frames ? document.frames["detail-iframe"].document : iframe.contentDocument;
                     if(iframe != null && subWeb != null) {
                         iframe.height = subWeb.body.scrollHeight;
                     }
