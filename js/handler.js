@@ -171,7 +171,7 @@
                             }
                         }
                         if (tList.length) {
-                            delay = Math.min(delay + 100, 1000);
+                            delay = Math.min(delay + 50, 1000);
                             html += '<div class="mail-line"><p class="delay-' + delay + ' animated zoomIn">今天</p><ul class="mail-ul">';
                             for (var i = 0; i < tList.length; i++) {
                                 html += '<li class="delay-' + delay + ' animated zoomIn"><span class="li-name nowrap">' +
@@ -181,12 +181,12 @@
                                     '</span><span class="li-done" data-id="' + tList[i].mailId + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
                                     tList[i].fromNow +
                                     '</span></li>';
-                                delay  = Math.min(delay + 100, 1000);
+                                delay  = Math.min(delay + 50, 1000);
                             }
                             html += '</ul></div>';
                         }
                         if (yList.length) {
-                            delay = Math.min(delay + 100, 1000);
+                            delay = Math.min(delay + 50, 1000);
                             html += '<div class="mail-line"><p class="delay-' + delay + ' animated zoomIn">昨天</p><ul class="mail-ul">';
                             for (var i = 0; i < yList.length; i++) {
                                 html += '<li class="delay-' + delay + ' animated zoomIn"><span class="li-name nowrap">' +
@@ -196,12 +196,12 @@
                                     '</span><span class="li-done" data-id="' + yList[i].mailId + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
                                     yList[i].fromNow +
                                     '</span></li>';
-                                delay = Math.min(delay + 100, 1000);
+                                delay = Math.min(delay + 50, 1000);
                             }
                             html += '</ul></div>';
                         }
                         if (aList.length) {
-                            delay = Math.min(delay + 100, 1000);
+                            delay = Math.min(delay + 50, 1000);
                             html += '<div class="mail-line"><p class="delay-' + delay + ' animated zoomIn">更早</p><ul class="mail-ul">';
                             for (var i = 0; i < aList.length; i++) {
                                 html += '<li class="delay-' + delay + ' animated zoomIn"><span class="li-name nowrap">' +
@@ -211,7 +211,7 @@
                                     '</span><span class="li-done" data-id="' + aList[i].mailId + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
                                     aList[i].fromNow +
                                     '</span></li>';
-                                delay = Math.min(delay + 100, 1000);
+                                delay = Math.min(delay + 50, 1000);
                             }
                             html += '</ul></div>';
                         }
@@ -247,97 +247,6 @@
 
     function showDoneList(page) {
         document.getElementById('done').innerHTML = '';
-        $.ajax({
-            url: "/api/email/managed",
-            type: 'GET',
-            dataType: 'json',
-            data: {
-                token:token,
-                page:page
-            },
-            success: function (obj) {
-                if(obj.status === 0) {
-                    var delay = 0,
-                        mList = obj.data.list;
-                    if (mList.length === 0) {
-                        document.getElementById('done').innerHTML = '<div class="vertical-middle-t"><div class="vertical-middle-tc"> <div class="no-content"> <p>没有需要处理的邮件</p> </div> </div> </div>';
-                        setTimeout(function () {
-                            document.querySelector('#done .no-content').classList.add('grow');
-                        }, 1);
-                    } else {
-                        var delay = 0,
-                            tList = [],
-                            yList = [],
-                            aList = [],
-                            today = GetDateStr(0),
-                            yesterday = GetDateStr(-1),
-                            html = '';
-                        //邮件根据日期归类
-                        for (var i = 0; i < mList.length; i++) {
-                            mList[i].senderName[0].name = mList[i].senderName[0].name || '发件人：无';
-                            if (mList[i].receiveTime.substr(0, 10) === today) {
-                                tList.push(mList[i]);
-                            } else if (mList[i].receiveTime.substr(0, 10) === yesterday) {
-                                yList.push(mList[i]);
-                            } else {
-                                aList.push(mList[i]);
-                            }
-                        }
-                        if (tList.length) {
-                            delay = Math.min(delay + 100, 1000);
-                            html += '<div class="mail-line"><p class="delay-' + delay + ' animated zoomIn">今天</p><ul class="mail-ul">';
-                            for (var i = 0; i < tList.length; i++) {
-                                html += '<li class="delay-' + delay + ' animated zoomIn"><span class="li-name nowrap">' +
-                                    tList[i].senderName[0].name +
-                                    '</span><span class="li-title nowrap" data-id="' + tList[i].mailId + '">' +
-                                    tList[i].title +
-                                    '</span><span class="li-done" data-id="' + tList[i].mailId + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
-                                    tList[i].fromNow +
-                                    '</span></li>';
-                                delay  = Math.min(delay + 100, 1000);
-                            }
-                            html += '</ul></div>';
-                        }
-                        if (yList.length) {
-                            delay = Math.min(delay + 100, 1000);
-                            html += '<div class="mail-line"><p class="delay-' + delay + ' animated zoomIn">昨天</p><ul class="mail-ul">';
-                            for (var i = 0; i < yList.length; i++) {
-                                html += '<li class="delay-' + delay + ' animated zoomIn"><span class="li-name nowrap">' +
-                                    yList[i].senderName[0].name +
-                                    '</span><span class="li-title nowrap" data-id="' + yList[i].mailId + '">' +
-                                    yList[i].title +
-                                    '</span><span class="li-done" data-id="' + yList[i].mailId + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
-                                    yList[i].fromNow +
-                                    '</span></li>';
-                                delay = Math.min(delay + 100, 1000);
-                            }
-                            html += '</ul></div>';
-                        }
-                        if (aList.length) {
-                            delay = Math.min(delay + 100, 1000);
-                            html += '<div class="mail-line"><p class="delay-' + delay + ' animated zoomIn">更早</p><ul class="mail-ul">';
-                            for (var i = 0; i < aList.length; i++) {
-                                html += '<li class="delay-' + delay + ' animated zoomIn"><span class="li-name nowrap">' +
-                                    aList[i].senderName[0].name +
-                                    '</span><span class="li-title nowrap" data-id="' + aList[i].mailId + '">' +
-                                    aList[i].title +
-                                    '</span><span class="li-done" data-id="' + aList[i].mailId + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
-                                    aList[i].fromNow +
-                                '</span></li>';
-                                delay = Math.min(delay + 100, 1000);
-                            }
-                            html += '</ul></div>';
-                        }
-                        document.getElementById('done').innerHTML = html;
-                    }
-                } else {
-                    topAlert('网络错误','error');
-                }
-            },
-            error: function() {
-                topAlert('网络错误','error');
-            }
-        });
     }
 
     /**

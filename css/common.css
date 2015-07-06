@@ -132,6 +132,46 @@ iframe body {
   -webkit-animation-delay: 1s;
           animation-delay: 1s;
 }
+.delay-50 {
+  -webkit-animation-delay: 0.05s;
+  animation-delay: 0.05s;
+}
+.delay-150 {
+  -webkit-animation-delay: 0.15s;
+  animation-delay: 0.1s;
+}
+.delay-250 {
+  -webkit-animation-delay: 0.25s;
+  animation-delay: 0.2s;
+}
+.delay-350 {
+  -webkit-animation-delay: 0.35s;
+  animation-delay: 0.3s;
+}
+.delay-450 {
+  -webkit-animation-delay: 0.45s;
+  animation-delay: 0.4s;
+}
+.delay-550 {
+  -webkit-animation-delay: 0.55s;
+  animation-delay: 0.5s;
+}
+.delay-650 {
+  -webkit-animation-delay: 0.65s;
+  animation-delay: 0.6s;
+}
+.delay-750 {
+  -webkit-animation-delay: 0.75s;
+  animation-delay: 0.7s;
+}
+.delay-850 {
+  -webkit-animation-delay: 0.85s;
+  animation-delay: 0.8s;
+}
+.delay-950 {
+  -webkit-animation-delay: 0.95s;
+  animation-delay: 0.9s;
+}
 @-webkit-keyframes fadeInLeft {
   0% {
     opacity: 0;
