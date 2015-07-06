@@ -447,8 +447,9 @@ body {
 }
 
 .btn-line {
-  width: 100%;
+  width: 85%;
   height: 40px;
+  margin-left: 5%;
 }
 .prev-btn,
 .next-btn {
