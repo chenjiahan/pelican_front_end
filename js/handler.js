@@ -312,7 +312,25 @@
                             }
                             html += '</ul></div>';
                         }
-                        //html += '<div class="btn-line clearfix"><a href="javascript:" class="prev-btn"><i class="fa fa-arrow-left"></i>上一页</a><a href="javascript:" class="next-btn">下一页</a></div>'
+                        if(nowPage === 1 && nowPage !== obj.data.pageCount) {
+                            html +=
+                                '<div class="btn-line clearfix">' +
+                                '<a href="javascript:" class="prev-btn disabled-btn"><i class="fa fa-arrow-left"></i>上一页</a>' +
+                                '<a href="javascript:" class="next-btn"><i class="fa fa-arrow-right"></i>下一页</a>' +
+                                '</div>';
+                        } else if (nowPage !== 1 && nowPage === obj.data.pageCount) {
+                            html +=
+                                '<div class="btn-line clearfix">' +
+                                '<a href="javascript:" class="prev-btn"><i class="fa fa-arrow-left"></i>上一页</a>' +
+                                '<a href="javascript:" class="next-btn disabled-btn"><i class="fa fa-arrow-right"></i>下一页</a>' +
+                                '</div>';
+                        } else if (nowPage !== 1 && nowPage !== obj.data.pageCount) {
+                            html +=
+                                '<div class="btn-line clearfix">' +
+                                '<a href="javascript:" class="prev-btn"><i class="fa fa-arrow-left"></i>上一页</a>' +
+                                '<a href="javascript:" class="next-btn"><i class="fa fa-arrow-right"></i>下一页</a>' +
+                                '</div>';
+                        }
                         document.getElementById('done').innerHTML = html;
                     }
                 } else {
