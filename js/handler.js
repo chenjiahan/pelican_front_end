@@ -307,8 +307,8 @@
         //回复邮件
         .delegate('.reply-btn', 'click', function() {
             changePage('task','send');
-            $('#receiver').html(senderInfo.address);
-            $('#subject').html('回复：' + senderInfo.subject);
+            $('#receiver').val(senderInfo.address);
+            $('#subject').val('回复：' + senderInfo.subject);
         })
         //详情页标记为已处理
         .delegate('.done-btn', 'click', function() {
