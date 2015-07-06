@@ -364,6 +364,10 @@
                     ifrdoc.write(obj.data.html);
                     ifrdoc.close();
                     ifrdoc.designMode ="off";
+                    var subWeb = document.frames ? document.frames["iframepage"].document : iframe.contentDocument;
+                    if(iframe != null && subWeb != null) {
+                        iframe.height = subWeb.body.scrollHeight;
+                    }
                 } else {
                     topAlert('网络错误','error');
                 }
