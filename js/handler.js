@@ -358,7 +358,12 @@
                     obj.data.receivedDate = obj.data.receivedDate.substr(0,16).replace('-','年').replace('-','月').replace('T','日 ');
                     document.getElementById('task').innerHTML = template('md-tmpl',obj);
                     var iframe = document.getElementById('detail-iframe');
-                    iframe.document = obj.data.html;
+                    var ifrdoc = iframe.contentWindow.document;
+                    ifrdoc.designMode = "on";
+                    ifrdoc.open();
+                    ifrdoc.write(obj.data.html);
+                    ifrdoc.close();
+                    ifrdoc.designMode ="off";
                 } else {
                     topAlert('网络错误','error');
                 }
