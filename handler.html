@@ -161,7 +161,11 @@
                 </p>
                 <p><span class="detail-span">时&nbsp;&nbsp;&nbsp;间：</span>&nbsp;{{data.receivedDate}}</p>
             </div>
-            <iframe class="mail-content">{{#data.html}}</iframe>
+            <iframe class="mail-content">
+                <html>
+                    {{#data.html}}
+                </html>
+            </iframe>
         </div>
     </script>
 
