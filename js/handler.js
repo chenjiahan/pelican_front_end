@@ -280,7 +280,7 @@
                         iframe.height = subWeb.body.scrollHeight + 10;
                     }
                     //记录发件人信息
-                    senderInfo.address = obj.data.address;
+                    senderInfo.address = obj.data.from[0].address;
                     senderInfo.subject = obj.data.subject;
                 } else {
                     topAlert('网络错误','error');
