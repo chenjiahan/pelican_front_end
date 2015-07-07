@@ -307,7 +307,7 @@
         .delegate('.back-btn', 'click', function() {
             showTaskList(taskPage);
         })
-        //回复邮件
+        //点击回复邮件
         .delegate('.reply-btn', 'click', function() {
             changePage('task','send');
             $('#receiver').val(senderInfo.address);
