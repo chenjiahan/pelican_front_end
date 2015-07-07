@@ -280,8 +280,11 @@
                         iframe.height = subWeb.body.scrollHeight + 10;
                     }
                     //记录发件人信息
+                    senderInfo.name = obj.data.from[0].name;
                     senderInfo.address = obj.data.from[0].address;
                     senderInfo.subject = obj.data.subject;
+                    senderInfo.html = obj.data.html;
+                    senderInfo.date = obj.data.receivedDate.substr(0,16).replace('-','年').replace('-','月').replace('T','日 ');
                 } else {
                     topAlert('网络错误','error');
                 }
@@ -309,6 +312,7 @@
             changePage('task','send');
             $('#receiver').val(senderInfo.address);
             $('#subject').val('回复：' + senderInfo.subject);
+            $('.editor').html('<br><br><br><br><br>在 ' + senderInfo.date + '，"' + senderInfo.name + '" <' + senderInfo.address + '> 写道：' + html);
         })
         //详情页标记为已处理
         .delegate('.done-btn', 'click', function() {
