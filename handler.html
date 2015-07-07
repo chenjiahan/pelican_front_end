@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/chosen.min.css">
     <link rel="stylesheet" href="css/handler.css">
     <link href="img/favicon.ico" rel="shortcut icon">
 </head>
@@ -31,6 +32,7 @@
             <li data-to="send" class="send-li"><i class="fa fa-pencil-square-o"></i><span class="send-span">写邮件</span></li>
             <li data-to="check" class="check-li"><i class="fa fa-leaf"></i><span class="check-span">审核中</span></li>
             <li data-to="sended" class="sended-li"><i class="fa fa-paper-plane-o"></i><span class="sended-span">已发送</span></li>
+            <li data-to="return" class="return-li"><i class="fa fa-reply"></i><span class="return-span">已退回</span></li>
             <li data-to="done" class="done-li"><i class="fa fa-check"></i><span class="done-span">已处理</span></li>
          </ul>
     </div>
@@ -50,6 +52,12 @@
             <div class="mail-title clearfix">
                 <label>主&nbsp;&nbsp;&nbsp;题：</label>
                 <input type="text" id="subject"/>
+            </div>
+            <div class="mail-title clearfix">
+                <label>审核人：</label>
+                <select id="checker" data-placeholder="请选择一位审核人">
+                    <option value=""></option>
+                </select>
             </div>
             <div class="edit-box">
                 <div class="btn-toolbar" data-role="editor-toolbar" data-target=".editor">
@@ -120,6 +128,18 @@
         </div>
         <!-- 已发送 end -->
 
+        <!-- 已退回 start -->
+        <div id="return" class="body-box">
+            <div class="vertical-middle-t">
+                <div class="vertical-middle-tc">
+                    <div class="no-content">
+                        <p>没有已退回的邮件</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 已退回 end -->
+
         <!-- 已处理 start -->
         <div id="done" class="body-box">
             <div class="vertical-middle-t">
@@ -171,6 +191,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap-wysiwyg.js"></script>
     <script src="js/template.js"></script>
+    <script src="js/chosen.jquery.min.js"></script>
     <script src="js/handler.js"></script>
 </body>
 </html>

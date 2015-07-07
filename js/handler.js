@@ -11,9 +11,33 @@
     topAlert('欢迎回来','welcome');
 
     /**
-     * @description: 初始化editor
+     * 初始化editor
      */
     $('.editor').wysiwyg();
+
+    /**
+     * 初始化审核人chosen
+     */
+    $.ajax({
+        url: "/api/handlers/checkers",
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            token: token
+        },
+        success: function (obj) {
+            if(obj.status === 0) {
+                var list = '';
+                var checkers = obj.data.users;
+                var len = checkers.length;
+                for(var i = 0;i < len; i++) {
+                    list += '<option value="' + checkers[i].id + '">' + checkers[i].username + '</option>'
+                }
+                document.getElementById('checker').innerHTML += list;
+                $('#checker').chosen({disable_search: true, width: "140px"});
+            }
+        }
+    });
 
     /**
      * 登出
@@ -74,15 +98,18 @@
         var receiver = document.getElementById('receiver').value,
             subject = document.getElementById('subject').value,
             html = document.getElementsByClassName('editor')[0].innerHTML,
+            checker = document.getElementById('checker'),
             btn = this;
-        html = '<div>' + html + '</div>';
         if(!receiver) {
             topAlert('收信人不能为空','error');
         } else if (!subject) {
             topAlert('邮件主题不能为空','error');
+        } else if (!checker) {
+            topAlert('请选择审核人','error');
         } else if (!html) {
             topAlert('邮件正文不能为空','error');
         } else {
+            html = '<div>' + html + '</div>';
             btn.innerHTML = '<i class="fa fa-spinner fa-pulse"></i>';
             $.ajax({
                 url: "/api/email/send",
