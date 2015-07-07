@@ -315,7 +315,6 @@
             html = document.getElementsByClassName('editor')[0].innerHTML,
             checker = document.getElementById('checker').value,
             btn = this;
-        alert(checker);
         if(!receiver) {
             topAlert('收信人不能为空','error');
         } else if (!subject) {
@@ -395,7 +394,7 @@
                         }
                         delay = Math.min(delay + 50, 1000);
                         html += '<div class="mail-line">&nbsp;<ul class="mail-ul">';
-                        for (var i = 0; i < aList.length; i++) {
+                        for (var i = 0; i < mList.length; i++) {
                             delay = Math.min(delay + 50, 1000);
                             html += '<li class="delay-' + delay + ' animated zoomIn"><span class="li-name nowrap">' +
                                 mList[i].senderName[0].name +
