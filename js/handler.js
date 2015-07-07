@@ -90,7 +90,7 @@
                 dataType: 'json',
                 data: {
                     token: token,
-                    to: [receiver],
+                    to: receiver,
                     subject: subject,
                     html: html
                 },
