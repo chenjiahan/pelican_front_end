@@ -532,6 +532,164 @@
         })
     /*-------------------- sended end --------------------*/
 
+    /*-------------------- return start --------------------*/
+    function showReturnList(page) {
+        document.getElementById('return').innerHTML = '';
+        $.ajax({
+            url: "/api/handler/return",
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                token:token,
+                page:page
+            },
+            success: function (obj) {
+                if(obj.status === 0) {
+                    var delay = 0,
+                        mList = obj.data.list;
+                    if (mList.length === 0) {
+                        document.getElementById('return').innerHTML = '<div class="vertical-middle-t"><div class="vertical-middle-tc"><div class="no-content"><p>没有退回的邮件</p></div></div></div>';
+                        setTimeout(function () {
+                            document.querySelector('#return .no-content').classList.add('grow');
+                        }, 1);
+                    } else {
+                        var delay = 0, html = '';
+                        //邮件根据日期归类
+                        for (var i = 0; i < mList.length; i++) {
+                            mList[i].senderName[0].name = mList[i].senderName[0].name || '发件人：无';
+                        }
+                        delay = Math.min(delay + 50, 1000);
+                        html += '<div class="mail-line">&nbsp;<ul class="mail-ul">';
+                        for (var i = 0; i < mList.length; i++) {
+                            delay = Math.min(delay + 50, 1000);
+                            html += '<li class="delay-' + delay + ' animated zoomIn"><span class="li-name nowrap">' +
+                                mList[i].senderName[0].name +
+                                '</span><span class="li-title nowrap" data-id="' + mList[i].mailId + '">' +
+                                mList[i].title +
+                                '</span><span class="li-time">' +
+                                mList[i].fromNow +
+                                '</span></li>';
+                        }
+                        html += '</ul></div>';
+                        //添加分页按钮
+                        html += '<div class="btn-line clearfix">';
+                        if( taskPage !== obj.data.pageCount) {
+                            html += '<a href="javascript:" class="next-btn animated zoomIn delay-' + delay + '">下一页<i class="fa fa-arrow-right"></i></a>';
+                        }
+                        if (taskPage !== 1) {
+                            html += '<a href="javascript:" class="prev-btn animated zoomIn delay-' + delay + '"><i class="fa fa-arrow-left"></i>上一页</a>';
+                        }
+                        html += '</div>';
+                        document.getElementById('return').innerHTML = html;
+                    }
+                } else {
+                    topAlert('网络错误','error');
+                }
+            },
+            error: function() {
+                topAlert('网络错误','error');
+            }
+        });
+    }
+    /**
+     * #return事件绑定
+     */
+    $('#return')
+        //查看邮件详情
+        .delegate('.li-title', 'click', function() {
+            showMailDetail($(this).data('id'),'return');
+        })
+        //返回邮件列表
+        .delegate('.back-btn', 'click', function() {
+            showReturnList(returnPage);
+        })
+        .delegate('.prev-btn','click',function(){
+            showReturnList(--returnPage);
+        })
+        .delegate('.next-btn','click',function(){
+            showReturnList(++returnPage);
+        })
+    /*-------------------- return end --------------------*/
+
+    /*-------------------- done start --------------------*/
+    function showDoneList(page) {
+        document.getElementById('done').innerHTML = '';
+        $.ajax({
+            url: "/api/handler/managed",
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                token:token,
+                page:page
+            },
+            success: function (obj) {
+                if(obj.status === 0) {
+                    var delay = 0,
+                        mList = obj.data.list;
+                    if (mList.length === 0) {
+                        document.getElementById('done').innerHTML = '<div class="vertical-middle-t"><div class="vertical-middle-tc"><div class="no-content"><p>没有已处理的邮件</p></div></div></div>';
+                        setTimeout(function () {
+                            document.querySelector('#done .no-content').classList.add('grow');
+                        }, 1);
+                    } else {
+                        var delay = 0, html = '';
+                        //邮件根据日期归类
+                        for (var i = 0; i < mList.length; i++) {
+                            mList[i].senderName[0].name = mList[i].senderName[0].name || '发件人：无';
+                        }
+                        delay = Math.min(delay + 50, 1000);
+                        html += '<div class="mail-line">&nbsp;<ul class="mail-ul">';
+                        for (var i = 0; i < mList.length; i++) {
+                            delay = Math.min(delay + 50, 1000);
+                            html += '<li class="delay-' + delay + ' animated zoomIn"><span class="li-name nowrap">' +
+                                mList[i].senderName[0].name +
+                                '</span><span class="li-title nowrap" data-id="' + mList[i].mailId + '">' +
+                                mList[i].title +
+                                '</span><span class="li-time">' +
+                                mList[i].fromNow +
+                                '</span></li>';
+                        }
+                        html += '</ul></div>';
+                        //添加分页按钮
+                        html += '<div class="btn-line clearfix">';
+                        if( taskPage !== obj.data.pageCount) {
+                            html += '<a href="javascript:" class="next-btn animated zoomIn delay-' + delay + '">下一页<i class="fa fa-arrow-right"></i></a>';
+                        }
+                        if (taskPage !== 1) {
+                            html += '<a href="javascript:" class="prev-btn animated zoomIn delay-' + delay + '"><i class="fa fa-arrow-left"></i>上一页</a>';
+                        }
+                        html += '</div>';
+                        document.getElementById('done').innerHTML = html;
+                    }
+                } else {
+                    topAlert('网络错误','error');
+                }
+            },
+            error: function() {
+                topAlert('网络错误','error');
+            }
+        });
+    }
+    /**
+     * #done事件绑定
+     */
+    $('#done')
+        //查看邮件详情
+        .delegate('.li-title', 'click', function() {
+            showMailDetail($(this).data('id'),'done');
+        })
+        //返回邮件列表
+        .delegate('.back-btn', 'click', function() {
+            showDoneList(donePage);
+        })
+        .delegate('.prev-btn','click',function(){
+            showDoneList(--donePage);
+        })
+        .delegate('.next-btn','click',function(){
+            showDoneList(++donePage);
+        })
+    /*-------------------- done end --------------------*/
+
     /**
      * 显示邮件详情
      */
