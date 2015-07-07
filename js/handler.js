@@ -10,6 +10,7 @@
     document.getElementById('username').innerHTML = name;
     topAlert('欢迎回来','welcome');
 
+
     /**
      * 初始化editor
      */
