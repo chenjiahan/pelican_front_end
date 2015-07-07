@@ -334,7 +334,8 @@
                     token: token,
                     to: receiver,
                     subject: subject,
-                    html: html
+                    html: html,
+                    text: ''
                 },
                 success: function (obj) {
                     if(obj.status === 0) {
