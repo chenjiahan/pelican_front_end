@@ -453,7 +453,7 @@
     var senderInfo = {}; //记录发件人信息，用于回复邮件
     function showMailDetail(id,boxId) {
         $.ajax({
-            url: "/api/handler/detail",
+            url: "/api/email/detail",
             type: 'GET',
             dataType: 'json',
             data: {
