@@ -20,7 +20,7 @@
      */
     $.ajax({
         url: "/api/handlers/checkers",
-        type: 'POST',
+        type: 'GET',
         dataType: 'json',
         data: {
             token: token
@@ -28,6 +28,7 @@
         success: function (obj) {
             if(obj.status === 0) {
                 var list = '';
+                var checkers = obj.data.users;
                 var checkers = obj.data.users;
                 var len = checkers.length;
                 for(var i = 0;i < len; i++) {
