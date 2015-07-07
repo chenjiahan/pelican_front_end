@@ -318,7 +318,7 @@
         var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         if(!receiver) {
             topAlert('收信人不能为空','error');
-        } else if(!filter.text(receiver)) {
+        } else if(!filter.test(receiver)) {
             topAlert('邮箱格式错误','error');
         } else if (!subject) {
             topAlert('邮件主题不能为空','error');
