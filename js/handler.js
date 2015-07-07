@@ -315,8 +315,11 @@
             html = document.getElementsByClassName('editor')[0].innerHTML,
             checker = document.getElementById('checker').value,
             btn = this;
+        var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         if(!receiver) {
             topAlert('收信人不能为空','error');
+        } else if(!filter.text(receiver)) {
+            topAlert('邮箱格式错误','error');
         } else if (!subject) {
             topAlert('邮件主题不能为空','error');
         } else if (!checker) {
@@ -345,13 +348,17 @@
                         document.getElementById('subject').value = '';
                         document.getElementsByClassName('editor')[0].innerHTML = '';
                     } else {
-                        topAlert('发送失败','error');
+                        if(obj.message.name === 'RecipientError') {
+                            topAlert('邮箱地址错误','error');
+                        } else {
+                            topAlert('发送失败','error');
+                        }
                     }
-                    btn.html('发送');
+                    btn.innerHTML = '发送';
                 },
                 error: function() {
                     topAlert('发送失败','error');
-                    btn.html('发送');
+                    btn.innerHTML = '发送';
                 }
             });
         }
