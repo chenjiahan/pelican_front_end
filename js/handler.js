@@ -163,7 +163,7 @@
     function showTaskList(page) {
         document.getElementById('task').innerHTML = '';
         $.ajax({
-            url: "/api/email/list",
+            url: "/api/handler/list",
             type: 'GET',
             dataType: 'json',
             data: {
@@ -283,7 +283,7 @@
     var senderInfo = {}; //记录发件人信息，用于回复邮件
     function showMailDetail(id) {
         $.ajax({
-            url: "/api/email/detail",
+            url: "/api/handler/detail",
             type: 'GET',
             dataType: 'json',
             data: {
@@ -345,7 +345,7 @@
         //详情页标记为已处理
         .delegate('.done-btn', 'click', function() {
             $.ajax({
-                url: "/api/email/manage",
+                url: "/api/handler/manage",
                 type: 'POST',
                 dataType: 'json',
                 data: {
