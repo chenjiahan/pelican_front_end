@@ -83,11 +83,10 @@
             } else if (target === 'check') {
                 showCheckList(checkPage);
             } else if (target === 'done') {
-
             } else if(target === 'return') {
 
             } else if(target === 'sended') {
-
+                showSendedList();
             }
         }
     }
@@ -444,16 +443,94 @@
         })
         //返回邮件列表
         .delegate('.back-btn', 'click', function() {
-            showCheckList(taskPage);
+            showCheckList(checkPage);
         })
         .delegate('.prev-btn','click',function(){
-            showCheckList(--taskPage);
+            showCheckList(--checkPage);
         })
         .delegate('.next-btn','click',function(){
-            showCheckList(++taskPage);
+            showCheckList(++checkPage);
         })
     /*-------------------- check end --------------------*/
 
+    /*-------------------- sended start --------------------*/
+    function showSendedList(page) {
+        document.getElementById('sended').innerHTML = '';
+        $.ajax({
+            url: "/api/handler/sent",
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                token:token,
+                page:page
+            },
+            success: function (obj) {
+                if(obj.status === 0) {
+                    var delay = 0,
+                        mList = obj.data.list;
+                    if (mList.length === 0) {
+                        document.getElementById('sended').innerHTML = '<div class="vertical-middle-t"><div class="vertical-middle-tc"><div class="no-content"><p>没有已发送的邮件</p></div></div></div>';
+                        setTimeout(function () {
+                            document.querySelector('#sended .no-content').classList.add('grow');
+                        }, 1);
+                    } else {
+                        var delay = 0, html = '';
+                        //邮件根据日期归类
+                        for (var i = 0; i < mList.length; i++) {
+                            mList[i].senderName[0].name = mList[i].senderName[0].name || '发件人：无';
+                        }
+                        delay = Math.min(delay + 50, 1000);
+                        html += '<div class="mail-line">&nbsp;<ul class="mail-ul">';
+                        for (var i = 0; i < mList.length; i++) {
+                            delay = Math.min(delay + 50, 1000);
+                            html += '<li class="delay-' + delay + ' animated zoomIn"><span class="li-name nowrap">' +
+                                mList[i].senderName[0].name +
+                                '</span><span class="li-title nowrap" data-id="' + mList[i].mailId + '">' +
+                                mList[i].title +
+                                '</span><span class="li-time">' +
+                                mList[i].fromNow +
+                                '</span></li>';
+                        }
+                        html += '</ul></div>';
+                        //添加分页按钮
+                        html += '<div class="btn-line clearfix">';
+                        if( taskPage !== obj.data.pageCount) {
+                            html += '<a href="javascript:" class="next-btn animated zoomIn delay-' + delay + '">下一页<i class="fa fa-arrow-right"></i></a>';
+                        }
+                        if (taskPage !== 1) {
+                            html += '<a href="javascript:" class="prev-btn animated zoomIn delay-' + delay + '"><i class="fa fa-arrow-left"></i>上一页</a>';
+                        }
+                        html += '</div>';
+                        document.getElementById('sended').innerHTML = html;
+                    }
+                } else {
+                    topAlert('网络错误','error');
+                }
+            },
+            error: function() {
+                topAlert('网络错误','error');
+            }
+        });
+    }
+    /**
+     * #sended事件绑定
+     */
+    $('#sended')
+        //查看邮件详情
+        .delegate('.li-title', 'click', function() {
+            showMailDetail($(this).data('id'),'sended');
+        })
+        //返回邮件列表
+        .delegate('.back-btn', 'click', function() {
+            showSendedList(sendedPage);
+        })
+        .delegate('.prev-btn','click',function(){
+            showSendedList(--sendedPage);
+        })
+        .delegate('.next-btn','click',function(){
+            showSendedList(++sendedPage);
+        })
+    /*-------------------- sended end --------------------*/
 
     /**
      * 显示邮件详情
