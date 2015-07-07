@@ -537,7 +537,7 @@
     function showReturnList(page) {
         document.getElementById('return').innerHTML = '';
         $.ajax({
-            url: "/api/handler/return",
+            url: "/api/handler/returned",
             type: 'GET',
             dataType: 'json',
             data: {
