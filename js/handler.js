@@ -83,10 +83,11 @@
             } else if (target === 'check') {
                 showCheckList(checkPage);
             } else if (target === 'done') {
+                showDoneList(donePage);
             } else if(target === 'return') {
-
+                showReturnList(returnPage);
             } else if(target === 'sended') {
-                showSendedList();
+                showSendedList(sendedPage);
             }
         }
     }
