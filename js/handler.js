@@ -19,7 +19,7 @@
      * 初始化审核人chosen
      */
     $.ajax({
-        url: "/api/handlers/checkers",
+        url: "/api/handler/checkers",
         type: 'GET',
         dataType: 'json',
         data: {
@@ -28,7 +28,6 @@
         success: function (obj) {
             if(obj.status === 0) {
                 var list = '';
-                var checkers = obj.data.users;
                 var checkers = obj.data.users;
                 var len = checkers.length;
                 for(var i = 0;i < len; i++) {
@@ -39,6 +38,16 @@
             }
         }
     });
+
+    /**
+     * 初始化邮件数据
+     */
+    var taskPage = 1;
+    var donePage = 1;
+    var checkPage = 1;
+    var returnPage = 1;
+    var sendedPage = 1;
+    showTaskList(taskPage);
 
     /**
      * 登出
@@ -55,7 +64,6 @@
     $('.slide-menu-ul li').click(function () {
         changePage($('.active-li').data('to'), $(this).data('to'));
     });
-
     /**
      * 切换显示的页面
      * @param now
@@ -81,66 +89,7 @@
         }
     }
 
-    /**
-     * mail title focus效果
-     */
-    $('.mail-title input')
-        .focus(function() {
-            $(this).parent().addClass('mail-title-focus');
-        })
-        .blur(function() {
-            $(this).parent().removeClass('mail-title-focus');
-        });
-
-    /**
-     * 发送邮件
-     */
-    $('.send-btn').click(function () {
-        var receiver = document.getElementById('receiver').value,
-            subject = document.getElementById('subject').value,
-            html = document.getElementsByClassName('editor')[0].innerHTML,
-            checker = document.getElementById('checker'),
-            btn = this;
-        if(!receiver) {
-            topAlert('收信人不能为空','error');
-        } else if (!subject) {
-            topAlert('邮件主题不能为空','error');
-        } else if (!checker) {
-            topAlert('请选择审核人','error');
-        } else if (!html) {
-            topAlert('邮件正文不能为空','error');
-        } else {
-            html = '<div>' + html + '</div>';
-            btn.innerHTML = '<i class="fa fa-spinner fa-pulse"></i>';
-            $.ajax({
-                url: "/api/email/send",
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    token: token,
-                    to: receiver,
-                    subject: subject,
-                    html: html
-                },
-                success: function (obj) {
-                    if(obj.status === 0) {
-                        topAlert('发送成功','success');
-                        document.getElementById('receiver').value = '';
-                        document.getElementById('subject').value = '';
-                        document.getElementsByClassName('editor')[0].innerHTML = '';
-                    } else {
-                        topAlert('发送失败','error');
-                    }
-                    btn.html('发送');
-                },
-                error: function() {
-                    topAlert('发送失败','error');
-                    btn.html('发送');
-                }
-            });
-        }
-    });
-
+    /*-------------------- task start --------------------*/
     /**
      * 获取日期字符串
      * @param offset
@@ -159,11 +108,10 @@
         }
         return y + "-" + m + "-" + d;
     }
-    var taskPage = 1;
     function showTaskList(page) {
         document.getElementById('task').innerHTML = '';
         $.ajax({
-            url: "/api/handler/list",
+            url: "/api/handler/unseen",
             type: 'GET',
             dataType: 'json',
             data: {
@@ -243,23 +191,15 @@
                             }
                             html += '</ul></div>';
                         }
-                        if(taskPage === 1 && taskPage !== obj.data.pageCount) {
-                            html +=
-                                '<div class="btn-line clearfix">' +
-                                 '<a href="javascript:" class="next-btn next-task animated zoomIn delay-' + delay + '">下一页<i class="fa fa-arrow-right"></i></a>' +
-                                '</div>';
-                        } else if (taskPage !== 1 && taskPage === obj.data.pageCount) {
-                            html +=
-                                '<div class="btn-line clearfix">' +
-                                '<a href="javascript:" class="prev-btn prev-task animated zoomIn delay-' + delay + '"><i class="fa fa-arrow-left"></i>上一页</a>' +
-                               '</div>';
-                        } else if (taskPage !== 1 && taskPage !== obj.data.pageCount) {
-                            html +=
-                                '<div class="btn-line clearfix">' +
-                                '<a href="javascript:" class="prev-btn prev-task animated zoomIn delay-' + delay + '"><i class="fa fa-arrow-left"></i>上一页</a>' +
-                                '<a href="javascript:" class="next-btn next-task animated zoomIn delay-' + delay + '">下一页<i class="fa fa-arrow-right"></i></a>' +
-                                '</div>';
+                        //添加分页按钮
+                        html += '<div class="btn-line clearfix">';
+                        if( taskPage !== obj.data.pageCount) {
+                            html += '<a href="javascript:" class="next-btn animated zoomIn delay-' + delay + '">下一页<i class="fa fa-arrow-right"></i></a>';
                         }
+                        if (taskPage !== 1) {
+                            html += '<a href="javascript:" class="prev-btn animated zoomIn delay-' + delay + '"><i class="fa fa-arrow-left"></i>上一页</a>';
+                        }
+                        html += '</div>';
                         document.getElementById('task').innerHTML = html;
                     }
                 } else {
@@ -271,58 +211,6 @@
             }
         });
     }
-    showTaskList(taskPage);
-
-    function showDoneList(page) {
-        document.getElementById('done').innerHTML = '';
-    }
-
-    /**
-     * 显示邮件详情
-     */
-    var senderInfo = {}; //记录发件人信息，用于回复邮件
-    function showMailDetail(id) {
-        $.ajax({
-            url: "/api/handler/detail",
-            type: 'GET',
-            dataType: 'json',
-            data: {
-                token: token,
-                mailId: id
-            },
-            success: function (obj) {
-                if(obj.status === 0) {
-                    obj.data.id = id;
-                    obj.data.receivedDate = obj.data.receivedDate.substr(0,16).replace('-','年').replace('-','月').replace('T','日 ');
-                    document.getElementById('task').innerHTML = template('md-tmpl',obj);
-                    //修改iframe并显示邮件内容
-                    var iframe = document.getElementById('detail-iframe');
-                    var ifrdoc = iframe.contentWindow.document;
-                    ifrdoc.designMode = "on";
-                    ifrdoc.open();
-                    ifrdoc.write(obj.data.html);
-                    ifrdoc.close();
-                    ifrdoc.designMode ="off";
-                    var subWeb = document.frames ? document.frames["detail-iframe"].document : iframe.contentDocument;
-                    if(iframe != null && subWeb != null) {
-                        iframe.height = subWeb.body.scrollHeight + 10;
-                    }
-                    //记录发件人信息
-                    senderInfo.name = obj.data.from[0].name;
-                    senderInfo.address = obj.data.from[0].address;
-                    senderInfo.subject = obj.data.subject;
-                    senderInfo.html = obj.data.html;
-                    senderInfo.date = obj.data.receivedDate.substr(0,16).replace('-','年').replace('-','月').replace('T','日 ');
-                } else {
-                    topAlert('网络错误','error');
-                }
-            },
-            error: function() {
-                topAlert('网络错误','error');
-            }
-        });
-    }
-
     /**
      * #task事件绑定
      */
@@ -370,7 +258,7 @@
             var line = $(this).parent(),
                 ul = line.parent();
             $.ajax({
-                url: "/api/email/manage",
+                url: "/api/handler/manage",
                 type: 'POST',
                 dataType: 'json',
                 data: {
@@ -405,12 +293,193 @@
                 }
             });
         })
-        .delegate('.prev-task','click',function(){
+        .delegate('.prev-btn','click',function(){
             showTaskList(--taskPage);
         })
-        .delegate('.next-task','click',function(){
+        .delegate('.next-btn','click',function(){
             showTaskList(++taskPage);
         })
+    /*-------------------- task end --------------------*/
+
+
+    /*-------------------- send end --------------------*/
+    /**
+     * 发送邮件
+     */
+    $('.send-btn').click(function () {
+        var receiver = document.getElementById('receiver').value,
+            subject = document.getElementById('subject').value,
+            html = document.getElementsByClassName('editor')[0].innerHTML,
+            checker = document.getElementById('checker'),
+            btn = this;
+        if(!receiver) {
+            topAlert('收信人不能为空','error');
+        } else if (!subject) {
+            topAlert('邮件主题不能为空','error');
+        } else if (!checker) {
+            topAlert('请选择审核人','error');
+        } else if (!html) {
+            topAlert('邮件正文不能为空','error');
+        } else {
+            html = '<div>' + html + '</div>';
+            btn.innerHTML = '<i class="fa fa-spinner fa-pulse"></i>';
+            $.ajax({
+                url: "/api/email/send",
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    token: token,
+                    to: receiver,
+                    subject: subject,
+                    html: html
+                },
+                success: function (obj) {
+                    if(obj.status === 0) {
+                        topAlert('发送成功','success');
+                        document.getElementById('receiver').value = '';
+                        document.getElementById('subject').value = '';
+                        document.getElementsByClassName('editor')[0].innerHTML = '';
+                    } else {
+                        topAlert('发送失败','error');
+                    }
+                    btn.html('发送');
+                },
+                error: function() {
+                    topAlert('发送失败','error');
+                    btn.html('发送');
+                }
+            });
+        }
+    });
+    /**
+     * mail title focus效果
+     */
+    $('.mail-title input')
+        .focus(function() {
+            $(this).parent().addClass('mail-title-focus');
+        })
+        .blur(function() {
+            $(this).parent().removeClass('mail-title-focus');
+        });
+    /*-------------------- send end --------------------*/
+
+    /*-------------------- check start --------------------*/
+    function showCheckList(page) {
+        document.getElementById('check').innerHTML = '';
+        $.ajax({
+            url: "/api/handler/checking",
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                token:token,
+                page:page
+            },
+            success: function (obj) {
+                if(obj.status === 0) {
+                    var delay = 0,
+                        mList = obj.data.list;
+                    if (mList.length === 0) {
+                        document.getElementById('check').innerHTML = '<div class="vertical-middle-t"><div class="vertical-middle-tc"><div class="no-content"><p>没有在审核中的邮件</p></div></div></div>';
+                        setTimeout(function () {
+                            document.querySelector('#check .no-content').classList.add('grow');
+                        }, 1);
+                    } else {
+                        var delay = 0, html = '';
+                        //邮件根据日期归类
+                        for (var i = 0; i < mList.length; i++) {
+                            mList[i].senderName[0].name = mList[i].senderName[0].name || '发件人：无';
+                        }
+                        delay = Math.min(delay + 50, 1000);
+                        html += '<div class="mail-line">&nbsp;<ul class="mail-ul">';
+                        for (var i = 0; i < aList.length; i++) {
+                            delay = Math.min(delay + 50, 1000);
+                            html += '<li class="delay-' + delay + ' animated zoomIn"><span class="li-name nowrap">' +
+                                mList[i].senderName[0].name +
+                                '</span><span class="li-title nowrap" data-id="' + mList[i].mailId + '">' +
+                                mList[i].title +
+                                '</span><span class="li-time">' +
+                                mList[i].fromNow +
+                                '</span></li>';
+                        }
+                        html += '</ul></div>';
+                        //添加分页按钮
+                        html += '<div class="btn-line clearfix">';
+                        if( taskPage !== obj.data.pageCount) {
+                            html += '<a href="javascript:" class="next-btn animated zoomIn delay-' + delay + '">下一页<i class="fa fa-arrow-right"></i></a>';
+                        }
+                        if (taskPage !== 1) {
+                            html += '<a href="javascript:" class="prev-btn animated zoomIn delay-' + delay + '"><i class="fa fa-arrow-left"></i>上一页</a>';
+                        }
+                        html += '</div>';
+                        document.getElementById('check').innerHTML = html;
+                    }
+                } else {
+                    topAlert('网络错误','error');
+                }
+            },
+            error: function() {
+                topAlert('网络错误','error');
+            }
+        });
+    }
+    /**
+     * #check事件绑定
+     */
+    $('#check')
+        .delegate('.prev-btn','click',function(){
+            showCheckList(--taskPage);
+        })
+        .delegate('.next-btn','click',function(){
+            showCheckList(++taskPage);
+        })
+    /*-------------------- check end --------------------*/
+
+    /**
+     * 显示邮件详情
+     */
+    var senderInfo = {}; //记录发件人信息，用于回复邮件
+    function showMailDetail(id) {
+        $.ajax({
+            url: "/api/handler/detail",
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                token: token,
+                mailId: id
+            },
+            success: function (obj) {
+                if(obj.status === 0) {
+                    obj.data.id = id;
+                    obj.data.receivedDate = obj.data.receivedDate.substr(0,16).replace('-','年').replace('-','月').replace('T','日 ');
+                    document.getElementById('task').innerHTML = template('md-tmpl',obj);
+                    //修改iframe并显示邮件内容
+                    var iframe = document.getElementById('detail-iframe');
+                    var ifrdoc = iframe.contentWindow.document;
+                    ifrdoc.designMode = "on";
+                    ifrdoc.open();
+                    ifrdoc.write(obj.data.html);
+                    ifrdoc.close();
+                    ifrdoc.designMode ="off";
+                    var subWeb = document.frames ? document.frames["detail-iframe"].document : iframe.contentDocument;
+                    if(iframe != null && subWeb != null) {
+                        iframe.height = subWeb.body.scrollHeight + 10;
+                    }
+                    //记录发件人信息
+                    senderInfo.name = obj.data.from[0].name;
+                    senderInfo.address = obj.data.from[0].address;
+                    senderInfo.subject = obj.data.subject;
+                    senderInfo.html = obj.data.html;
+                    senderInfo.date = obj.data.receivedDate.substr(0,16).replace('-','年').replace('-','月').replace('T','日 ');
+                } else {
+                    topAlert('网络错误','error');
+                }
+            },
+            error: function() {
+                topAlert('网络错误','error');
+            }
+        });
+    }
+
 
     /**
      * 顶部弹出框
