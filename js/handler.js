@@ -279,7 +279,6 @@
                     if(iframe != null && subWeb != null) {
                         iframe.height = subWeb.body.scrollHeight + 10;
                     }
-
                     //记录发件人信息
                     senderInfo.name = obj.data.from[0].name;
                     senderInfo.address = obj.data.from[0].address;
