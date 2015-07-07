@@ -312,7 +312,7 @@
             changePage('task','send');
             $('#receiver').val(senderInfo.address);
             $('#subject').val('回复：' + senderInfo.subject);
-            $('.editor').html('<br><br><br><br><br>在 ' + senderInfo.date + '，"' + senderInfo.name + '" <' + senderInfo.address + '> 写道：' + html);
+            $('.editor').html('<br><br><br><br><br>在 ' + senderInfo.date + '，"' + senderInfo.name + '" <' + senderInfo.address + '> 写道：' + senderInfo.html);
         })
         //详情页标记为已处理
         .delegate('.done-btn', 'click', function() {
