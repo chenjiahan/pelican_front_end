@@ -335,7 +335,8 @@
                     to: receiver,
                     subject: subject,
                     html: html,
-                    text: ''
+                    text: '',
+                    checker: checker
                 },
                 success: function (obj) {
                     if(obj.status === 0) {
