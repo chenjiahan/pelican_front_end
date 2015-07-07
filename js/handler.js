@@ -429,6 +429,14 @@
      * #check事件绑定
      */
     $('#check')
+        //查看邮件详情
+        .delegate('.li-title', 'click', function() {
+            showMailDetail($(this).data('id'),'check');
+        })
+        //返回邮件列表
+        .delegate('.back-btn', 'click', function() {
+            showCheckList(taskPage);
+        })
         .delegate('.prev-btn','click',function(){
             showCheckList(--taskPage);
         })
@@ -453,6 +461,7 @@
             },
             success: function (obj) {
                 if(obj.status === 0) {
+                    obj.boxId = boxId;
                     obj.data.id = id;
                     obj.data.receivedDate = obj.data.receivedDate.substr(0,16).replace('-','年').replace('-','月').replace('T','日 ');
                     document.getElementById(boxId).innerHTML = template('md-tmpl',obj);
