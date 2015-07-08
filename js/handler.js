@@ -426,6 +426,7 @@
         });
     /*-------------------- send end --------------------*/
 
+
     /*-------------------- check start --------------------*/
     function showCheckList(page) {
         document.getElementById('check').innerHTML = '';
