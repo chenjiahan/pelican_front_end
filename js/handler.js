@@ -679,7 +679,7 @@
         .delegate('.edit-btn', 'click', function() {
             changePage('return','send');
             $('#receiver').val(senderInfo.address);
-            $('#subject').val('回复：' + senderInfo.subject);
+            $('#subject').val(senderInfo.subject);
             $('.editor').html(senderInfo.html);
         })
     /*-------------------- return end --------------------*/
