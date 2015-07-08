@@ -476,11 +476,9 @@ body {
 .next-btn {
   height: 38px;
   width: 95px;
-  color: #4791D2;
   padding-top: 9px;
   text-align: center;
   border-radius: 4px;
-  border: 1px solid #4791D2;
   -webkit-transition: all .2s ease-in-out;
        -o-transition: all .2s ease-in-out;
           transition: all .2s ease-in-out;
@@ -488,9 +486,53 @@ body {
 .prev-btn:hover,
 .next-btn:hover {
   color: #fff;
-  background-color: #4791D2;
   -webkit-box-shadow: 0 3px 8px 0 rgba(0,0,0,0.18);
           box-shadow: 0 3px 8px 0 rgba(0,0,0,0.18);
+}
+#task .prev-btn,
+#task .next-btn {
+  color: #4791D2;
+  border: 1px solid #4791D2;
+}
+#task .prev-btn:hover,
+#task .next-btn:hover {
+  background-color: #4791D2;
+}
+#check .prev-btn,
+#check .next-btn {
+  color: #45BF55;
+  border: 1px solid #45BF55;
+}
+#check .prev-btn:hover,
+#check .next-btn:hover {
+  background-color: #45BF55;
+}
+#sended .prev-btn,
+#sended .next-btn {
+  color: #7f64d9;
+  border: 1px solid #7f64d9;
+}
+#sended .prev-btn:hover,
+#sended .next-btn:hover {
+  background-color: #7f64d9;
+}
+#return .prev-btn,
+#return .next-btn {
+  color: #1fa67a;
+  border: 1px solid #1fa67a;
+}
+#return .prev-btn:hover,
+#return .next-btn:hover {
+  background-color: #1fa67a;
+}
+#done .prev-btn,
+#done .next-btn {
+  color: #1a8fb4;
+  border: 1px solid #1a8fb4;
+}
+#done .prev-btn:hover,
+#done .next-btn:hover {
+  background-color: #1a8fb4;
 }
 .prev-btn .fa,
 .next-btn .fa {
