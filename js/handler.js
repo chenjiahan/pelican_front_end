@@ -104,6 +104,7 @@
             $('.' + target + '-li').addClass('active-li');
             $('.head-nav')[0].className = 'head-nav head-nav-' + target;
             $('#' + target).show();
+            loading.show();
             if (target === 'task'){
                 showTaskList(taskPage);
             } else if (target === 'check') {
@@ -115,6 +116,7 @@
             } else if(target === 'sended') {
                 showSendedList(sendedPage);
             }
+            loading.hide();
         }
     }
 
@@ -138,7 +140,6 @@
         return y + "-" + m + "-" + d;
     }
     function showTaskList(page) {
-        loading.show();
         document.getElementById('task').innerHTML = '';
         $.ajax({
             url: "/api/handler/unseen",
@@ -230,7 +231,6 @@
                             html += '<a href="javascript:" class="prev-btn animated zoomIn delay-' + delay + '"><i class="fa fa-arrow-left"></i>上一页</a>';
                         }
                         html += '</div>';
-                        loading.hide();
                         document.getElementById('task').innerHTML = html;
                     }
                 } else {
