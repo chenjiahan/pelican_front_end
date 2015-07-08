@@ -648,8 +648,8 @@
                     }
                 } else {
                     topAlert('网络错误','error');
-                    loading.hide();
                 }
+                loading.hide();
             },
             error: function() {
                 topAlert('网络错误','error');
