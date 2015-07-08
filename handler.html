@@ -160,11 +160,14 @@
                 <div class="detail-tool">
                     {{if boxId == 'task'}}
                         <a href="javascript:" class="back-btn">返回上级</a>
-                        <a href="javascript:" class="return-btn">退回邮件</a>
+                        <a href="javascript:" class="return-btn" data-id="{{data.id}}">退回邮件</a>
                         <a href="javascript:" class="reply-btn">回复邮件</a>
                         <a href="javascript:" class="done-btn" data-id="{{data.id}}">标记为已处理</a>
-                    {{else}}
+                    {{else if boxId == 'return'}}
+                        <a href="javascript:" class="edit-btn" data-id="{{data.id}}">退回邮件</a>
                         <a href="javascript:" class="back-btn">返回上级</a>
+                    {{else}}
+                    <a href="javascript:" class="back-btn">返回上级</a>
                     {{/if}}
                 </div>
                 <h2>{{data.subject}}</h2>
@@ -186,6 +189,9 @@
                     {{/each}}
                 </p>
                 <p><span class="detail-span">时&nbsp;&nbsp;&nbsp;间：</span>&nbsp;{{data.receivedDate}}</p>
+                {{if boxId == 'return'}}
+                    <p><span class="detail-span">退回理由：</span>&nbsp;{{data.checkContent}}</p>
+                {{/if}}
             </div>
             <iframe id="detail-iframe" class="mail-content"></iframe>
         </div>

@@ -302,6 +302,29 @@
         .delegate('.next-btn','click',function(){
             showTaskList(++taskPage);
         })
+        //详情页退回邮件
+        .delegate('.return-btn','click',function(){
+            $.ajax({
+                url: "/api/handler/return",
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    token:token,
+                    mailId: $(this).data('id')
+                },
+                success: function (obj) {
+                    if(obj.status === 0) {
+                        topAlert('退回邮件成功','success');
+                        showTaskList(taskPage);
+                    } else {
+                        topAlert('退回邮件失败','error');
+                    }
+                },
+                error: function() {
+                    topAlert('退回邮件失败','error');
+                }
+            });
+        })
     /*-------------------- task end --------------------*/
 
 

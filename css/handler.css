@@ -466,6 +466,14 @@ body {
 .return-btn:hover {
   background-color: #ff5a5a;
 }
+.edit-btn {
+  color: #fff;
+  background-color: #ff6a6a;
+  border: 1px solid #ff6a6a;
+}
+.edit-btn:hover {
+  background-color: #ff5a5a;
+}
 
 .btn-line {
   width: 85%;
@@ -485,7 +493,7 @@ body {
 }
 .prev-btn:hover,
 .next-btn:hover {
-  color: #fff;
+  color: #fff!important;
   -webkit-box-shadow: 0 3px 8px 0 rgba(0,0,0,0.18);
           box-shadow: 0 3px 8px 0 rgba(0,0,0,0.18);
 }
