@@ -11,6 +11,32 @@
     topAlert('欢迎回来','welcome');
 
     /**
+     * 加载动画
+     * loading.show()显示
+     * loading.hide()隐藏
+     */
+    var loading = {
+        show: function() {
+            var loader = document.getElementsByClassName('loading')[0];
+            if(!loader) {
+                loader = document.createElement('DIV');
+                loader.className = 'loading';
+                loader.innerHTML = '<div class="spinner">'
+                    + '<div class="spinner-container container1"><div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div></div>'
+                    + '<div class="spinner-container container2"><div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div></div>'
+                    + '<div class="spinner-container container3"><div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div></div></div>';
+                document.body.appendChild(loader);
+            }
+        },
+        hide:function () {
+            var loader = document.getElementsByClassName('loading')[0];
+            if(loader) {
+                loader.parentNode.removeChild(loader);
+            }
+        }
+    };
+
+    /**
      * 初始化editor
      */
     $('.editor').wysiwyg();
@@ -89,31 +115,6 @@
             } else if(target === 'sended') {
                 showSendedList(sendedPage);
             }
-        }
-    }
-
-    /**
-     * 加载动画
-     * loading.show()显示
-     * loading.hide()隐藏
-     */
-    function loading() {}
-    loading.prototype.show = function() {
-        var loader = document.getElementsByClassName('loading')[0];
-        if(!loader) {
-            loader = document.createElement('DIV');
-            loader.className = 'loading';
-            loader.innerHTML = '<div class="spinner">'
-                + '<div class="spinner-container container1"><div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div></div>'
-                + '<div class="spinner-container container2"><div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div></div>'
-                + '<div class="spinner-container container3"><div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div></div></div>';
-            document.body.appendChild(loader);
-        }
-    }
-    loading.prototype.hide = function() {
-        var loader = document.getElementsByClassName('loading')[0];
-        if(loader) {
-            loader.parentNode.removeChild(loader);
         }
     }
 
