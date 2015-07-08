@@ -748,6 +748,7 @@
      */
     var senderInfo = {}; //记录发件人信息，用于回复邮件
     function showMailDetail(id,boxId) {
+        loading.show();
         $.ajax({
             url: "/api/email/detail",
             type: 'GET',
@@ -788,6 +789,7 @@
                 topAlert('网络错误','error');
             }
         });
+        loading.hide();
     }
 
     /**
