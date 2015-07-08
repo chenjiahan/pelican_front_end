@@ -675,6 +675,13 @@
         .delegate('.next-btn','click',function(){
             showReturnList(++returnPage);
         })
+        //点击编辑邮件
+        .delegate('.edit-btn', 'click', function() {
+            changePage('return','send');
+            $('#receiver').val(senderInfo.address);
+            $('#subject').val('回复：' + senderInfo.subject);
+            $('.editor').html(senderInfo.html);
+        })
     /*-------------------- return end --------------------*/
 
     /*-------------------- done start --------------------*/
