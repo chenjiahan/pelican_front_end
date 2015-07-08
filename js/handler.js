@@ -417,7 +417,7 @@
                         document.getElementById('check').innerHTML = '<div class="vertical-middle-t"><div class="vertical-middle-tc"><div class="no-content"><p>没有在审核中的邮件</p></div></div></div>';
                         setTimeout(function () {
                             document.querySelector('#check .no-content').classList.add('grow');
-                        }, 1);
+                        }, 5);
                     } else {
                         var delay = 0, html = '';
                         //邮件根据日期归类
@@ -496,7 +496,7 @@
                         document.getElementById('sended').innerHTML = '<div class="vertical-middle-t"><div class="vertical-middle-tc"><div class="no-content"><p>没有已发送的邮件</p></div></div></div>';
                         setTimeout(function () {
                             document.querySelector('#sended .no-content').classList.add('grow');
-                        }, 1);
+                        }, 5);
                     } else {
                         var delay = 0, html = '';
                         //邮件根据日期归类
@@ -575,7 +575,7 @@
                         document.getElementById('return').innerHTML = '<div class="vertical-middle-t"><div class="vertical-middle-tc"><div class="no-content"><p>没有退回的邮件</p></div></div></div>';
                         setTimeout(function () {
                             document.querySelector('#return .no-content').classList.add('grow');
-                        }, 1);
+                        }, 5);
                     } else {
                         var delay = 0, html = '';
                         //邮件根据日期归类
@@ -654,7 +654,7 @@
                         document.getElementById('done').innerHTML = '<div class="vertical-middle-t"><div class="vertical-middle-tc"><div class="no-content"><p>没有已处理的邮件</p></div></div></div>';
                         setTimeout(function () {
                             document.querySelector('#done .no-content').classList.add('grow');
-                        }, 1);
+                        }, 5);
                     } else {
                         var delay = 0, html = '';
                         //邮件根据日期归类

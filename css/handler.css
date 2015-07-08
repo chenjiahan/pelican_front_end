@@ -468,11 +468,11 @@ body {
 }
 .edit-btn {
   color: #fff;
-  background-color: #ff6a6a;
-  border: 1px solid #ff6a6a;
+  background-color: #1fa67a;
+  border: 1px solid #1fa67a;
 }
 .edit-btn:hover {
-  background-color: #ff5a5a;
+  background-color: #1fa67a;
 }
 
 .btn-line {
