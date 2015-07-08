@@ -416,10 +416,10 @@
                         html += '</ul></div>';
                         //添加分页按钮
                         html += '<div class="btn-line clearfix">';
-                        if( taskPage !== obj.data.pageCount) {
+                        if( checkPage !== obj.data.pageCount) {
                             html += '<a href="javascript:" class="next-btn animated zoomIn delay-' + delay + '">下一页<i class="fa fa-arrow-right"></i></a>';
                         }
-                        if (taskPage !== 1) {
+                        if (checkPage !== 1) {
                             html += '<a href="javascript:" class="prev-btn animated zoomIn delay-' + delay + '"><i class="fa fa-arrow-left"></i>上一页</a>';
                         }
                         html += '</div>';
@@ -495,10 +495,10 @@
                         html += '</ul></div>';
                         //添加分页按钮
                         html += '<div class="btn-line clearfix">';
-                        if( taskPage !== obj.data.pageCount) {
+                        if( sendedPage !== obj.data.pageCount) {
                             html += '<a href="javascript:" class="next-btn animated zoomIn delay-' + delay + '">下一页<i class="fa fa-arrow-right"></i></a>';
                         }
-                        if (taskPage !== 1) {
+                        if (sendedPage !== 1) {
                             html += '<a href="javascript:" class="prev-btn animated zoomIn delay-' + delay + '"><i class="fa fa-arrow-left"></i>上一页</a>';
                         }
                         html += '</div>';
@@ -574,10 +574,10 @@
                         html += '</ul></div>';
                         //添加分页按钮
                         html += '<div class="btn-line clearfix">';
-                        if( taskPage !== obj.data.pageCount) {
+                        if( returnPage !== obj.data.pageCount) {
                             html += '<a href="javascript:" class="next-btn animated zoomIn delay-' + delay + '">下一页<i class="fa fa-arrow-right"></i></a>';
                         }
-                        if (taskPage !== 1) {
+                        if (returnPage !== 1) {
                             html += '<a href="javascript:" class="prev-btn animated zoomIn delay-' + delay + '"><i class="fa fa-arrow-left"></i>上一页</a>';
                         }
                         html += '</div>';
@@ -653,10 +653,10 @@
                         html += '</ul></div>';
                         //添加分页按钮
                         html += '<div class="btn-line clearfix">';
-                        if( taskPage !== obj.data.pageCount) {
+                        if( donePage !== obj.data.pageCount) {
                             html += '<a href="javascript:" class="next-btn animated zoomIn delay-' + delay + '">下一页<i class="fa fa-arrow-right"></i></a>';
                         }
-                        if (taskPage !== 1) {
+                        if (donePage !== 1) {
                             html += '<a href="javascript:" class="prev-btn animated zoomIn delay-' + delay + '"><i class="fa fa-arrow-left"></i>上一页</a>';
                         }
                         html += '</div>';
