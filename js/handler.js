@@ -104,7 +104,6 @@
             $('.' + target + '-li').addClass('active-li');
             $('.head-nav')[0].className = 'head-nav head-nav-' + target;
             $('#' + target).show();
-            loading.show();
             if (target === 'task'){
                 showTaskList(taskPage);
             } else if (target === 'check') {
@@ -116,7 +115,6 @@
             } else if(target === 'sended') {
                 showSendedList(sendedPage);
             }
-            loading.hide();
         }
     }
 
@@ -140,6 +138,7 @@
         return y + "-" + m + "-" + d;
     }
     function showTaskList(page) {
+        loading.show();
         document.getElementById('task').innerHTML = '';
         $.ajax({
             url: "/api/handler/unseen",
@@ -236,9 +235,11 @@
                 } else {
                     topAlert('网络错误','error');
                 }
+                loading.hide();
             },
             error: function() {
                 topAlert('网络错误','error');
+                loading.hide();
             }
         });
     }
@@ -380,6 +381,7 @@
         } else {
             html = '<div>' + html + '</div>';
             btn.innerHTML = '<i class="fa fa-spinner fa-pulse"></i>';
+            loading.show();
             $.ajax({
                 url: "/api/handler/send",
                 type: 'POST',
@@ -406,10 +408,12 @@
                         }
                     }
                     btn.innerHTML = '发送';
+                    loading.hide();
                 },
                 error: function() {
                     topAlert('发送失败','error');
                     btn.innerHTML = '发送';
+                    loading.hide();
                 }
             });
         }
@@ -430,6 +434,7 @@
     /*-------------------- check start --------------------*/
     function showCheckList(page) {
         document.getElementById('check').innerHTML = '';
+        loading.show();
         $.ajax({
             url: "/api/handler/checking",
             type: 'GET',
@@ -480,9 +485,11 @@
                 } else {
                     topAlert('网络错误','error');
                 }
+                loading.hide();
             },
             error: function() {
                 topAlert('网络错误','error');
+                loading.hide();
             }
         });
     }
@@ -509,6 +516,7 @@
     /*-------------------- sended start --------------------*/
     function showSendedList(page) {
         document.getElementById('sended').innerHTML = '';
+        loading.show();
         $.ajax({
             url: "/api/handler/sent",
             type: 'GET',
@@ -559,9 +567,11 @@
                 } else {
                     topAlert('网络错误','error');
                 }
+                loading.hide();
             },
             error: function() {
                 topAlert('网络错误','error');
+                loading.hide();
             }
         });
     }
@@ -588,6 +598,7 @@
     /*-------------------- return start --------------------*/
     function showReturnList(page) {
         document.getElementById('return').innerHTML = '';
+        loading.show();
         $.ajax({
             url: "/api/handler/returned",
             type: 'GET',
@@ -637,10 +648,12 @@
                     }
                 } else {
                     topAlert('网络错误','error');
+                    loading.hide();
                 }
             },
             error: function() {
                 topAlert('网络错误','error');
+                loading.hide();
             }
         });
     }
@@ -667,6 +680,7 @@
     /*-------------------- done start --------------------*/
     function showDoneList(page) {
         document.getElementById('done').innerHTML = '';
+        loading.show();
         $.ajax({
             url: "/api/handler/managed",
             type: 'GET',
@@ -717,9 +731,11 @@
                 } else {
                     topAlert('网络错误','error');
                 }
+                loading.hide();
             },
             error: function() {
                 topAlert('网络错误','error');
+                loading.hide();
             }
         });
     }
@@ -784,12 +800,13 @@
                 } else {
                     topAlert('网络错误','error');
                 }
+                loading.hide();
             },
             error: function() {
                 topAlert('网络错误','error');
+                loading.hide();
             }
         });
-        loading.hide();
     }
 
     /**
