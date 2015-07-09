@@ -56,7 +56,7 @@
             <div class="mail-title clearfix">
                 <label>审核人：</label>
                 <select id="checker" data-placeholder="请选择一位审核人">
-                    <option value=""></option>
+                    <option></option>
                     <option value="0">无须审核</option>
                 </select>
             </div>
@@ -171,6 +171,13 @@
                     {{/if}}
                 </div>
                 <h2>{{data.subject}}</h2>
+                {{if data.tags.length > 0}}
+                <p><span class="detail-span">标&nbsp;&nbsp;&nbsp;签：</span>&nbsp;
+                    {{each data.tags as t i}}
+                    <b>{{t}}</b>&nbsp;&nbsp;
+                    {{/each}}
+                </p>
+                {{/if}}
                 <p><span class="detail-span">发件人：</span>
                     {{each data.from as r i}}
                         {{if i > 0}}
@@ -189,11 +196,14 @@
                     {{/each}}
                 </p>
                 <p><span class="detail-span">时&nbsp;&nbsp;&nbsp;间：</span>&nbsp;{{data.receivedDate}}</p>
+                {{if data.handleDeadline}}
+                    <p><span class="detail-span">处理时限：</span>&nbsp;{{data.handleDeadline}}</p>
+                {{/if}}
                 {{if boxId == 'return'}}
                     <p><span class="detail-span">退回理由：</span>&nbsp;{{data.checkContent}}</p>
                 {{/if}}
             </div>
-            <iframe id="detail-iframe" class="mail-content"></iframe>
+            <iframe id="detail-iframe" class="mail-content nui-scroll"></iframe>
         </div>
     </script>
 

@@ -9,6 +9,8 @@
         name = $.cookie('name');
     document.getElementById('username').innerHTML = name;
     topAlert('欢迎回来','welcome');
+    var handlerName; //记录有权限处理邮件的人
+    var returnId = '';//回复或编辑退回的邮件时，返回原邮件的id
 
     /**
      * 加载动画
@@ -95,11 +97,15 @@
      * @param now
      * @param target
      */
-    function changePage(now,target) {
+    function changePage(now,target,type) {
         if(now !== target){
             //隐藏当前页
             $('#' + now).hide();
             $('.active-li').removeClass('active-li');
+            var iframe = document.getElementById('detail-iframe');
+            if(iframe) {
+                iframe.parentNode.removeChild(iframe);
+            }
             //显示新页面
             $('.' + target + '-li').addClass('active-li');
             $('.head-nav')[0].className = 'head-nav head-nav-' + target;
@@ -114,6 +120,9 @@
                 showReturnList(returnPage);
             } else if(target === 'sended') {
                 showSendedList(sendedPage);
+            }
+            if(type != 'reply' && type != 'edit') {
+                returnId = '';
             }
         }
     }
@@ -184,7 +193,7 @@
                                     tList[i].senderName[0].name +
                                     '</span><span class="li-title nowrap" data-id="' + tList[i].mailId + '">' +
                                     tList[i].title +
-                                    '</span><span class="li-done" data-id="' + tList[i].mailId + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
+                                    '</span><span class="li-done" data-id="' + tList[i].mailId + '" data-handler="' + tList[i].isHandler + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
                                     tList[i].fromNow +
                                     '</span></li>';
                                 delay  = Math.min(delay + 50, 1000);
@@ -199,7 +208,7 @@
                                     yList[i].senderName[0].name +
                                     '</span><span class="li-title nowrap" data-id="' + yList[i].mailId + '">' +
                                     yList[i].title +
-                                    '</span><span class="li-done" data-id="' + yList[i].mailId + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
+                                    '</span><span class="li-done" data-id="' + yList[i].mailId + '" data-handler="' + yList[i].isHandler + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
                                     yList[i].fromNow +
                                     '</span></li>';
                                 delay = Math.min(delay + 50, 1000);
@@ -214,7 +223,7 @@
                                     aList[i].senderName[0].name +
                                     '</span><span class="li-title nowrap" data-id="' + aList[i].mailId + '">' +
                                     aList[i].title +
-                                    '</span><span class="li-done" data-id="' + aList[i].mailId + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
+                                    '</span><span class="li-done" data-id="' + aList[i].mailId + '" data-handler="' + aList[i].isHandler + '"><i class="fa fa-check" title="标记为已处理"></i></span><span class="li-time">' +
                                     aList[i].fromNow +
                                     '</span></li>';
                                 delay = Math.min(delay + 50, 1000);
@@ -257,73 +266,85 @@
         })
         //点击回复邮件
         .delegate('.reply-btn', 'click', function() {
-            changePage('task','send');
-            $('#receiver').val(senderInfo.address);
-            $('#subject').val('回复：' + senderInfo.subject);
-            $('.editor').html('<br><br><br><br><br>在 ' + senderInfo.date + '，"' + senderInfo.name + '" <' + senderInfo.address + '> 写道：' + senderInfo.html);
+            if(name != handlerName) {
+                topAlert('您只有阅读权限','error');
+            } else {
+                changePage('task','send','reply');
+                $('#receiver').val(senderInfo.address);
+                $('#subject').val('回复：' + senderInfo.subject);
+                $('.editor').html('<br><br><br><br><br>在 ' + senderInfo.date + '，"' + senderInfo.name + '" <' + senderInfo.address + '> 写道：<br>' + senderInfo.html);
+            }
         })
         //详情页标记为已处理
         .delegate('.done-btn', 'click', function() {
-            $.ajax({
-                url: "/api/handler/manage",
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    token:token,
-                    mailId: $(this).data('id')
-                },
-                success: function (obj) {
-                    if(obj.status === 0) {
-                        topAlert('处理成功','success');
-                        showTaskList(taskPage);
-                    } else {
+            if(name != handlerName) {
+                topAlert('您只有阅读权限','error');
+            } else {
+                $.ajax({
+                    url: "/api/handler/manage",
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        token:token,
+                        mailId: $(this).data('id')
+                    },
+                    success: function (obj) {
+                        if(obj.status === 0) {
+                            topAlert('处理成功','success');
+                            showTaskList(taskPage);
+                        } else {
+                            topAlert('处理失败','error');
+                        }
+                    },
+                    error: function() {
                         topAlert('处理失败','error');
                     }
-                },
-                error: function() {
-                    topAlert('处理失败','error');
-                }
-            });
+                });
+            }
         })
         //列表页标记为已处理
         .delegate('.li-done','click', function () {
-            var line = $(this).parent(),
-                ul = line.parent();
-            $.ajax({
-                url: "/api/handler/manage",
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    token:token,
-                    mailId: $(this).data('id')
-                },
-                success: function (obj) {
-                    if(obj.status === 0) {
-                        topAlert('处理成功','success');
-                        line.removeClass()
-                            .addClass('fadeOutRight animated')
-                            .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
-                                $(this).remove();
-                                //移除空ul
-                                if (ul.html().indexOf('li') < 0) {
-                                    ul.parent().remove();
-                                }
-                                //若无待处理邮件，则显示提醒
-                                if ($('#task').html().indexOf('mail-line') < 0) {
-                                    document.getElementById('task').innerHTML = '<div class="vertical-middle-t"> <div class="vertical-middle-tc"> <div class="no-content"> <p>没有需要处理的邮件</p> </div> </div> </div>';
-                                    setTimeout(function () {
-                                        $('#task .no-content').addClass('grow');
-                                    }, 1);
-                                }
-                            });
-                    } else {
+            if($(this).data('handler') == false) {
+                topAlert('您只有阅读权限','error');
+            } else {
+                var line = $(this).parent(),
+                    ul = line.parent();
+                $.ajax({
+                    url: "/api/handler/manage",
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        token:token,
+                        mailId: $(this).data('id')
+                    },
+                    success: function (obj) {
+                        if(obj.status === 0) {
+                            topAlert('处理成功','success');
+                            line.removeClass()
+                                .addClass('fadeOutRight animated')
+                                .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+                                    $(this).remove();
+                                    //移除空ul
+                                    if (ul.html().indexOf('li') < 0) {
+                                        ul.parent().remove();
+                                    }
+                                    //若无待处理邮件，则显示提醒
+                                    if ($('#task').html().indexOf('mail-line') < 0) {
+                                        document.getElementById('task').innerHTML = '<div class="vertical-middle-t"> <div class="vertical-middle-tc"> <div class="no-content"> <p>没有需要处理的邮件</p> </div> </div> </div>';
+                                        setTimeout(function () {
+                                            $('#task .no-content').addClass('grow');
+                                        }, 1);
+                                    }
+                                });
+                        } else {
+                            topAlert('处理失败','error');
+                        }
+                    },
+                    error: function() {
                         topAlert('处理失败','error');
                     }
-                },
-                error: function() {
-                    topAlert('处理失败','error');
-                }
-            });
+                });
+            }
         })
         .delegate('.prev-btn','click',function(){
             showTaskList(--taskPage);
@@ -333,26 +354,30 @@
         })
         //详情页退回邮件
         .delegate('.return-btn','click',function(){
-            $.ajax({
-                url: "/api/handler/return",
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    token:token,
-                    mailId: $(this).data('id')
-                },
-                success: function (obj) {
-                    if(obj.status === 0) {
-                        topAlert('退回邮件成功','success');
-                        showTaskList(taskPage);
-                    } else {
+            if(name != handlerName) {
+                topAlert('您只有阅读权限','error');
+            } else {
+                $.ajax({
+                    url: "/api/handler/return",
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        token:token,
+                        mailId: $(this).data('id')
+                    },
+                    success: function (obj) {
+                        if(obj.status === 0) {
+                            topAlert('退回邮件成功','success');
+                            showTaskList(taskPage);
+                        } else {
+                            topAlert('退回邮件失败','error');
+                        }
+                    },
+                    error: function() {
                         topAlert('退回邮件失败','error');
                     }
-                },
-                error: function() {
-                    topAlert('退回邮件失败','error');
-                }
-            });
+                });
+            }
         })
     /*-------------------- task end --------------------*/
 
@@ -392,14 +417,17 @@
                     subject: subject,
                     html: html,
                     text: '',
-                    checker: checker
+                    checker: checker,
+                    id: returnId
                 },
                 success: function (obj) {
                     if(obj.status === 0) {
                         topAlert('发送成功','success');
+                        returnId = '';
                         document.getElementById('receiver').value = '';
                         document.getElementById('subject').value = '';
                         document.getElementsByClassName('editor')[0].innerHTML = '';
+                        $('#checker').val('').trigger("chosen:updated");
                     } else {
                         if(obj.message.name === 'RecipientError') {
                             topAlert('邮箱地址错误','error');
@@ -677,7 +705,7 @@
         })
         //点击编辑邮件
         .delegate('.edit-btn', 'click', function() {
-            changePage('return','send');
+            changePage('return','send','edit');
             $('#receiver').val(senderInfo.address);
             $('#subject').val(senderInfo.subject);
             $('.editor').html(senderInfo.html);
@@ -782,9 +810,15 @@
             },
             success: function (obj) {
                 if(obj.status === 0) {
+                    returnId = id;
                     obj.boxId = boxId;
                     obj.data.id = id;
+                    obj.data.name = name;
+                    handlerName = obj.data.handlerName;
                     obj.data.receivedDate = obj.data.receivedDate.substr(0,16).replace('-','年').replace('-','月').replace('T','日 ');
+                    if(obj.data.handleDeadline) {
+                        obj.data.handleDeadline =  obj.data.handleDeadline.substr(0,16).replace('-','年').replace('-','月').replace('T','日 ');
+                    }
                     document.getElementById(boxId).innerHTML = template('md-tmpl',obj);
                     //修改iframe并显示邮件内容
                     var iframe = document.getElementById('detail-iframe');
@@ -803,7 +837,7 @@
                     senderInfo.address = obj.data.from[0].address;
                     senderInfo.subject = obj.data.subject;
                     senderInfo.html = obj.data.html;
-                    senderInfo.date = obj.data.receivedDate.substr(0,16).replace('-','年').replace('-','月').replace('T','日 ');
+                    senderInfo.date = obj.data.receivedDate.substr(0,17).replace('-','年').replace('-','月').replace('T','日 ');
                 } else {
                     topAlert('网络错误','error');
                 }
